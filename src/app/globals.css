@@ -1,0 +1,113 @@
+:root{
+  --background-dark: hsl(0, 0%, 90%);
+  --background: hsl(0, 0%, 95%);
+  --background-light: hsl(0, 0%, 100%);
+
+  --main-text: hsl(0, 0%, 10%);
+  --secondary-text: hsl(0, 0%, 30%);
+
+  --border-color: var(--background-dark);
+
+  --primary: hsl(200, 90%, 70%);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  width: 100%;
+  background: var(--background-dark);
+  color: var(--main-text);
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--main-text);
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--main-text);
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--secondary-text);
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--secondary-text);
+}
+
+a {
+  color: hsl(0, 0%, 10%);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+button {
+  background: hsl(0, 0%, 20%);
+  color: hsl(0, 0%, 100%);
+  font-weight: 600;
+  border-radius: 10px;
+  padding-inline: 16px;
+  padding-block: 10px;
+  border: 2px solid hsl(0, 0%, 40%)
+}
+
+button:disabled {
+  opacity: 50%;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+input,
+select {
+  border-radius: 10px;
+  border: 2px solid hsl(0, 0%, 70%);
+  background: hsla(0, 0%, 90%, 0%);
+  width: fit-content;
+  height: fit-content;
+  color: var(--secondary-text);
+  padding-inline: 14px;
+  padding-block: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  /*body {
+    --background-dark: hsl(0, 0%, 0%);
+    --background: hsl(0, 0%, 5%);
+    --background-light: hsl(0, 0%, 10%);
+
+    --main-text: hsl(0, 0%, 90%);
+    --secondary-text: hsl(0, 0%, 70%);
+  }
+
+  a {
+    color: hsl(0, 0%, 90%);
+  }*/
+}

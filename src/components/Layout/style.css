@@ -1,0 +1,97 @@
+@keyframes appearFromLeftWithSlide {
+    from {
+        opacity: 0;
+        width: 0;
+    }
+
+    to {
+        opacity: 100%;
+        width: 15%;
+    }
+}
+
+
+.homeHeader {
+    width: 100vw;
+    padding-left: 45px;
+    padding-right: 45px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.homeHeader button > a {
+    color: white;
+}
+
+.homeHeader>nav {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+
+    font-weight: 800;
+}
+
+.buttonsSection {
+    width: fit-content;
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 25px;
+}
+
+.signInButton {
+    width: fit-content;
+    height: 40px;
+    background-color: #4b9dd7;
+    padding-left: 12px;
+    padding-right: 12px;
+
+    border-radius: 14px;
+    border-width: 0;
+
+    color: hsl(0, 0%, 100%);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.signUpButton {
+    width: fit-content;
+    height: 40px;
+    background-color: #274db4;
+    padding-left: 12px;
+    padding-right: 12px;
+
+    border-radius: 14px;
+    border-width: 0;
+
+    color: hsl(0, 0%, 100%);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.logoutButton {
+    width: 100%;
+    background: var(--background-light);
+    color: var(--main-text);
+
+    padding-block: 15px;
+
+    font-size: 18px;
+
+    border-width: 0;
+    border-radius: 8px;
+
+    transition: 1.5s;
+}
+
+.logoutButton:hover {
+    background-color: hsl(0, 60%, 60%);
+    color: hsl(0, 0%, 100%);
+
+    transform: scale(1.01);
+    cursor: pointer;
+}
