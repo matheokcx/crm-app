@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
-import { COUNTRY, GENDER } from "@/generated/prisma";
+import { GENDER } from "@/generated/prisma";
 import "./style.css";
 import { Gender } from "@/types";
 import toast from "react-hot-toast";
@@ -32,7 +32,7 @@ const SignUpPage = () => {
         password: "",
         birthdate: new Date().toISOString().split("T")[0],
         gender: GENDER.MALE,
-        country: COUNTRY.FRANCE,
+        country: "FRANCE",
     });
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const inputInputs: inputType[] = [
@@ -108,8 +108,8 @@ const SignUpPage = () => {
                     ))}
                 </select>
 
-                <select value={informations.country} onChange={(event) => setInformations({...informations, country: event.target.value as COUNTRY})} required >
-                    {Object.values(COUNTRY).map((country) => (
+                <select value={informations.country} onChange={(event) => setInformations({...informations, country: event.target.value})} required >
+                    {["FRANCE", "BELGIQUE", "SUISSE", "ESPAGNE"].map((country) => (
                         <option key={country} value={country}>
                             {country.charAt(0).toUpperCase() + country.slice(1).toLowerCase()}
                         </option>

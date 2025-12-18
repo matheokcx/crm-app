@@ -23,6 +23,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  clients       Client[]
 }
 
 model Account {
@@ -62,4 +63,81 @@ model VerificationToken {
 enum GENDER {
   MALE
   FEMALE
+}
+
+enum ProjectDifficulty {
+  EASY
+  MEDIUM
+  HARD
+  EXPERT
+}
+
+enum ClientStatus {
+  LEAD
+  SIGNED
+  LOST
+  ARCHIVED
+}
+
+model Client {
+  id          Int          @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  job         String
+  status      ClientStatus @default(LEAD)
+  links       String[]     @default([])
+  birthdate   DateTime?
+  mail        String?
+  phone       String?      @db.VarChar(20)
+  image       String?
+  gender      GENDER
+  freelanceId Int
+  freelance   User         @relation(fields: [freelanceId], references: [id], onDelete: Cascade)
+  projects    Project[]
+  notes       ClientNote[]
+}
+
+model Project {
+  id              Int               @id @default(autoincrement())
+  title           String
+  description     String
+  startDate       DateTime
+  endDate         DateTime
+  cost            Int
+  cover           String?
+  difficulty      ProjectDifficulty @default(EASY)
+  parentProjectId Int?
+  parentProject   Project?          @relation("ProjectHierarchy", fields: [parentProjectId], references: [id])
+  subProjects     Project[]         @relation("ProjectHierarchy")
+  clientId        Int
+  client          Client            @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  meetings        Meeting[]
+  files           File[]
+}
+
+model Meeting {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  startHour   DateTime
+  endHour     DateTime
+  projectId   Int
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model File {
+  id        Int     @id @default(autoincrement())
+  name      String
+  path      String
+  type      String
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id])
+}
+
+model ClientNote {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now())
+  clientId  Int
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
