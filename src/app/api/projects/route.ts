@@ -6,7 +6,7 @@ import { prismaClient } from "@/lib/prisma";
 // ==============================================
 
 
-export async function GET(request: NextRequest){
+export async function GET(request: NextRequest): Promise<NextResponse> {
     const session = await getServerSession(authOptions);
 
     if(!session?.user){
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest){
     return NextResponse.json(projects, {status: 200});
 }
 
-export async function POST(request: NextRequest){
+export async function POST(request: NextRequest): Promise<NextResponse> {
     const body = await request.json();
 
     if(
