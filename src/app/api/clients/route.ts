@@ -10,13 +10,25 @@ import path from "path";
 
 
 export async function GET (request: NextRequest): Promise<NextResponse> {
-    const clients = await prismaClient.client.findMany();
+    const session = await getServerSession(authOptions);
+
+    if(!session?.user){
+        return NextResponse.json({error: "Vous avez besoin d'être connecté afin de récupérer la liste de vos clients."}, {status: 401});
+    }
+
+    const clients = await prismaClient.client.findMany({
+        where: {
+            freelanceId: Number(session.user.id)
+        }
+    });
+
     return NextResponse.json(clients, { status: 200 });
 }
 
 export async function POST (request: NextRequest): Promise<NextResponse> {
     const session = await getServerSession(authOptions);
     const formData: FormData = await request.formData();
+    const acceptedFileFormat: string[] = ["png", "jpg", "jpeg", "webp"];
     const clientInfos = {
         firstName: formData.get("firstName") as string,
         lastName: formData.get("lastName") as string,
@@ -37,7 +49,7 @@ export async function POST (request: NextRequest): Promise<NextResponse> {
         return NextResponse.json({error: "Vous devez être connecté pour ajouter un client"}, {status: 401});
     }
 
-    if(clientInfos.image){
+    if(clientInfos.image && acceptedFileFormat.includes(clientInfos.image.type)){
         const bytes = await clientInfos.image.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
