@@ -3,14 +3,13 @@ import { prismaClient } from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { getMimeType } from "@/utils/utils";
+import fs, { writeFile } from 'fs/promises';
 import path from 'path';
-import fs, {writeFile} from 'fs/promises';
 
 // ==============================================
 
 export const FILES_DIRECTORY: string = "public/files";
 export const FILE_LIMIT_SIZE: number = 5242880;
-
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{projectId: string}>}): Promise<NextResponse> {
     const { projectId } = await params;
@@ -66,9 +65,14 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{p
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{projectId: string}>}): Promise<NextResponse> {
     const { projectId } = await params;
+    const session = await getServerSession(authOptions);
     const formData: FormData = await request.formData();
     const file = formData.get("file") as File;
     const acceptedFileFormats: string[] = ["png", "jpg", "jpeg", "webp", "pdf", "csv", "txt"];
+
+    if(!session?.user){
+        return NextResponse.json({error: "Vous devez être connecté afin de pouvoir envoyer des fichiers"}, {status: 401});
+    }
 
     if(!file){
         return NextResponse.json({error: "Fichier non récupéré"}, {status: 400});
@@ -82,23 +86,42 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         return NextResponse.json({error: "Format de fichier non-conforme"}, {status: 400});
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    const uploadDirectoryPath: string = path.join(process.cwd(), FILES_DIRECTORY);
-    const newFilePath: string = path.join(uploadDirectoryPath, file.name);
-
-    await writeFile(newFilePath, buffer);
-
-    await prismaClient.file.create({
-        data: {
-            name: file.name.split(".")[0],
-            path: `${FILES_DIRECTORY}/${file.name}`,
-            type: file.name.split(".")[1],
-            projectId: Number(projectId)
+    const project = await prismaClient.project.findUnique({
+        where: {
+            id: Number(projectId),
+            client: {
+                freelanceId: Number(session.user.id)
+            }
         }
     });
 
-    return NextResponse.json("Fichier(s) envoyé(s) avec succès", { status: 201 });
-}
+    if(!project){
+        return NextResponse.json(
+            {error: "Vous ne pouvez pas ajouter de fichier au un projet d'un client qui n'est pas le vôtre"},
+            {status: 401}
+        );
+    }
 
+    try{
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        const uploadDirectoryPath: string = path.join(process.cwd(), FILES_DIRECTORY);
+        const newFilePath: string = path.join(uploadDirectoryPath, file.name);
+
+        await writeFile(newFilePath, buffer);
+
+        await prismaClient.file.create({
+            data: {
+                name: file.name.split(".")[0],
+                path: `${FILES_DIRECTORY}/${file.name}`,
+                type: file.name.split(".")[1],
+                projectId: Number(projectId)
+            }
+        });
+
+        return NextResponse.json("Fichier(s) ajouté(s) avec succès", { status: 201 });
+    }
+    catch(error){
+        return NextResponse.json({error: "Un problème est survenue lors de l'upload du/des fichier(s)"}, {status: 500});
+    }
+}
