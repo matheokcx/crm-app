@@ -47,5 +47,5 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         }
     });
 
-    return NextResponse.json(newProject, {status: 200});
+    return NextResponse.json(newProject, {status: 201});
 }
