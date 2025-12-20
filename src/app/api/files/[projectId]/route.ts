@@ -74,12 +74,12 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         return NextResponse.json({error: "Fichier non récupéré"}, {status: 400});
     }
 
-    if(!acceptedFileFormats.includes(file.name.split(".")[1])){
-        return NextResponse.json({error: "Format de fichier non-conforme"}, {status: 400});
-    }
-
     if(file.size > FILE_LIMIT_SIZE){
         return NextResponse.json({error: "Fichier trop volumineux"}, {status: 400});
+    }
+
+    if(!acceptedFileFormats.includes(file.name.split(".")[1])){
+        return NextResponse.json({error: "Format de fichier non-conforme"}, {status: 400});
     }
 
     const bytes = await file.arrayBuffer();
