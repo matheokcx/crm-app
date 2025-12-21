@@ -6,8 +6,6 @@ import { fakerFR as faker } from "@faker-js/faker";
 // ==============================================
 
 
-const addDays = (date: Date, days: number): Date => new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
-const addHours = (date: Date, hours: number): Date => new Date(date.getTime() + hours * 60 * 60 * 1000);
 const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 async function main(): Promise<void> {
