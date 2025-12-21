@@ -9,7 +9,7 @@ import path from 'path';
 // ==============================================
 
 export const FILES_DIRECTORY: string = "public/files";
-export const FILE_LIMIT_SIZE: number = 5242880;
+export const FILE_LIMIT_SIZE: number = 5 * 1024 * 1024; // 5 MB
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{projectId: string}>}): Promise<NextResponse> {
     const { projectId } = await params;
@@ -67,23 +67,25 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const { projectId } = await params;
     const session = await getServerSession(authOptions);
     const formData: FormData = await request.formData();
-    const file = formData.get("file") as File;
+    const files = formData.getAll("file") as File[];
     const acceptedFileFormats: string[] = ["png", "jpg", "jpeg", "webp", "pdf", "csv", "txt"];
 
     if(!session?.user){
         return NextResponse.json({error: "Vous devez être connecté afin de pouvoir envoyer des fichiers"}, {status: 401});
     }
 
-    if(!file){
-        return NextResponse.json({error: "Fichier non récupéré"}, {status: 400});
+    if(!files){
+        return NextResponse.json({error: "Fichier(s) non récupéré(s)"}, {status: 400});
     }
 
-    if(file.size > FILE_LIMIT_SIZE){
-        return NextResponse.json({error: "Fichier trop volumineux"}, {status: 400});
-    }
+    for (const file of files) {
+        if(file.size > FILE_LIMIT_SIZE){
+            return NextResponse.json({error: `Fichier '${file.name}' trop volumineux`}, {status: 400});
+        }
 
-    if(!acceptedFileFormats.includes(file.name.split(".")[1])){
-        return NextResponse.json({error: "Format de fichier non-conforme"}, {status: 400});
+        if(!acceptedFileFormats.includes(file.name.split(".")[1])){
+            return NextResponse.json({error: `Format de fichier '${file.name}' non-conforme`}, {status: 400});
+        }
     }
 
     const project = await prismaClient.project.findUnique({
@@ -103,25 +105,32 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     }
 
     try{
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-        const uploadDirectoryPath: string = path.join(process.cwd(), FILES_DIRECTORY);
-        const newFilePath: string = path.join(uploadDirectoryPath, file.name);
+        await Promise.all(files.map(async (file) => {
+            const bytes = await file.arrayBuffer();
+            const buffer = Buffer.from(bytes);
 
-        await writeFile(newFilePath, buffer);
+            const uploadDirectoryPath: string = path.join(process.cwd(), FILES_DIRECTORY);
+            const fileName: string = `${Date.now()}-${file.name}`
+            const newFilePath: string = path.join(uploadDirectoryPath, fileName);
 
-        await prismaClient.file.create({
-            data: {
-                name: file.name.split(".")[0],
-                path: `${FILES_DIRECTORY}/${file.name}`,
-                type: file.name.split(".")[1],
-                projectId: Number(projectId)
-            }
-        });
+            await writeFile(newFilePath, buffer);
+
+            await prismaClient.file.create({
+                data: {
+                    name: `${Date.now()}-${file.name.split(".")[0]}`,
+                    path: `${FILES_DIRECTORY}/${fileName}`,
+                    type: file.name.split(".")[1],
+                    projectId: Number(projectId)
+                }
+            });
+        }));
 
         return NextResponse.json("Fichier(s) ajouté(s) avec succès", { status: 201 });
     }
     catch(error){
-        return NextResponse.json({error: "Un problème est survenue lors de l'upload du/des fichier(s)"}, {status: 500});
+        return NextResponse.json(
+            {error: "Un problème est survenue lors de l'upload du/des fichier(s)"},
+            {status: 500}
+        );
     }
 }
