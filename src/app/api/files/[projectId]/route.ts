@@ -2,14 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { prismaClient } from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { getMimeType } from "@/utils/utils";
+import { FILE_LIMIT_SIZE, FILES_DIRECTORY, getMimeType } from "@/utils/utils";
 import fs, { writeFile } from 'fs/promises';
 import path from 'path';
 
 // ==============================================
 
-export const FILES_DIRECTORY: string = "public/files";
-export const FILE_LIMIT_SIZE: number = 5 * 1024 * 1024; // 5 MB
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{projectId: string}>}): Promise<NextResponse> {
     const { projectId } = await params;

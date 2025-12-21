@@ -5,7 +5,7 @@ import { ClientStatus, Gender } from "@/types";
 import { authOptions } from "@/lib/auth";
 import { writeFile } from "fs/promises";
 import path from "path";
-import {FILES_DIRECTORY} from "@/app/api/files/[projectId]/route";
+import { FILES_DIRECTORY } from "@/utils/utils";
 
 // ==============================================
 
