@@ -5,13 +5,17 @@ import { ClientStatus, Gender } from "@/types";
 import { authOptions } from "@/lib/auth";
 import { writeFile } from "fs/promises";
 import path from "path";
-import { FILES_DIRECTORY } from "@/utils/utils";
+import {FILES_DIRECTORY, manageUrlQueryParams} from "@/utils/utils";
 
 // ==============================================
 
 
 export async function GET (request: NextRequest): Promise<NextResponse> {
     const session = await getServerSession(authOptions);
+    const filters = manageUrlQueryParams(
+        request.nextUrl.searchParams,
+        ["status", "gender"]
+    );
 
     if(!session?.user){
         return NextResponse.json({error: "Vous avez besoin d'être connecté afin de récupérer la liste de vos clients."}, {status: 401});
@@ -19,6 +23,7 @@ export async function GET (request: NextRequest): Promise<NextResponse> {
 
     const clients = await prismaClient.client.findMany({
         where: {
+            ...filters,
             freelanceId: Number(session.user.id)
         }
     });

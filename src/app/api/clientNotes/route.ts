@@ -8,6 +8,7 @@ import { prismaClient } from "@/lib/prisma";
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
     const session = await getServerSession(authOptions);
+    const clientId: string | null = request.nextUrl.searchParams.get("clientId");
 
     if(!session?.user){
         return NextResponse.json({error: "Vous devez être connecté afin de pouvoir consulter les notes de client"}, {status: 401});
@@ -16,6 +17,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     const clientNotes = await prismaClient.clientNote.findMany({
         where: {
             client: {
+                ...(clientId && {id: Number(clientId)}),
                 freelanceId: Number(session.user.id)
             }
         }
