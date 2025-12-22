@@ -2,24 +2,35 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth/next";
 import { prismaClient } from "@/lib/prisma";
+import { manageUrlQueryParams } from "@/utils/utils";
 
 // ==============================================
 
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
     const session = await getServerSession(authOptions);
+    const filters = manageUrlQueryParams(
+        request.nextUrl.searchParams,
+        ["clientId", "difficulty"]
+    );
+
+    console.log(filters);
 
     if(!session?.user){
-        return NextResponse.json({error: "Vous avez besoin d'être connecté afin de récupérer la liste de vos projets"}, {status: 401})
+        return NextResponse.json(
+            {error: "Vous avez besoin d'être connecté afin de récupérer la liste de vos projets"},
+            {status: 401}
+        );
     }
 
     const projects = await prismaClient.project.findMany({
         where: {
+            ...filters,
             client: {
                 freelanceId: Number(session.user.id)
             }
         }
-    })
+    });
 
     return NextResponse.json(projects, {status: 200});
 }

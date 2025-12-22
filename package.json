@@ -21,10 +21,12 @@
     "react-hot-toast": "^2.6.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@faker-js/faker": "^10.1.0",
+    "@types/node": "^20.19.27",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "prisma": "^6.11.1",
-    "typescript": "^5"
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }
