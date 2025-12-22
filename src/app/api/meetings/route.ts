@@ -8,6 +8,7 @@ import { prismaClient } from "@/lib/prisma";
 
 export async function GET(request: NextRequest): Promise<NextResponse>{
     const session = await getServerSession(authOptions);
+    const projectId: string | null = request.nextUrl.searchParams.get("projectId");
 
     if(!session?.user){
         return NextResponse.json({error: "Vous avez besoin d'être connecté afin de pouvoir récupérer la liste de vos réunions"}, {status: 401})
@@ -18,7 +19,8 @@ export async function GET(request: NextRequest): Promise<NextResponse>{
             project: {
                 client: {
                     freelanceId: Number(session.user.id)
-                }
+                },
+                ...(projectId && {id: Number(projectId)}),
             }
         }
     });
