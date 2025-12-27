@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SessionWrapper from "@/components/Layout/SessionWrapper";
-import { Inter } from 'next/font/google';
+import { Inter, Poppins } from 'next/font/google';
 import { Toaster } from "react-hot-toast";
 
 // ==============================================
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({weight: ["600", "700"]});
 
 export const metadata: Metadata = {
   title: process.env.APP_NAME,
-  description: "Description du site web"
+  description: "Kraft est une application type 'CRM' qui va vous permettre de pouvoir centraliser et gérer vos clients et vos projets plus simplement à un seul endroit."
 };
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="fr">
-      <body className={inter.className} style={{padding: "32px"}}>
+      <body className={`${inter.className} ${poppins.className}`} style={{padding: "32px"}}>
         <SessionWrapper>
           <div><Toaster/></div>
           {children}

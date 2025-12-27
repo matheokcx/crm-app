@@ -12,7 +12,7 @@ import { Stack } from "@phosphor-icons/react";
 const HomeHeader = () => {
     const { status } = useSession();
     const links: {link: string, title: JSX.Element | string}[] = [
-        {link: "/", title: <Stack size={48} weight="bold" />},
+        {link: "/", title: <img src="/logo.svg" />},
         {link: "/", title: "Accueil"}
     ];
     const isAuthenticated: boolean = status === 'authenticated';

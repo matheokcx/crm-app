@@ -8,7 +8,8 @@
 
   --border-color: var(--background-dark);
 
-  --primary: hsl(200, 90%, 70%);
+  --primary: hsl(200, 80%, 30%);
+  --secondary: hsl(175, 40%, 50%);
 }
 
 * {
@@ -32,33 +33,47 @@ body {
 }
 
 h1 {
+  font-family: 'poppins', sans-serif;
   font-weight: 700;
   font-size: 32px;
   color: var(--main-text);
 }
 
 h2 {
+  font-family: 'poppins', sans-serif;
   font-weight: 600;
   font-size: 24px;
   color: var(--main-text);
 }
 
 h3 {
+  font-family: 'poppins', sans-serif;
   font-weight: 500;
   font-size: 20px;
-  color: var(--secondary-text);
+  color: var(--main-text);
 }
 
 p {
+  font-family: 'inter', sans-serif;
   font-size: 16px;
+  font-weight: 400;
   line-height: 1.5;
   color: var(--secondary-text);
 }
 
+label {
+  font-family: 'inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--secondary-text);
+}
+
 a {
+  font-family: 'inter', sans-serif;
   color: hsl(0, 0%, 10%);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 button {
