@@ -3,8 +3,8 @@
   --background: hsl(0, 0%, 95%);
   --background-light: hsl(0, 0%, 100%);
 
-  --main-text: hsl(0, 0%, 10%);
-  --secondary-text: hsl(0, 0%, 30%);
+  --main-text: hsl(0, 0%, 0%);
+  --secondary-text: hsl(0, 0%, 20%);
 
   --border-color: var(--background-dark);
 
