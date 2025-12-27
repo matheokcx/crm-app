@@ -55,12 +55,12 @@ export async function POST (request: NextRequest): Promise<NextResponse> {
         return NextResponse.json({error: "Vous devez être connecté pour ajouter un client"}, {status: 401});
     }
 
-    if(clientInfos.image && acceptedFileFormat.includes(clientInfos.image.type)){
+    if(clientInfos.image && acceptedFileFormat.includes(clientInfos.image.name.split(".")[1])){
         const bytes = await clientInfos.image.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
         const uploadDirectoryPath: string = path.join(process.cwd(), FILES_DIRECTORY);
-        const newFilePath: string = path.join(uploadDirectoryPath, clientInfos.image.name);
+        const newFilePath: string = path.join(uploadDirectoryPath, `client_image_${Date.now()}_${clientInfos.image.name}`);
 
         await writeFile(newFilePath, buffer);
     }
@@ -75,7 +75,7 @@ export async function POST (request: NextRequest): Promise<NextResponse> {
             birthdate: new Date(clientInfos.birthdate ?? ""),
             mail: clientInfos.mail,
             phone: clientInfos.phone,
-            image: clientInfos.image ? `${FILES_DIRECTORY}/${clientInfos.image.name}` : null,
+            image: clientInfos.image ? `${FILES_DIRECTORY}/client_image_${Date.now()}_${clientInfos.image.name}` : null,
             gender: clientInfos.gender,
             freelanceId: Number(session.user.id)
         }
