@@ -1,5 +1,5 @@
 .homePage{
-    padding: 16px;
+    padding: 12px;
     display: flex;
     gap: 24px;
     width: 100%;
@@ -18,5 +18,22 @@
     width: 100%;
     display: flex;
     gap: 48px;
+}
+
+.comingSoonMeetingsDiv {
+    width: 50%;
+    background: var(--background);
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 13px hsla(0, 0%, 0%, 25%);
+}
+
+.kpisDiv {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
 }
 

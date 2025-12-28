@@ -56,8 +56,8 @@ export type Meeting = {
     id: number;
     title: string;
     description?: string | null;
-    startHour: Date;
-    endHour: Date;
+    startHour: string;
+    endHour: string;
     project: Project;
 };
 

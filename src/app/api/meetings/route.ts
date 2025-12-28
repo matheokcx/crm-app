@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prismaClient } from "@/lib/prisma";
+import {manageUrlQueryParams} from "@/utils/utils";
 
 // ==============================================
 
@@ -9,6 +10,10 @@ import { prismaClient } from "@/lib/prisma";
 export async function GET(request: NextRequest): Promise<NextResponse>{
     const session = await getServerSession(authOptions);
     const projectId: string | null = request.nextUrl.searchParams.get("projectId");
+    const filters = manageUrlQueryParams(
+        request.nextUrl.searchParams,
+        ["projectId", "startHour"]
+    );
 
     if(!session?.user){
         return NextResponse.json({error: "Vous avez besoin d'être connecté afin de pouvoir récupérer la liste de vos réunions"}, {status: 401})
@@ -20,8 +25,16 @@ export async function GET(request: NextRequest): Promise<NextResponse>{
                 client: {
                     freelanceId: Number(session.user.id)
                 },
-                ...(projectId && {id: Number(projectId)}),
-            }
+                ...(filters.projectId && {id: Number(filters.projectId)})
+            },
+            ...(filters.startHour && {
+                startHour: {
+                    gte: new Date(filters?.startHour ?? "")
+                }
+            })
+        },
+        orderBy: {
+            startHour: "asc"
         }
     });
 
