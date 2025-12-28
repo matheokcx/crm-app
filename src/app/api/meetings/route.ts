@@ -9,7 +9,6 @@ import {manageUrlQueryParams} from "@/utils/utils";
 
 export async function GET(request: NextRequest): Promise<NextResponse>{
     const session = await getServerSession(authOptions);
-    const projectId: string | null = request.nextUrl.searchParams.get("projectId");
     const filters = manageUrlQueryParams(
         request.nextUrl.searchParams,
         ["projectId", "startHour"]

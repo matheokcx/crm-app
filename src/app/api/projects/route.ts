@@ -16,6 +16,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         request.nextUrl.searchParams,
         ["clientId", "difficulty"]
     );
+    const endDate: string | null = request.nextUrl.searchParams.get("endDate") as string;
 
     if(!session?.user){
         return NextResponse.json(
@@ -29,7 +30,17 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
             ...filters,
             client: {
                 freelanceId: Number(session.user.id)
-            }
+            },
+            ...(endDate && {
+                AND: [
+                    {
+                        endDate: {gte: new Date(endDate)}
+                    },
+                    {
+                        startDate: {lte: new Date()}
+                    }
+                ]
+            })
         }
     });
 
