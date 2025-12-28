@@ -11,36 +11,40 @@
 }
 
 
-.homeHeader {
-    width: 100vw;
-    padding-left: 45px;
-    padding-right: 45px;
+.homeSideBar {
+    background: var(--background);
+    box-shadow: inset 0 -3px 18px hsla(0, 0%, 0%, 25%);
+    border-radius: 8px;
+    width: 15vw;
+    height: 100%;
+    padding-inline: 20px;
+    padding-block: 10px;
 
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.homeHeader button > a {
-    color: white;
-}
-
-.homeHeader>nav {
+.homeSideBar>nav {
+    height: 100%;
     display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    padding-block: 20px;
+    gap: 32px;
+}
 
-    font-weight: 800;
+.logo {
+    display: flex;
+    height: fit-content;
+    place-content: center;
 }
 
 .buttonsSection {
-    width: fit-content;
-
-    display: flex;
-    justify-content: end;
+    width: 100%;
+    display: grid;
     align-items: center;
-    gap: 25px;
+    gap: 16px;
+    padding-block: 10px;
 }
 
 .signInButton {
@@ -75,23 +79,11 @@
 
 .logoutButton {
     width: 100%;
-    background: var(--background-light);
-    color: var(--main-text);
-
-    padding-block: 15px;
-
-    font-size: 18px;
-
-    border-width: 0;
-    border-radius: 8px;
-
+    border: 0;
+    background: hsl(0, 0%, 50%);
     transition: 1.5s;
 }
 
 .logoutButton:hover {
-    background-color: hsl(0, 60%, 60%);
-    color: hsl(0, 0%, 100%);
-
-    transform: scale(1.01);
-    cursor: pointer;
+    background-color: hsl(0, 50%, 50%);
 }
