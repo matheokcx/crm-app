@@ -3,11 +3,12 @@ import HomeSideBar from "@/components/Layout/HomeSideBar";
 import styles from "./homepage.module.css";
 import KpiCard from "@/components/UI/Cards/KpiCard";
 import { useEffect, useState } from "react";
-import { Meeting } from "@/types";
+import { Meeting, File} from "@/types";
 import MeetingReduceCard from "@/components/UI/Cards/MeetingReduceCard";
 import { useSession } from "next-auth/react";
-import {getFormattedDate} from "@/utils/utils";
+import { getFormattedDate } from "@/utils/utils";
 import toast from "react-hot-toast";
+import FileCard from "@/components/UI/Cards/FileCard";
 
 // ==============================================
 
@@ -18,6 +19,7 @@ const HomePage = () => {
 
     const [clientsNumber, setClientsNumber] = useState<number>(0);
     const [processingProjectNumber, setProcessingProjectNumber] = useState<number>(0);
+    const [recentFiles, setRecentFiles] = useState<File[]>([]);
 
     useEffect(() => {
         const func = async () => {
@@ -77,6 +79,23 @@ const HomePage = () => {
         func();
     }, []);
 
+    useEffect(() => {
+        const func = async () => {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/files`);
+
+            if(response.ok){
+                let datas = await response.json();
+                setRecentFiles(datas);
+                toast.success("Fichiers récents récupérés");
+            }
+            else{
+                const errorMessage = await response.json();
+                toast.error(errorMessage.error);
+            }
+        };
+        func();
+    }, []);
+
     return (
     <main className={styles.homePage}>
       <HomeSideBar />
@@ -96,6 +115,15 @@ const HomePage = () => {
                   <KpiCard name="Clients" value={clientsNumber} />
                   <KpiCard name="Projets en cours" value={processingProjectNumber} />
               </div>
+          </div>
+          <div className={styles.homePageSectionRow}>
+              <div style={{width: "50%"}} className={styles.recentFilesDiv}>
+                  <label>Fichiers récents:</label>
+                  <div className={styles.filesDiv}>
+                      {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}
+                  </div>
+              </div>
+              <div style={{width: "50%"}}></div>
           </div>
       </section>
     </main>
