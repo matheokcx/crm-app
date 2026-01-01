@@ -6,13 +6,19 @@ import MeetingReduceCard from "@/components/UI/Cards/MeetingReduceCard";
 import { useSession } from "next-auth/react";
 import { getFormattedDate } from "@/utils/utils";
 import FileCard from "@/components/UI/Cards/FileCard";
-import { getHomePageData } from "@/app/action";
+import {getAllClients, getAllProjects, getHomePageData, getUpComingMeetings} from "@/app/action";
 
 // ==============================================
 
 const HomePage = async () => {
     //const session = useSession();
-    const [clients, processingProjects, recentFiles, meetings] = await getHomePageData();
+    // const [clients, processingProjects, recentFiles, meetings] = await getHomePageData();
+    const today: Date = new Date();
+    const formattedTodayDate: string = getFormattedDate(today);
+
+    const clients = await getAllClients({});
+    const processingProjects = await getAllProjects({}, true);
+    const meetings = await getUpComingMeetings({startHour: formattedTodayDate});
 
     return (
         <main className={styles.homePage}>
@@ -40,7 +46,7 @@ const HomePage = async () => {
                   <div style={{width: "50%"}} className={styles.recentFilesDiv}>
                       <label>Fichiers récents:</label>
                       <div className={styles.filesDiv}>
-                          {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}
+                          {[].map((file: File) => <FileCard key={file.id} file={file} />)}
                       </div>
                   </div>
                   <div style={{width: "50%"}}></div>
