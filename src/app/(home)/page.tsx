@@ -1,29 +1,26 @@
-import HomeSideBar from "@/components/Layout/HomeSideBar";
 import styles from "./homepage.module.css";
 import KpiCard from "@/components/UI/Cards/KpiCard";
 import { Meeting, File } from "@/types";
 import MeetingReduceCard from "@/components/UI/Cards/MeetingReduceCard";
-import { useSession } from "next-auth/react";
 import { getFormattedDate } from "@/utils/utils";
 import FileCard from "@/components/UI/Cards/FileCard";
-import {getAllClients, getAllProjects, getHomePageData, getUpComingMeetings} from "@/app/action";
+import {getAllClients, getAllProjects, getRecentFiles, getUpComingMeetings} from "@/app/(home)/action";
+import { auth } from "@/lib/auth";
 
 // ==============================================
 
 const HomePage = async () => {
-    //const session = useSession();
-    // const [clients, processingProjects, recentFiles, meetings] = await getHomePageData();
     const today: Date = new Date();
     const formattedTodayDate: string = getFormattedDate(today);
 
     const clients = await getAllClients({});
     const processingProjects = await getAllProjects({}, true);
     const meetings = await getUpComingMeetings({startHour: formattedTodayDate});
+    const recentFiles = await getRecentFiles({});
 
     return (
         <main className={styles.homePage}>
           <section className={styles.homePageSection}>
-              {/*<h1>Bonjour {session.data?.user?.name} !</h1>*/}
               <div className={styles.homePageSectionRow}>
                   <div style={{width: "50%"}} className={styles.comingSoonMeetingsDiv}>
                       { meetings.map((meeting: Meeting | null, index: number) => {
@@ -46,7 +43,7 @@ const HomePage = async () => {
                   <div style={{width: "50%"}} className={styles.recentFilesDiv}>
                       <label>Fichiers récents:</label>
                       <div className={styles.filesDiv}>
-                          {[].map((file: File) => <FileCard key={file.id} file={file} />)}
+                          {recentFiles.map((file: any) => <FileCard key={file.id} file={file} />)}
                       </div>
                   </div>
                   <div style={{width: "50%"}}></div>

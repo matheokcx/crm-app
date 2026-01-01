@@ -2,12 +2,12 @@
     padding: 12px;
     display: flex;
     gap: 24px;
-    width: 100%;
+    width: 80%;
     height: 95vh;
 }
 
 .homePageSection {
-    width: 80%;
+    width: 100%;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -39,6 +39,7 @@
 
 .recentFilesDiv {
     width: 50%;
+    min-width: 0;
     background: var(--background);
     display: flex;
     flex-direction: column;
@@ -53,5 +54,5 @@
     display: flex;
     align-items: center;
     gap: 24px;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
