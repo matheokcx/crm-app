@@ -3,6 +3,7 @@ import "./globals.css";
 import SessionWrapper from "@/components/Layout/SessionWrapper";
 import { Inter, Poppins } from 'next/font/google';
 import { Toaster } from "react-hot-toast";
+import HomeSideBar from "@/components/Layout/HomeSideBar";
 
 // ==============================================
 
@@ -20,6 +21,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <body className={`${inter.className} ${poppins.className}`} style={{padding: "32px"}}>
         <SessionWrapper>
           <div><Toaster/></div>
+          <HomeSideBar />
           {children}
         </SessionWrapper>
       </body>
