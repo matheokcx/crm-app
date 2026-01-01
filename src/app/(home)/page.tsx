@@ -1,11 +1,10 @@
 import styles from "./homepage.module.css";
 import KpiCard from "@/components/UI/Cards/KpiCard";
-import { Meeting, File } from "@/types";
+import { Meeting, File, Project, Client } from "@/types";
 import MeetingReduceCard from "@/components/UI/Cards/MeetingReduceCard";
 import { getFormattedDate } from "@/utils/utils";
 import FileCard from "@/components/UI/Cards/FileCard";
-import {getAllClients, getAllProjects, getRecentFiles, getUpComingMeetings} from "@/app/(home)/action";
-import { auth } from "@/lib/auth";
+import { getAllClients, getAllProjects, getRecentFiles, getUpComingMeetings } from "@/app/(home)/action";
 
 // ==============================================
 
@@ -13,10 +12,10 @@ const HomePage = async () => {
     const today: Date = new Date();
     const formattedTodayDate: string = getFormattedDate(today);
 
-    const clients = await getAllClients({});
-    const processingProjects = await getAllProjects({}, true);
-    const meetings = await getUpComingMeetings({startHour: formattedTodayDate});
-    const recentFiles = await getRecentFiles({});
+    const clients: Client[] = await getAllClients({});
+    const processingProjects: Project[] = await getAllProjects({}, true);
+    const meetings: (Meeting | null)[] = await getUpComingMeetings({startHour: new Date(formattedTodayDate)});
+    const recentFiles: File[] = await getRecentFiles();
 
     return (
         <main className={styles.homePage}>
@@ -29,7 +28,7 @@ const HomePage = async () => {
                           const dateLabel: string = getFormattedDate(todayDate);
 
                           return <MeetingReduceCard key={index}
-                                                    weekDay={meeting ? meeting.startHour : dateLabel}
+                                                    weekDay={meeting ? meeting.startHour : new Date(dateLabel)}
                                                     meetingTitle={meeting?.title}
                           />
                       })}
@@ -43,7 +42,7 @@ const HomePage = async () => {
                   <div style={{width: "50%"}} className={styles.recentFilesDiv}>
                       <label>Fichiers récents:</label>
                       <div className={styles.filesDiv}>
-                          {recentFiles.map((file: any) => <FileCard key={file.id} file={file} />)}
+                          {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}
                       </div>
                   </div>
                   <div style={{width: "50%"}}></div>

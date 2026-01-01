@@ -4,14 +4,14 @@ import { getWeekDay } from "@/utils/utils";
 // ==============================================
 
 type MeetingReduceCardProps = {
-    weekDay: string;
+    weekDay: Date;
     meetingTitle?: string;
 };
 
 const MeetingReduceCard = ({weekDay, meetingTitle}: MeetingReduceCardProps) => {
     return (
         <div className={styles.meetingReduceCard}>
-            <label>{getWeekDay(new Date(weekDay).getDay())}</label>
+            <label>{getWeekDay(weekDay.getDay())}</label>
             {
                 meetingTitle ? (
                     <div className={styles.meetingBlock}>

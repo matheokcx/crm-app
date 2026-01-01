@@ -2,7 +2,7 @@ import { prismaClient } from "@/lib/prisma";
 
 // ==============================================
 
-export const getFiles = async (filters: any, userId: number) => {
+export const getFiles = async (userId: number) => {
     return await prismaClient.file.findMany({
         where: {
             project: {

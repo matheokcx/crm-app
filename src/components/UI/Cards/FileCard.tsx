@@ -1,7 +1,8 @@
 "use client";
 import styles from "./fileCard.module.css";
 import { File } from "@/types"
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 // ==============================================
 
@@ -12,14 +13,23 @@ type FileCardProps = {
 const FileCard = ({ file }: FileCardProps) => {
     const imageExtensions: string[] = ["jpg", "jpeg", "png", "webp", "svg"];
     const router = useRouter();
+    const imageStyle = {
+        width: "100%",
+        height: "auto",
+        borderRadius: "6px",
+        border: "1px solid hsla(0, 0%, 20%, 50%)"
+    };
+
+    const handleFileClick = (): void => router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/files/${file.name}.${file.type}`);
 
     return (
-        <div className={styles.fileCard}
-             onClick={() => router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/files/${file.name}.${file.type}`)}
-        >
+        <div className={styles.fileCard} onClick={handleFileClick}>
             {imageExtensions.includes(file.type) && (
-                <img src={`/files/${file.name}.${file.type}`}
-                     alt="Image of the file"
+                <Image src={`/files/${file.name}.${file.type}`}
+                       alt="Image of the file"
+                       width={100}
+                       height={100}
+                       style={imageStyle}
                 />
             )}
             {file.type === "pdf" && (
