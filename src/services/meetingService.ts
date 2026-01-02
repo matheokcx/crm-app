@@ -1,8 +1,9 @@
 import { prismaClient } from "@/lib/prisma";
+import { Meeting } from "@/types";
 
 // ==============================================
 
-export const getMeetings = async (filters: any, userId: number) => {
+export const getMeetings = async (filters: any, userId: number): Promise<Meeting[]> => {
     return await prismaClient.meeting.findMany({
         where: {
             project: {
@@ -19,6 +20,24 @@ export const getMeetings = async (filters: any, userId: number) => {
         },
         orderBy: {
             startHour: "asc"
+        }
+    });
+};
+
+type MeetingInformations = {
+    title: string;
+    startHour: string;
+    endHour: string;
+    projectId: number;
+    description?: string;
+};
+
+export const addMeeting = async (body: MeetingInformations): Promise<Meeting> => {
+    return await prismaClient.meeting.create({
+        data: {
+            ...body,
+            startHour: new Date(body.startHour),
+            endHour: new Date(body.endHour)
         }
     });
 };
