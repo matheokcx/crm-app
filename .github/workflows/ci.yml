@@ -8,6 +8,8 @@ on:
 jobs: 
   build:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: "postgresql://postgres:mdp@localhost:5432/test?schema=public"
     steps:
       - name: Récupération des fichiers du repo
         uses: actions/checkout@v4
