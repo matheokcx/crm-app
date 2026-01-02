@@ -6,7 +6,7 @@
   --main-text: hsl(0, 0%, 0%);
   --secondary-text: hsl(0, 0%, 20%);
 
-  --border-color: var(--background-dark);
+  --border-color: hsl(0, 0%, 30%);
 
   --primary: hsl(200, 80%, 30%);
   --secondary: hsl(175, 40%, 50%);
@@ -121,7 +121,7 @@ hr {
 }
 
 @media (prefers-color-scheme: dark) {
-  /*body {
+  body {
     --background-dark: hsl(0, 0%, 0%);
     --background: hsl(0, 0%, 5%);
     --background-light: hsl(0, 0%, 10%);
@@ -132,5 +132,5 @@ hr {
 
   a {
     color: hsl(0, 0%, 90%);
-  }*/
+  }
 }

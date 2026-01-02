@@ -21,7 +21,7 @@ const HomePage = async () => {
         <main className={styles.homePage}>
           <section className={styles.homePageSection}>
               <div className={styles.homePageSectionRow}>
-                  <div style={{width: "50%"}} className={styles.comingSoonMeetingsDiv}>
+                  <div className={styles.comingSoonMeetingsDiv}>
                       { meetings.map((meeting: Meeting | null, index: number) => {
                           const todayDate = new Date();
                           todayDate.setDate(todayDate.getDate() + index);
@@ -39,7 +39,7 @@ const HomePage = async () => {
                   </div>
               </div>
               <div className={styles.homePageSectionRow}>
-                  <div style={{width: "50%"}} className={styles.recentFilesDiv}>
+                  <div className={styles.recentFilesDiv}>
                       <label>Fichiers récents:</label>
                       <div className={styles.filesDiv}>
                           {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}

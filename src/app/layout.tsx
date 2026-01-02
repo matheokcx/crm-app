@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 // ==============================================
 
 const inter = Inter({ subsets: ['latin'] });
-const poppins = Poppins({weight: ["600", "700"]});
+const poppins = Poppins({ subsets: ['latin'], weight: ["600", "700"] });
 
 export const metadata: Metadata = {
   title: process.env.APP_NAME,

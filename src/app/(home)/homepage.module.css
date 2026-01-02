@@ -56,3 +56,33 @@
     gap: 24px;
     overflow-x: auto;
 }
+
+@media screen and (max-width: 500px){
+    .homePage {
+        width: 100%;
+        padding: 4px;
+    }
+
+    .homePageSection {
+        padding: 10px;
+    }
+
+    .homePageSectionRow {
+        flex-direction: column;
+    }
+
+    .comingSoonMeetingsDiv {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .kpisDiv {
+        width: 100%;
+        flex-direction: column;
+        justify-content: start;
+    }
+
+    .recentFilesDiv {
+        width: 100%;
+    }
+}
