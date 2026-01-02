@@ -81,8 +81,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         const uploadDirectoryPath: string = path.join(process.cwd(), FILES_DIRECTORY);
         const newFilePath: string = path.join(uploadDirectoryPath, `cover_${Date.now()}_${coverFile.name}`);
 
-        console.log(`Uploading ${uploadDirectoryPath}`);
-
         await writeFile(newFilePath, buffer);
     }
 

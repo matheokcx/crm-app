@@ -21,6 +21,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
+    padding-block: 12px;
 }
 
 .meetingBlock p {
@@ -38,11 +39,13 @@
     align-items: center;
     border-radius: 8px;
     border: dashed hsl(0, 0%, 20%);
+    padding-block: 12px;
 }
 
 .noMeetingBlock p {
     width: 85%;
     text-align: center;
-    color: hsla(0, 0%, 20%, 50%);
+    color: var(--main-text);
+    opacity: 50%;
     font-size: 12px;
 }

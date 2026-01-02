@@ -1,9 +1,3 @@
 .fileCard {
     width: 25%;
 }
-
-.fileCard img {
-    width: 100%;
-    border-radius: 6px;
-    border: 1px solid hsla(0, 0%, 20%, 50%);
-}

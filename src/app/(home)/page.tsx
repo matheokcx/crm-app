@@ -1,32 +1,34 @@
-import HomeSideBar from "@/components/Layout/HomeSideBar";
 import styles from "./homepage.module.css";
 import KpiCard from "@/components/UI/Cards/KpiCard";
-import { Meeting, File } from "@/types";
+import { Meeting, File, Project, Client } from "@/types";
 import MeetingReduceCard from "@/components/UI/Cards/MeetingReduceCard";
-import { useSession } from "next-auth/react";
 import { getFormattedDate } from "@/utils/utils";
 import FileCard from "@/components/UI/Cards/FileCard";
-import { getHomePageData } from "@/app/action";
+import { getAllClients, getAllProjects, getRecentFiles, getUpComingMeetings } from "@/app/(home)/action";
 
 // ==============================================
 
 const HomePage = async () => {
-    //const session = useSession();
-    const [clients, processingProjects, recentFiles, meetings] = await getHomePageData();
+    const today: Date = new Date();
+    const formattedTodayDate: string = getFormattedDate(today);
+
+    const clients: Client[] = await getAllClients({});
+    const processingProjects: Project[] = await getAllProjects({}, true);
+    const meetings: (Meeting | null)[] = await getUpComingMeetings({startHour: new Date(formattedTodayDate)});
+    const recentFiles: File[] = await getRecentFiles();
 
     return (
         <main className={styles.homePage}>
           <section className={styles.homePageSection}>
-              {/*<h1>Bonjour {session.data?.user?.name} !</h1>*/}
               <div className={styles.homePageSectionRow}>
-                  <div style={{width: "50%"}} className={styles.comingSoonMeetingsDiv}>
+                  <div className={styles.comingSoonMeetingsDiv}>
                       { meetings.map((meeting: Meeting | null, index: number) => {
                           const todayDate = new Date();
                           todayDate.setDate(todayDate.getDate() + index);
                           const dateLabel: string = getFormattedDate(todayDate);
 
                           return <MeetingReduceCard key={index}
-                                                    weekDay={meeting ? meeting.startHour : dateLabel}
+                                                    weekDay={meeting ? meeting.startHour : new Date(dateLabel)}
                                                     meetingTitle={meeting?.title}
                           />
                       })}
@@ -37,7 +39,7 @@ const HomePage = async () => {
                   </div>
               </div>
               <div className={styles.homePageSectionRow}>
-                  <div style={{width: "50%"}} className={styles.recentFilesDiv}>
+                  <div className={styles.recentFilesDiv}>
                       <label>Fichiers récents:</label>
                       <div className={styles.filesDiv}>
                           {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}
