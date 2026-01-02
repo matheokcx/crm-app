@@ -26,14 +26,12 @@ export type Client = {
     job: string;
     status: ClientStatus;
     links: string[];
-    birthdate?: Date;
-    mail?: string | null;
-    phone?: string | null;
-    image?: string | null;
+    birthdate: Date | null;
+    mail: string | null;
+    phone: string | null;
+    image: string | null;
     gender: Gender;
-    freelance: User;
-    projects: Project[];
-    notes: ClientNote[];
+    freelanceId: number;
 };
 
 export type Project = {
@@ -43,22 +41,19 @@ export type Project = {
     startDate: Date;
     endDate: Date;
     cost: number;
-    cover?: string | null;
+    cover: string | null;
     difficulty: ProjectDifficulty;
-    parentProject?: Project | null;
-    subProjects: Project[];
-    client: Client;
-    meetings: Meeting[];
-    files: File[];
+    parentProjectId: number | null;
+    clientId: number;
 };
 
 export type Meeting = {
     id: number;
     title: string;
-    description?: string | null;
+    description: string | null;
     startHour: Date;
     endHour: Date;
-    project: Project;
+    projectId: number;
 };
 
 export type File = {
@@ -66,12 +61,12 @@ export type File = {
     name: string;
     path: string;
     type: string;
-    project: Project;
+    projectId: number;
 };
 
 export type ClientNote = {
     id: number;
     text: string;
     createdAt: Date;
-    client: Client;
+    clientId: number;
 };

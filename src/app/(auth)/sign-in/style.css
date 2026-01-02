@@ -24,8 +24,12 @@
 }
 
 .validateButton {
-    width: 20%;
+    width: fit-content;
     background: var(--primary);
     color: hsl(0, 0%, 100%);
     border: 0;
+}
+
+p {
+    text-align: center;
 }

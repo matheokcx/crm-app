@@ -9,7 +9,6 @@ import {FILES_DIRECTORY, manageUrlQueryParams} from "@/utils/utils";
 
 // ==============================================
 
-
 export async function GET (request: NextRequest): Promise<NextResponse> {
     const session = await getServerSession(authOptions);
     const filters = manageUrlQueryParams(
