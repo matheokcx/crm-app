@@ -8,14 +8,11 @@ export const middleware = async (request: NextRequest): Promise<NextResponse> =>
     const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
     const { pathname } = request.nextUrl;
     const publicRoutes: string[] = [
-        '/',
         '/sign-in',
-        '/sign-up',
-        '/services'
+        '/sign-up'
     ];
     const publicApiRoutes: string[] = [
-        '/api/auth',
-        '/api/services'
+        '/api/auth'
     ];
 
     const isPublicPage: boolean = publicRoutes.includes(pathname);
@@ -30,10 +27,6 @@ export const middleware = async (request: NextRequest): Promise<NextResponse> =>
         }
 
         return NextResponse.next();
-    }
-
-    if (token && pathname === '/') {
-        //return NextResponse.redirect(new URL('/profile', request.url));
     }
 
     if (!token && !isPublicPage && !pathname.startsWith('/api/auth')) {
@@ -52,8 +45,6 @@ export const config = {
     matcher: [
         '/',
         '/profile/:path*',
-        '/messages/:path*',
-        '/services/:path*',
         '/api/:path*'
     ]
 };

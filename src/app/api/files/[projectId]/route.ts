@@ -106,16 +106,17 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         await Promise.all(files.map(async (file) => {
             const bytes = await file.arrayBuffer();
             const buffer = Buffer.from(bytes);
+            const time = Date.now();
 
             const uploadDirectoryPath: string = path.join(process.cwd(), FILES_DIRECTORY);
-            const fileName: string = `${Date.now()}-${file.name}`
+            const fileName: string = `${time}-${file.name}`
             const newFilePath: string = path.join(uploadDirectoryPath, fileName);
 
             await writeFile(newFilePath, buffer);
 
             await prismaClient.file.create({
                 data: {
-                    name: `${Date.now()}-${file.name.split(".")[0]}`,
+                    name: `${time}-${file.name.split(".")[0]}`,
                     path: `${FILES_DIRECTORY}/${fileName}`,
                     type: file.name.split(".")[1],
                     projectId: Number(projectId)

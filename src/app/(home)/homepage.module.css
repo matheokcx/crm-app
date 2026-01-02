@@ -1,0 +1,88 @@
+.homePage{
+    padding: 12px;
+    display: flex;
+    gap: 24px;
+    width: 80%;
+    height: 95vh;
+}
+
+.homePageSection {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.homePageSectionRow {
+    width: 100%;
+    display: flex;
+    gap: 48px;
+}
+
+.comingSoonMeetingsDiv {
+    width: 50%;
+    background: var(--background);
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 13px hsla(0, 0%, 0%, 25%);
+}
+
+.kpisDiv {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.recentFilesDiv {
+    width: 50%;
+    min-width: 0;
+    background: var(--background);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 13px hsla(0, 0%, 0%, 25%);
+}
+
+.filesDiv {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    overflow-x: auto;
+}
+
+@media screen and (max-width: 500px){
+    .homePage {
+        width: 100%;
+        padding: 4px;
+    }
+
+    .homePageSection {
+        padding: 10px;
+    }
+
+    .homePageSectionRow {
+        flex-direction: column;
+    }
+
+    .comingSoonMeetingsDiv {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .kpisDiv {
+        width: 100%;
+        flex-direction: column;
+        justify-content: start;
+    }
+
+    .recentFilesDiv {
+        width: 100%;
+    }
+}
