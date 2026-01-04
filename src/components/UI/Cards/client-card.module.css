@@ -1,0 +1,26 @@
+.clientCard {
+    width: 20%;
+    min-height: 20%;
+    border-radius: 12px;
+    background: var(--background);
+    box-shadow: 0 3px 12px hsla(0, 0%, 20%, 40%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 10px;
+}
+
+.clientCardAvatar {
+    background: hsl(0, 0%, 80%);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    color: hsl(0, 0%, 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clientInformation {
+
+}

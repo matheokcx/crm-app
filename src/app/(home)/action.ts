@@ -25,7 +25,7 @@ type getUpComingMeetingsFilters = {
     startHour?: Date;
 };
 
-export const getAllClients = async (filters: getAllClientsFilters): Promise<Client[]> => {
+export const getAllClients = async (filters?: getAllClientsFilters): Promise<Client[]> => {
     const session = await getServerSession(authOptions);
 
     if(!session?.user?.id){
@@ -35,7 +35,7 @@ export const getAllClients = async (filters: getAllClientsFilters): Promise<Clie
     return await getAllUserClients(filters, Number(session.user.id));
 };
 
-export const getAllProjects = async (filters: getAllProjectsFilters, onlyProcessingProjects: boolean): Promise<Project[]> => {
+export const getAllProjects = async (onlyProcessingProjects: boolean, filters?: getAllProjectsFilters, ): Promise<Project[]> => {
     const session = await getServerSession(authOptions);
 
     if(!session?.user?.id){
@@ -45,7 +45,7 @@ export const getAllProjects = async (filters: getAllProjectsFilters, onlyProcess
     return await getAllUserProjects(filters, Number(session.user.id), onlyProcessingProjects);
 };
 
-export const getUpComingMeetings = async (filters: getUpComingMeetingsFilters): Promise<Array<Meeting | null>> => {
+export const getUpComingMeetings = async (filters?: getUpComingMeetingsFilters): Promise<Array<Meeting | null>> => {
     const session = await getServerSession(authOptions);
 
     if(!session?.user?.id){

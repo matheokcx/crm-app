@@ -12,8 +12,8 @@ const HomePage = async () => {
     const today: Date = new Date();
     const formattedTodayDate: string = getFormattedDate(today);
 
-    const clients: Client[] = await getAllClients({});
-    const processingProjects: Project[] = await getAllProjects({}, true);
+    const clients: Client[] = await getAllClients();
+    const processingProjects: Project[] = await getAllProjects( true);
     const meetings: (Meeting | null)[] = await getUpComingMeetings({startHour: new Date(formattedTodayDate)});
     const recentFiles: File[] = await getRecentFiles();
 

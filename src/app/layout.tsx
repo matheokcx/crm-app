@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="fr">
-      <body className={`${inter.className} ${poppins.className}`} style={{padding: "32px"}}>
+      <body className={`${inter.className} ${poppins.className}`}>
         <SessionWrapper>
           <div><Toaster/></div>
           {children}
