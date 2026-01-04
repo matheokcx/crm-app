@@ -18,8 +18,8 @@ const HomePage = async () => {
     const recentFiles: File[] = await getRecentFiles();
 
     return (
-        <main className={styles.homePage}>
-          <section className={styles.homePageSection}>
+        <section className={styles.homePage}>
+          <div className={styles.homePageSection}>
               <div className={styles.homePageSectionRow}>
                   <div className={styles.comingSoonMeetingsDiv}>
                       { meetings.map((meeting: Meeting | null, index: number) => {
@@ -47,8 +47,8 @@ const HomePage = async () => {
                   </div>
                   <div style={{width: "50%"}}></div>
               </div>
-          </section>
-        </main>
+          </div>
+        </section>
     );
 };
 

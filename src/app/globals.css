@@ -24,8 +24,6 @@ body {
   background: var(--background-dark);
   color: var(--main-text);
   font-size: 16px;
-  display: flex;
-  justify-content: center;
   overflow-x: hidden;
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -121,7 +119,7 @@ hr {
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
+  /*body {
     --background-dark: hsl(0, 0%, 0%);
     --background: hsl(0, 0%, 5%);
     --background-light: hsl(0, 0%, 10%);
@@ -132,5 +130,5 @@ hr {
 
   a {
     color: hsl(0, 0%, 90%);
-  }
+  }*/
 }
