@@ -1,0 +1,20 @@
+.chip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding-inline: 12px;
+    padding-block: 8px;
+    border-radius: 12px;
+    width: fit-content;
+    font-weight: 500;
+}
+
+.chip p {
+    color: white;
+    text-transform: lowercase;
+}
+
+.chip p:first-letter {
+    text-transform: uppercase;
+}
