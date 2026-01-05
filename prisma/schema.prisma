@@ -95,6 +95,10 @@ model Client {
   freelance   User         @relation(fields: [freelanceId], references: [id], onDelete: Cascade)
   projects    Project[]
   notes       ClientNote[]
+
+  @@index([freelanceId])
+  @@index([status])
+  @@index([mail])
 }
 
 model Project {
@@ -113,6 +117,9 @@ model Project {
   client          Client            @relation(fields: [clientId], references: [id], onDelete: Cascade)
   meetings        Meeting[]
   files           File[]
+
+  @@index([clientId])
+  @@index([startDate, endDate])
 }
 
 model Meeting {
@@ -123,6 +130,9 @@ model Meeting {
   endHour     DateTime
   projectId   Int
   project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([startHour])
 }
 
 model File {
@@ -131,7 +141,7 @@ model File {
   path      String
   type      String
   projectId Int
-  project   Project @relation(fields: [projectId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model ClientNote {

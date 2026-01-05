@@ -17,6 +17,10 @@ export const middleware = async (request: NextRequest): Promise<NextResponse> =>
 
     const isPublicPage: boolean = publicRoutes.includes(pathname);
     const isPublicApi: boolean = publicApiRoutes.some((route: string) => pathname.startsWith(route));
+    const response = NextResponse.next();
+    response.headers.set('X-Frame-Options', 'DENY');
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
     if (pathname.startsWith('/api')) {
         if (!token && !isPublicApi) {
@@ -26,18 +30,14 @@ export const middleware = async (request: NextRequest): Promise<NextResponse> =>
             );
         }
 
-        return NextResponse.next();
+        return response;
     }
 
     if (!token && !isPublicPage && !pathname.startsWith('/api/auth')) {
         return NextResponse.redirect(new URL('/sign-in', request.url));
     }
 
-    if (!token && pathname.startsWith('/api') && !isPublicApi) {
-        return NextResponse.json({ error: 'Not authorized, you should be connected' }, { status: 401 });
-    }
-
-    return NextResponse.next();
+    return response;
 };
 
 
