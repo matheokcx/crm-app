@@ -1,6 +1,5 @@
 import { prismaClient } from "@/lib/prisma";
 import { Project, ProjectDifficulty } from "@/types";
-import { FILES_DIRECTORY } from "@/utils/utils";
 
 // ==============================================
 
@@ -42,7 +41,7 @@ export const addProject = async (projectInformations: ProjectInformationsType, c
             ...projectInformations,
             startDate: new Date(projectInformations.startDate),
             endDate: new Date(projectInformations.endDate),
-            cover: coverFile ? `${FILES_DIRECTORY}/cover_${Date.now()}_${coverFile.name}` : null,
+            cover: coverFile ? `${process.env.FILES_DIRECTORY}/cover_${Date.now()}_${coverFile.name}` : null,
         }
     });
 };

@@ -1,4 +1,3 @@
-export const FILES_DIRECTORY: string = "public/files";
 export const FILE_LIMIT_SIZE: number = 5 * 1024 * 1024; // 5 MB
 
 export const getMimeType = (filename: string): string => {

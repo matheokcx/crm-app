@@ -1,5 +1,4 @@
 import { prismaClient } from "@/lib/prisma";
-import { FILES_DIRECTORY } from "@/utils/utils";
 import { Client, ClientStatus, Gender } from "@/types";
 
 // ==============================================
@@ -36,7 +35,7 @@ export const addClient = async (clientInfos: ClientInfosType, userId: number): P
             birthdate: clientInfos.birthdate ? new Date(clientInfos.birthdate) : null,
             mail: clientInfos.mail ?? null,
             phone: clientInfos.phone ?? null,
-            image: clientInfos.image ? `${FILES_DIRECTORY}/client_image_${Date.now()}_${clientInfos.image.name}` : null,
+            image: clientInfos.image ? `${process.env.FILES_DIRECTORY}/client_image_${Date.now()}_${clientInfos.image.name}` : null,
             gender: clientInfos.gender,
             freelanceId: userId
         }

@@ -44,6 +44,8 @@ export const middleware = async (request: NextRequest): Promise<NextResponse> =>
 export const config = {
     matcher: [
         '/',
+        '/clients',
+        '/projects',
         '/profile/:path*',
         '/api/:path*'
     ]

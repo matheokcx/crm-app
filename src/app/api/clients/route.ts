@@ -5,7 +5,6 @@ import { ClientStatus, Gender } from "@/types";
 import { authOptions } from "@/lib/auth";
 import { writeFile } from "fs/promises";
 import path from "path";
-import { FILES_DIRECTORY } from "@/utils/utils";
 
 // ==============================================
 
@@ -38,7 +37,7 @@ export async function POST (request: NextRequest): Promise<NextResponse> {
         const bytes = await clientInfos.image.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        const uploadDirectoryPath: string = path.join(process.cwd(), FILES_DIRECTORY);
+        const uploadDirectoryPath: string = path.join(process.cwd(), process.env.FILES_DIRECTORY ?? "public/files");
         const newFilePath: string = path.join(uploadDirectoryPath, `client_image_${today}_${clientInfos.image.name}`);
 
         await writeFile(newFilePath, buffer);
@@ -54,7 +53,7 @@ export async function POST (request: NextRequest): Promise<NextResponse> {
             birthdate: clientInfos.birthdate ? new Date(clientInfos.birthdate) : null,
             mail: clientInfos.mail,
             phone: clientInfos.phone,
-            image: clientInfos.image ? `${FILES_DIRECTORY}/client_image_${today}_${clientInfos.image.name}` : null,
+            image: clientInfos.image ? `${process.env.FILES_DIRECTORY}/client_image_${today}_${clientInfos.image.name}` : null,
             gender: clientInfos.gender,
             freelanceId: Number(session.user.id)
         }
