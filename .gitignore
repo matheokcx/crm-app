@@ -47,3 +47,4 @@ next-env.d.ts
 prisma/migrations/*
 .idea
 public/files/*
+.claude
