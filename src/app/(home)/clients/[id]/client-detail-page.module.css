@@ -3,5 +3,23 @@
     padding: 16px;
     background: var(--background);
     border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
+.contactInformation {
+    background: var(--background-light);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-inline: 16px;
+    padding-block: 10px;
+    border-radius: 8px;
+}
+
+.contactLine {
+    display: flex;
+    gap: 5px;
+    align-items: center;
 }

@@ -4,23 +4,11 @@ import { getServerSession } from "next-auth/next";
 import { Client } from "@/types";
 import styles from "./client-detail-page.module.css";
 import Chip from "@/components/UI/Chip";
-import {$Enums, ClientStatus} from "@/generated/prisma";
+import { $Enums, ClientStatus } from "@/generated/prisma";
 import GENDER = $Enums.GENDER;
-import {Envelope, GenderFemale, GenderMale, Phone} from "@phosphor-icons/react/ssr";
+import { Envelope, GenderFemale, GenderMale, Phone } from "@phosphor-icons/react/ssr";
 
 // ==============================================
-
-const calculateAge = (birthdate: Date): number => {
-    const today = new Date();
-    let age = today.getFullYear() - birthdate.getFullYear();
-    const monthDiff = today.getMonth() - birthdate.getMonth();
-
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
-        age--;
-    }
-
-    return age;
-};
 
 const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
     const session = await getServerSession(authOptions);
@@ -47,6 +35,18 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
         }
     };
 
+    const calculateAge = (birthdate: Date): number => {
+        const today: Date = new Date();
+        let age: number = today.getFullYear() - birthdate.getFullYear();
+        const monthDifference: number = today.getMonth() - birthdate.getMonth();
+
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthdate.getDate())) {
+            age--;
+        }
+
+        return age;
+    };
+
     if(!client){
         return <p>Client non trouvé ...</p>
     }
@@ -54,17 +54,28 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
     return (
         <main className={styles.page}>
             {client.image && <img src={client.image} alt="Client image" style={{ width: "10%", borderRadius: "12px" }} />}
-            <h2>
-                {client.firstName}
-                {client.lastName}
-                {client.gender === GENDER.MALE ? <GenderMale /> : <GenderFemale />}
-            </h2>
-            <p>{client.job}</p>
-            <Chip text={client.status} color={getStatusColor(client.status)} />
-            {client.birthdate && <p>{calculateAge(client.birthdate)} ans</p>}
+            <div>
+                <h2>
+                    {client.firstName} {client.lastName}
+                    {client.gender === GENDER.MALE ? <GenderMale /> : <GenderFemale />} ({client.birthdate &&
+                    `${calculateAge(client.birthdate)} ans`})
+                </h2>
+                <p>{client.job}</p>
+                <Chip text={client.status} color={getStatusColor(client.status)} />
+            </div>
             <div className={styles.contactInformation}>
-                {client.mail && <p><Envelope />{client.mail}</p>}
-                {client.phone && <p><Phone />{client.phone}</p>}
+                {client.mail && (
+                    <span className={styles.contactLine}>
+                        <Envelope size={24} />
+                        <a href={`mailto:${client.mail}`}>{client.mail}</a>
+                    </span>
+                )}
+                {client.phone && (
+                    <span className={styles.contactLine}>
+                        <Phone size={24} />
+                        <a href={`tel:${client.phone}`}>{client.phone}</a>
+                    </span>
+                )}
                 {client.links.map((link: string, index: number) => <a key={index} href={link}>{link}</a>)}
             </div>
         </main>
