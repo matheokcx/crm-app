@@ -53,7 +53,7 @@ export async function POST (request: NextRequest): Promise<NextResponse> {
             birthdate: clientInfos.birthdate ? new Date(clientInfos.birthdate) : null,
             mail: clientInfos.mail,
             phone: clientInfos.phone,
-            image: clientInfos.image ? `${process.env.FILES_DIRECTORY}/client_image_${today}_${clientInfos.image.name}` : null,
+            image: clientInfos.image ? `/files/client_image_${today}_${clientInfos.image.name}` : null,
             gender: clientInfos.gender,
             freelanceId: Number(session.user.id)
         }

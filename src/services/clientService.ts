@@ -41,3 +41,12 @@ export const addClient = async (clientInfos: ClientInfosType, userId: number): P
         }
     });
 };
+
+export const getClient = async (clientId: number, userId: number): Promise<Client | null> => {
+    return await prismaClient.client.findUnique({
+        where: {
+            id: clientId,
+            freelanceId: userId
+        }
+    });
+};

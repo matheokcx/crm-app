@@ -126,15 +126,15 @@ hr {
 @media (prefers-color-scheme: dark) {
   body {
     overflow-y: auto;
-    /*--background-dark: hsl(0, 0%, 0%);
+    --background-dark: hsl(0, 0%, 0%);
     --background: hsl(0, 0%, 5%);
     --background-light: hsl(0, 0%, 10%);
 
     --main-text: hsl(0, 0%, 90%);
-    --secondary-text: hsl(0, 0%, 70%);*/
+    --secondary-text: hsl(0, 0%, 70%);
   }
 
-  /*a {
+  a {
     color: hsl(0, 0%, 90%);
-  }*/
+  }
 }

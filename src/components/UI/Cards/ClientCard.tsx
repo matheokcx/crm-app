@@ -1,8 +1,10 @@
+"use client"
 import styles from "./client-card.module.css";
 import { Client } from "@/types";
 import {Envelope, Pencil, Phone, Eye} from "@phosphor-icons/react/ssr";
 import Chip from "@/components/UI/Chip";
 import {ClientStatus} from "@/generated/prisma";
+import {useRouter} from "next/navigation";
 
 // ==============================================
 
@@ -22,6 +24,8 @@ const Avatar = ({ firstName, lastName }: AvatarProps) => {
 };
 
 const ClientCard = ({ client }: ClientCard) => {
+    const router = useRouter();
+
     const getStatusColor = (status: ClientStatus): string => {
         switch (status) {
             case ClientStatus.LEAD :
@@ -60,7 +64,7 @@ const ClientCard = ({ client }: ClientCard) => {
             </div>
             <div className={styles.buttonsDiv}>
                 <button style={{background: "var(--secondary)", borderWidth: 0}}><Pencil size={24} /> Modifier</button>
-                <button style={{background: "var(--primary)", borderWidth: 0}}><Eye size={24} /> Détails</button>
+                <button style={{background: "var(--primary)", borderWidth: 0}} onClick={() => router.push(`/clients/${client.id}`)}><Eye size={24} /> Détails</button>
             </div>
         </div>
     );
