@@ -1,10 +1,10 @@
 "use client"
 import styles from "./client-card.module.css";
 import { Client } from "@/types";
-import {Envelope, Pencil, Phone, Eye} from "@phosphor-icons/react/ssr";
+import { Pencil, Eye } from "@phosphor-icons/react/ssr";
 import Chip from "@/components/UI/Chip";
-import {ClientStatus} from "@/generated/prisma";
-import {useRouter} from "next/navigation";
+import { ClientStatus } from "@/generated/prisma";
+import { useRouter } from "next/navigation";
 
 // ==============================================
 
@@ -51,20 +51,17 @@ const ClientCard = ({ client }: ClientCard) => {
                     /> : <Avatar firstName={client.firstName} lastName={client.lastName} />
                 }
                 <div className={styles.mainInformation}>
-                    <h3>{client.firstName} {client.lastName}</h3>
-                    <label style={{
-                        textOverflow: "ellipsis", textWrap: "nowrap" }}>{client.job}</label>
+                    <div>
+                        <h3>{client.firstName} {client.lastName}</h3>
+                        <label style={{textOverflow: "ellipsis", textWrap: "nowrap" }}>{client.job}</label>
+                    </div>
                     <Chip text={client.status} color={getStatusColor(client.status)} />
                 </div>
             </div>
             <hr/>
-            <div className={styles.clientInformation}>
-                { client.mail && <span className={styles.contactLine}><Envelope size={24} /><p>{client.mail}</p></span>}
-                { client.phone && <span className={styles.contactLine}><Phone size={24} /><p>{client.phone}</p></span>}
-            </div>
             <div className={styles.buttonsDiv}>
-                <button style={{background: "var(--secondary)", borderWidth: 0}}><Pencil size={24} /> Modifier</button>
-                <button style={{background: "var(--primary)", borderWidth: 0}} onClick={() => router.push(`/clients/${client.id}`)}><Eye size={24} /> Détails</button>
+                <button style={{width: "100%", background: "var(--secondary)", borderWidth: 0}}><Pencil size={24} /> Modifier</button>
+                <button style={{width: "100%", background: "var(--primary)", borderWidth: 0}} onClick={() => router.push(`/clients/${client.id}`)}><Eye size={24} /> Détails</button>
             </div>
         </div>
     );

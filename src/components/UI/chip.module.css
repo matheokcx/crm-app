@@ -3,14 +3,14 @@
     justify-content: center;
     align-items: center;
     gap: 4px;
-    padding-inline: 12px;
-    padding-block: 8px;
+    padding-inline: 16px;
     border-radius: 12px;
     width: fit-content;
     font-weight: 500;
 }
 
 .chip p {
+    font-size: 16px;
     color: white;
     text-transform: lowercase;
 }

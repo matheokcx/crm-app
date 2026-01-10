@@ -1,14 +1,22 @@
 import styles from "./clients-page.module.css";
-import { getAllClients } from "@/app/(home)/action";
 import { Client } from "@/types";
 import ClientCard from "@/components/UI/Cards/ClientCard";
 import Link from "next/link";
 import { Plus } from "@phosphor-icons/react/ssr";
+import { getAllUserClients } from "@/services/clientService";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth/next";
 
 // ==============================================
 
 const ClientsPage = async () => {
-    const clients: Client[] = await getAllClients();
+    const session = await getServerSession(authOptions);
+
+    if(!session?.user?.id){
+        return <p>Vous n'êtes pas connecté ...</p>
+    }
+
+    const clients: Client[] = await getAllUserClients({}, Number(session.user.id));
 
     return (
       <section className={styles.clientsPage}>

@@ -1,6 +1,7 @@
 .clientCard {
-    width: 30%;
-    min-height: 20%;
+    min-width: fit-content;
+    width: 25%;
+    min-height: 15%;
     border: 2px solid hsla(0, 0%, 70%, 50%);
     border-radius: 12px;
     background: var(--background);
@@ -18,7 +19,8 @@
     flex: 1;
     min-width: 0;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .mainInformation h3,
@@ -42,17 +44,6 @@
     flex-shrink: 0;
     margin: 0;
     font-size: 1.2rem;
-}
-
-.clientInformation {
-    width: 100%;
-}
-
-.contactLine {
-    width: 100%;
-    display: flex;
-    gap: 4px;
-    align-items: center;
 }
 
 .buttonsDiv {
