@@ -29,3 +29,15 @@
     padding: 20px;
     border-radius: 10px;
 }
+
+@media screen and (max-width: 500px) {
+    .clientsPage {
+        width: 100%;
+        padding: 0;
+    }
+
+    .clientsList {
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+}

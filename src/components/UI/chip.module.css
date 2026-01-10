@@ -5,7 +5,7 @@
     gap: 4px;
     padding-inline: 16px;
     border-radius: 12px;
-    width: fit-content;
+    min-width: fit-content;
     font-weight: 500;
 }
 

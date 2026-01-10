@@ -20,21 +20,6 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
 
     const client: Client | null = await getClient(Number(id), Number(session.user.id));
 
-    const getStatusColor = (status: ClientStatus): string => {
-        switch (status) {
-            case ClientStatus.LEAD :
-                return "hsl(27,100%,71%)";
-            case ClientStatus.SIGNED :
-                return "hsl(116,100%,78%)";
-            case ClientStatus.ARCHIVED :
-                return "hsl(0, 0%, 76%)";
-            case ClientStatus.LOST :
-                return "hsl(0, 100%, 70%)";
-            default:
-                return "hsl(0, 0%, 100%)";
-        }
-    };
-
     const calculateAge = (birthdate: Date): number => {
         const today: Date = new Date();
         let age: number = today.getFullYear() - birthdate.getFullYear();
@@ -61,7 +46,7 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
                     `(${calculateAge(client.birthdate)} ans)`}
                 </h2>
                 <p>{client.job}</p>
-                <Chip text={client.status} color={getStatusColor(client.status)} />
+                <Chip text={client.status} color="var(--background-light)" />
             </div>
             <div className={styles.contactInformation}>
                 {client.mail && (
