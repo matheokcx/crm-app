@@ -57,8 +57,8 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
             <div>
                 <h2>
                     {client.firstName} {client.lastName}
-                    {client.gender === GENDER.MALE ? <GenderMale /> : <GenderFemale />} ({client.birthdate &&
-                    `${calculateAge(client.birthdate)} ans`})
+                    {client.gender === GENDER.MALE ? <GenderMale /> : <GenderFemale />} {client.birthdate &&
+                    `(${calculateAge(client.birthdate)} ans)`}
                 </h2>
                 <p>{client.job}</p>
                 <Chip text={client.status} color={getStatusColor(client.status)} />
@@ -76,8 +76,19 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
                         <a href={`tel:${client.phone}`}>{client.phone}</a>
                     </span>
                 )}
-                {client.links.map((link: string, index: number) => <a key={index} href={link}>{link}</a>)}
             </div>
+            {client.links.length > 0 && (
+                <div className={styles.contactInformation}>
+                    {client.links.map((link: string, index: number) =>
+                        <a key={index}
+                           href={link}
+                           target="_blank"
+                        >
+                            {link}
+                        </a>
+                    )}
+                </div>
+            )}
         </main>
     );
 };

@@ -24,19 +24,19 @@ export type ClientInfosType = {
     gender: Gender;
 };
 
-export const addClient = async (clientInfos: ClientInfosType, userId: number): Promise<Client> => {
+export const addClient = async (clientInfos: any, userId: number): Promise<Client> => {
     return await prismaClient.client.create({
         data: {
-            firstName: clientInfos.firstName,
-            lastName: clientInfos.lastName,
-            job: clientInfos.job,
-            status: clientInfos.status,
+            firstName: clientInfos.get('firstName'),
+            lastName: clientInfos.get('lastName'),
+            job: clientInfos.get('job'),
+            status: clientInfos.get('status'),
             links: [],
-            birthdate: clientInfos.birthdate ? new Date(clientInfos.birthdate) : null,
-            mail: clientInfos.mail ?? null,
-            phone: clientInfos.phone ?? null,
-            image: clientInfos.image ? `${process.env.FILES_DIRECTORY}/client_image_${Date.now()}_${clientInfos.image.name}` : null,
-            gender: clientInfos.gender,
+            birthdate: clientInfos.get('birthdate') ? new Date(clientInfos.get('birthdate')) : null,
+            mail: clientInfos.get('mail') ?? null,
+            phone: clientInfos.get('phone') ?? null,
+            image: clientInfos.get('image').size > 0 ? `${process.env.FILES_DIRECTORY}/client_image_${Date.now()}_${clientInfos.get('image').name}` : null,
+            gender: clientInfos.get('gender'),
             freelanceId: userId
         }
     });
