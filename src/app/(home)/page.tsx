@@ -4,25 +4,47 @@ import { Meeting, File, Project, Client } from "@/types";
 import MeetingReduceCard from "@/components/UI/Cards/MeetingReduceCard";
 import { getFormattedDate } from "@/utils/utils";
 import FileCard from "@/components/UI/Cards/FileCard";
-import { getAllClients, getAllProjects, getRecentFiles, getUpComingMeetings } from "@/app/(home)/action";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { getAllUserClients } from "@/services/clientService";
+import { getAllUserProjects } from "@/services/projectService";
+import { getFiles } from "@/services/fileService";
+import { getMeetings } from "@/services/meetingService";
 
 // ==============================================
 
 const HomePage = async () => {
+    const session = await getServerSession(authOptions);
     const today: Date = new Date();
     const formattedTodayDate: string = getFormattedDate(today);
 
-    const clients: Client[] = await getAllClients();
-    const processingProjects: Project[] = await getAllProjects( true);
-    const meetings: (Meeting | null)[] = await getUpComingMeetings({startHour: new Date(formattedTodayDate)});
-    const recentFiles: File[] = await getRecentFiles();
+    if(!session?.user?.id){
+        return <p>Vous n'êtes pas connecté ...</p>;
+    }
+
+    const clients: Client[] = await getAllUserClients({}, Number(session.user.id));
+    const processingProjects: Project[] = await getAllUserProjects({}, Number(session.user.id), true);
+    const recentFiles: File[] = await getFiles(Number(session.user.id));
+
+    const daysPrevisualisationNumber: number = 3;
+    const nextThreeDays: string[] = Array.from({ length: daysPrevisualisationNumber }, (_, index: number) => {
+        const todayDate: Date = new Date();
+        todayDate.setDate(todayDate.getDate() + index);
+        return getFormattedDate(todayDate);
+    });
+    const meetings: Meeting[] = await getMeetings({startHour: new Date(formattedTodayDate)}, Number(session.user.id));
+
+    const comingMeetings: (Meeting | null)[] = nextThreeDays.map((dateStr: string) => {
+        const meetingFound: Meeting | undefined = meetings.find((meeting: Meeting) => meeting.startHour.toISOString().startsWith(dateStr));
+        return meetingFound || null;
+    });
 
     return (
         <section className={styles.homePage}>
           <div className={styles.homePageSection}>
               <div className={styles.homePageSectionRow}>
                   <div className={styles.comingSoonMeetingsDiv}>
-                      { meetings.map((meeting: Meeting | null, index: number) => {
+                      {comingMeetings.map((meeting: Meeting | null, index: number) => {
                           const todayDate = new Date();
                           todayDate.setDate(todayDate.getDate() + index);
                           const dateLabel: string = getFormattedDate(todayDate);
