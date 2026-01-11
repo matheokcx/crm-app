@@ -1,5 +1,7 @@
 import { prismaClient } from "@/lib/prisma";
 import { Client, ClientStatus, Gender } from "@/types";
+import path from "path";
+import {writeFile} from "fs/promises";
 
 // ==============================================
 
@@ -12,19 +14,21 @@ export const getAllUserClients = async (filters: any, userId: number): Promise<C
     });
 };
 
-export type ClientInfosType = {
-    firstName: string;
-    lastName: string;
-    job: string;
-    status: ClientStatus;
-    birthdate?: Date;
-    mail?: string;
-    phone?: string;
-    image?: File;
-    gender: Gender;
-};
-
 export const addClient = async (clientInfos: any, userId: number): Promise<Client> => {
+    const acceptedFileFormat: string[] = ["image/png", "image/jpeg", "image/webp"];
+    const today: number = Date.now();
+    const profilePicture: File = clientInfos.get("image") as File;
+
+    if(profilePicture && profilePicture.size > 0 && acceptedFileFormat.includes(profilePicture.type)){
+        const bytes = await profilePicture.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        const uploadDirectoryPath: string = path.join(process.cwd(), process.env.FILES_DIRECTORY ?? "public/files");
+        const newFilePath: string = path.join(uploadDirectoryPath, `client_image_${today}_${profilePicture.name}`);
+
+        await writeFile(newFilePath, buffer);
+    }
+
     return await prismaClient.client.create({
         data: {
             firstName: clientInfos.get('firstName'),
@@ -35,7 +39,7 @@ export const addClient = async (clientInfos: any, userId: number): Promise<Clien
             birthdate: clientInfos.get('birthdate') ? new Date(clientInfos.get('birthdate')) : null,
             mail: clientInfos.get('mail') ?? null,
             phone: clientInfos.get('phone') ?? null,
-            image: clientInfos.get('image').size > 0 ? `${process.env.FILES_DIRECTORY}/client_image_${Date.now()}_${clientInfos.get('image').name}` : null,
+            image: profilePicture.size > 0 ? `/files/client_image_${today}_${clientInfos.get('image').name}` : null,
             gender: clientInfos.get('gender'),
             freelanceId: userId
         }

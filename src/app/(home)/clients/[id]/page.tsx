@@ -6,8 +6,10 @@ import styles from "./client-detail-page.module.css";
 import Chip from "@/components/UI/Chip";
 import { $Enums, ClientStatus } from "@/generated/prisma";
 import GENDER = $Enums.GENDER;
+import { statusColors } from "@/lib/statusColors";
 import { Envelope, GenderFemale, GenderMale, Phone } from "@phosphor-icons/react/ssr";
 import Separator from "@/components/UI/Separator";
+import Avatar from "@/components/UI/Avatar";
 
 // ==============================================
 
@@ -40,16 +42,15 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
     return (
         <main className={styles.page}>
             <div className={styles.pageHeader}>
-                {client.image && <img src={client.image} alt="Client image" />}
+                <Avatar firstName={client.firstName} lastName={client.lastName} image={client.image}/>
                 <div>
                     <h2>{client.firstName} {client.lastName}</h2>
                     <p>{client.job}</p>
-                    <br/>
-                    <Chip text={client.status} color="var(--background-light)" />
+                    <Chip text={client.status} color={statusColors[client.status as ClientStatus]} />
                 </div>
             </div>
             <Separator widthPercent={100} />
-            <div style={{ width: "100%", display: "flex", gap: "16px" }}>
+            <div className={styles.infos} style={{ width: "100%", display: "flex", gap: "16px" }}>
                 <div className={styles.contactInformation}>
                     <h3><u>Informations:</u></h3>
                     {client.gender === GENDER.MALE ?

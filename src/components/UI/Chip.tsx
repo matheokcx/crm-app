@@ -8,9 +8,15 @@ type ChipProps = {
     width?: string;
 };
 
-const Chip = ({ text, color = "hsl(140, 70%, 80%)", width = "fit-content" }: ChipProps) => {
+const Chip = ({ text, color = "hsl(140, 70%, 40%)", width = "fit-content" }: ChipProps) => {
     return (
-        <div className={styles.chip} style={{ background: color, width: width }}>
+        <div
+            className={styles.chip}
+            style={{
+                "--chip-color": color,
+                width: width,
+            } as React.CSSProperties}
+        >
             <p>{text}</p>
         </div>
     );

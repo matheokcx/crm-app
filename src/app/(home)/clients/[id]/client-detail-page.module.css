@@ -15,9 +15,10 @@
     gap: 20px;
 }
 
-.pageHeader img {
-    width: 15%;
-    border-radius: 12px;
+.infos {
+    width: 100%;
+    display: flex;
+    gap: 16px;
 }
 
 .contactInformation {
@@ -40,4 +41,10 @@
     display: flex;
     gap: 5px;
     align-items: center;
+}
+
+@media screen and (max-width: 500px) {
+    .infos {
+        flex-direction: column;
+    }
 }

@@ -4,14 +4,17 @@
     align-items: center;
     gap: 4px;
     padding-inline: 16px;
+    padding-block: 4px;
     border-radius: 12px;
     min-width: fit-content;
     font-weight: 500;
+    background: color-mix(in srgb, var(--chip-color) 20%, white);
+    border: 2px solid var(--chip-color);
 }
 
 .chip p {
     font-size: 16px;
-    color: white;
+    color: var(--chip-color);
     text-transform: lowercase;
 }
 

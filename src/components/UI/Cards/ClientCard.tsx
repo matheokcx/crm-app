@@ -5,22 +5,14 @@ import { Pencil, Eye } from "@phosphor-icons/react/ssr";
 import Chip from "@/components/UI/Chip";
 import { useRouter } from "next/navigation";
 import Separator from "@/components/UI/Separator";
+import { statusColors } from "@/lib/statusColors";
+import { ClientStatus } from "@/generated/prisma";
+import Avatar from "@/components/UI/Avatar";
 
 // ==============================================
 
-type AvatarProps = {
-    firstName: string;
-    lastName: string;
-};
-
 type ClientCard = {
     client: Client;
-};
-
-const Avatar = ({ firstName, lastName }: AvatarProps) => {
-    return (
-        <h3 className={styles.clientCardAvatar}>{lastName.slice(0, 2)} {firstName.slice(0, 1)}.</h3>
-    );
 };
 
 const ClientCard = ({ client }: ClientCard) => {
@@ -29,16 +21,13 @@ const ClientCard = ({ client }: ClientCard) => {
     return (
         <div className={styles.clientCard}>
             <div className={styles.cardHeader}>
-                {
-                    client.image ? <img src={client.image} alt="Image du client" className={styles.clientCardAvatar} />
-                        : <Avatar firstName={client.firstName} lastName={client.lastName} />
-                }
+                <Avatar firstName={client.firstName} lastName={client.lastName} image={client.image}/>
                 <div className={styles.mainInformation}>
                     <div className={styles.clientInformation}>
                         <h3>{client.firstName} {client.lastName}</h3>
                         <label style={{textOverflow: "ellipsis", textWrap: "nowrap" }}>{client.job}</label>
                     </div>
-                    <Chip text={client.status} color="var(--background-light)" width="20%"/>
+                    <Chip text={client.status} color={statusColors[client.status as ClientStatus]} width="20%"/>
                 </div>
             </div>
             <Separator widthPercent={100} />
