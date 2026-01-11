@@ -1,5 +1,5 @@
 import { prismaClient } from "@/lib/prisma";
-import { Project, ProjectDifficulty } from "@/types";
+import {Client, Project, ProjectDifficulty} from "@/types";
 
 // ==============================================
 
@@ -36,6 +36,17 @@ export const addProject = async (projectInformations: FormData, coverFile: File 
             startDate: new Date(projectInformations.get("startDate") as string),
             endDate: new Date(projectInformations.get("endDate") as string),
             cover: coverFile ? `${process.env.FILES_DIRECTORY}/cover_${Date.now()}_${coverFile.name}` : null,
+        }
+    });
+};
+
+export const getProject = async (projectId: number, userId: number): Promise<Project | null> => {
+    return await prismaClient.project.findUnique({
+        where: {
+            id: projectId,
+            client: {
+                freelanceId: userId
+            }
         }
     });
 };

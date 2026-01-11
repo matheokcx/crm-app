@@ -73,15 +73,15 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
                     <h3><u>Contacts:</u></h3>
                     {client.mail && (
                         <span className={styles.contactLine}>
-                        <Envelope size={24} />
-                        <a href={`mailto:${client.mail}`}>{client.mail}</a>
-                    </span>
+                            <Envelope size={24} />
+                            <a href={`mailto:${client.mail}`}>{client.mail}</a>
+                        </span>
                     )}
                     {client.phone && (
                         <span className={styles.contactLine}>
-                        <Phone size={24} />
-                        <a href={`tel:${client.phone}`}>{client.phone}</a>
-                    </span>
+                            <Phone size={24} />
+                            <a href={`tel:${client.phone}`}>{client.phone}</a>
+                        </span>
                     )}
                 </div>)}
             </div>

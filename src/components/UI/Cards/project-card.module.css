@@ -8,6 +8,12 @@
     gap: 10px;
     background: var(--background-light);
     border: 2px solid hsla(0, 0%, 70%, 50%);
+    transition: 1s;
+}
+
+.projectCard:hover {
+    border-color: var(--primary);
+    cursor: pointer;
 }
 
 .title {

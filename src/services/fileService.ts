@@ -13,3 +13,16 @@ export const getFiles = async (userId: number) => {
         }
     });
 };
+
+export const getFilesByProject = async (projectId: number, userId: number) => {
+    return await prismaClient.file.findMany({
+        where: {
+            project: {
+                id: projectId,
+                client: {
+                    freelanceId: userId
+                }
+            }
+        }
+    });
+};
