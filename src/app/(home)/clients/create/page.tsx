@@ -3,35 +3,33 @@ import styles from "./client-create-page.module.css";
 import { GENDER, ClientStatus } from "@/generated/prisma";
 import { Gender } from "@/types";
 import Separator from "@/components/UI/Separator";
+import Input, {InputProps} from "@/components/UI/Input";
 
 // ==============================================
 
 const ClientCreatePage = () => {
+    const inputs: InputProps[] = [
+        { type: "text", name: "firstName", label: "Prénom", placeholder: "Alex" },
+        { type: "text", name: "lastName", label: "Nom", placeholder: "Dubois" },
+        { type: "text", name: "job", label: "Poste", placeholder: "CEO de l'entreprise" },
+        { type: "date", name: "birthdate", label: "Date de naissance", defaultValue: new Date().toISOString().split("T")[0], required: false },
+        { type: "mail", name: "mail", label: "Mail", placeholder: "alex.dubois@example.com", required: false },
+        { type: "tel", name: "phone", label: "Téléphone", placeholder: "0707070707", required: false }
+    ];
+
     return (
         <form action={createClient} className={styles.page}>
             <h1>Ajout d'un client</h1>
             <Separator widthPercent={30} />
-            <label htmlFor="firstName">Prénom: (*)</label>
-            <input type="text" name="firstName" id="firstName" placeholder="Alex" required />
+            <i style={{opacity: 50, color: "orange"}}>* : Requis</i>
 
-            <label htmlFor="lastName">Nom: (*)</label>
-            <input type="text" name="lastName" id="lastName" placeholder="Dubois" required />
-
-            <label htmlFor="job">Poste: (*)</label>
-            <input type="text" name="job" id="job" placeholder="CEO de l'entreprise" required />
-
-            <label htmlFor="birthdate">Date de naissance: </label>
-            <input type="date" name="birthdate" id="birthdate" defaultValue={new Date().toISOString().split("T")[0]} />
-
-            <label htmlFor="mail">Mail: </label>
-            <input type="mail" name="mail" id="mail" placeholder="alex.dubois@example.com" />
-
-            <label htmlFor="phone">Téléphone: </label>
-            <input type="phone" name="phone" id="phone" placeholder="0707070707" />
+            {inputs.map((input) => (
+                <Input key={input.name} {...input} />
+            ))}
 
             <label htmlFor="image">Photo: </label>
             <input type="file" name="image" id="image" />
-            <label htmlFor="image"><i>uniquement png, webp et jpeg</i></label>
+            <label htmlFor="image" style={{opacity: 50}}><i>uniquement png, webp et jpeg</i></label>
 
             <label htmlFor="gender">Sex: (*)</label>
             <select name="gender" id="gender" required>
@@ -51,7 +49,7 @@ const ClientCreatePage = () => {
                 ))}
             </select>
 
-                <button style={{width: "fit-content", background: "var(--primary)"}} type="submit">Créer</button>
+            <button style={{width: "fit-content", background: "var(--primary)"}} type="submit">Créer</button>
         </form>
     );
 };
