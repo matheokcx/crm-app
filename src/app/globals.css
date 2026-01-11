@@ -69,6 +69,7 @@ label {
 }
 
 a {
+  width: fit-content;
   font-family: 'inter', sans-serif;
   color: hsl(0, 0%, 10%);
   text-decoration: none;

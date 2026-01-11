@@ -7,6 +7,7 @@ import Chip from "@/components/UI/Chip";
 import { $Enums, ClientStatus } from "@/generated/prisma";
 import GENDER = $Enums.GENDER;
 import { Envelope, GenderFemale, GenderMale, Phone } from "@phosphor-icons/react/ssr";
+import Separator from "@/components/UI/Separator";
 
 // ==============================================
 
@@ -38,40 +39,58 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
 
     return (
         <main className={styles.page}>
-            {client.image && <img src={client.image} alt="Client image" style={{ width: "10%", borderRadius: "12px" }} />}
-            <div>
-                <h2>
-                    {client.firstName} {client.lastName}
-                    {client.gender === GENDER.MALE ? <GenderMale /> : <GenderFemale />} {client.birthdate &&
-                    `(${calculateAge(client.birthdate)} ans)`}
-                </h2>
-                <p>{client.job}</p>
-                <Chip text={client.status} color="var(--background-light)" />
+            <div className={styles.pageHeader}>
+                {client.image && <img src={client.image} alt="Client image" />}
+                <div>
+                    <h2>{client.firstName} {client.lastName}</h2>
+                    <p>{client.job}</p>
+                    <br/>
+                    <Chip text={client.status} color="var(--background-light)" />
+                </div>
             </div>
-            <div className={styles.contactInformation}>
-                {client.mail && (
-                    <span className={styles.contactLine}>
+            <Separator widthPercent={100} />
+            <div style={{ width: "100%", display: "flex", gap: "16px" }}>
+                <div className={styles.contactInformation}>
+                    <h3><u>Informations:</u></h3>
+                    {client.gender === GENDER.MALE ?
+                        (<span className={styles.contactLine}>
+                        <GenderMale size={24} />
+                        <p>Homme</p>
+                    </span>)
+                        : (<span className={styles.contactLine}>
+                        <GenderFemale size={24} />
+                        <p>Femme</p>
+                    </span>)
+                    }
+                    {client.birthdate && (
+                        <p>{client.birthdate.toISOString().split("T")[0]} ({calculateAge(client.birthdate)} ans)</p>
+                    )}
+                </div>
+                {(client.mail || client.phone) && (<div className={styles.contactInformation}>
+                    <h3><u>Contacts:</u></h3>
+                    {client.mail && (
+                        <span className={styles.contactLine}>
                         <Envelope size={24} />
                         <a href={`mailto:${client.mail}`}>{client.mail}</a>
                     </span>
-                )}
-                {client.phone && (
-                    <span className={styles.contactLine}>
+                    )}
+                    {client.phone && (
+                        <span className={styles.contactLine}>
                         <Phone size={24} />
                         <a href={`tel:${client.phone}`}>{client.phone}</a>
                     </span>
-                )}
+                    )}
+                </div>)}
             </div>
+
             {client.links.length > 0 && (
                 <div className={styles.contactInformation}>
-                    {client.links.map((link: string, index: number) =>
-                        <a key={index}
-                           href={link}
-                           target="_blank"
-                        >
+                    <h3><u>Liens:</u></h3>
+                    {client.links.map((link: string, index: number) => (
+                        <a key={index} href={link} target="_blank">
                             {link}
                         </a>
-                    )}
+                    ))}
                 </div>
             )}
         </main>
