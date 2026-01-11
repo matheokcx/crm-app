@@ -1,0 +1,34 @@
+.pageSection {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+}
+
+.pageHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pageHeader button {
+    background: var(--secondary);
+    border-width: 0;
+}
+
+.pageHeader button>a {
+    color: white;
+}
+
+.projectList {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--background);
+}

@@ -24,23 +24,17 @@ export const getAllUserProjects = async (filters: any, userId: number, onlyProce
     });
 };
 
-type ProjectInformationsType = {
-    title: string;
-    description: string;
-    startDate: string;
-    endDate: string;
-    difficulty: ProjectDifficulty;
-    cost: number;
-    clientId: number;
-    parentProjectId?: number;
-};
-
-export const addProject = async (projectInformations: ProjectInformationsType, coverFile: File | null): Promise<Project> => {
+export const addProject = async (projectInformations: FormData, coverFile: File | null): Promise<Project> => {
     return await prismaClient.project.create({
         data: {
-            ...projectInformations,
-            startDate: new Date(projectInformations.startDate),
-            endDate: new Date(projectInformations.endDate),
+            title: projectInformations.get("title") as string,
+            description: projectInformations.get("description") as string,
+            difficulty: projectInformations.get("difficulty") as ProjectDifficulty,
+            cost: Number(projectInformations.get("cost") as string),
+            clientId: Number(projectInformations.get("clientId") as string),
+            parentProjectId: Number(projectInformations.get("parentProjectId") as string) ?? null,
+            startDate: new Date(projectInformations.get("startDate") as string),
+            endDate: new Date(projectInformations.get("endDate") as string),
             cover: coverFile ? `${process.env.FILES_DIRECTORY}/cover_${Date.now()}_${coverFile.name}` : null,
         }
     });
