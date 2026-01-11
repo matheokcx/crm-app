@@ -10,6 +10,7 @@ import { statusColors } from "@/lib/statusColors";
 import { Envelope, GenderFemale, GenderMale, Phone } from "@phosphor-icons/react/ssr";
 import Separator from "@/components/UI/Separator";
 import Avatar from "@/components/UI/Avatar";
+import BackButton from "@/components/UI/Buttons/BackButton";
 
 // ==============================================
 
@@ -41,6 +42,7 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
 
     return (
         <main className={styles.page}>
+            <BackButton />
             <div className={styles.pageHeader}>
                 <Avatar firstName={client.firstName} lastName={client.lastName} image={client.image}/>
                 <div>
