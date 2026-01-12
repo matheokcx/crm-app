@@ -64,19 +64,19 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
                 <Separator widthPercent={100} />
                 <div className={styles.projectInformation}>
                     <div className={styles.projectDetails}>
-                    <p>{project.description}</p>
-                    <div>
-                        <div className={styles.earnedMoneyLine}>
-                            <Money size={24} />
-                            <u>Gain total: </u>
-                            <b>{project.cost}€</b>
-                        </div>
-                        <div className={styles.earnedMoneyLine}>
-                            <div>{getDifficultyIcon(project.difficulty)}</div>
-                            <p>{project.difficulty.toLowerCase()}</p>
+                        <p>{project.description}</p>
+                        <div>
+                            <div className={styles.earnedMoneyLine}>
+                                <Money size={24} />
+                                <u>Gain total: </u>
+                                <b>{project.cost}€</b>
+                            </div>
+                            <div className={styles.earnedMoneyLine}>
+                                <div>{getDifficultyIcon(project.difficulty)}</div>
+                                <p>{project.difficulty.toLowerCase()}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
                     <div className={styles.projectRelationInformation}>
                         {client && (
                             <div className={styles.projectRelationPart} style={{width: "30%"}}>
@@ -108,9 +108,9 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
                             ))}
                         </div>
                     </div>
-                </div>
-                <div>
-                    {files.map((file: File) => <FileCard key={file.id} file={file} />)}
+                    <div className={styles.projectFilesSection}>
+                        {files.map((file: File) => <FileCard key={file.id} file={file} />)}
+                    </div>
                 </div>
             </div>
         </section>

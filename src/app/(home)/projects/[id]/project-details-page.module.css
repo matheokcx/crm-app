@@ -1,6 +1,7 @@
 .projectDetailsPage {
     position: relative;
     width: 80%;
+    height: 100%;
     background: var(--background);
 }
 
@@ -30,12 +31,14 @@
 }
 
 .pageBody {
+    width: 100%;
+    height: 80%;
     padding: 20px;
 }
 
 .projectInformation {
     width: 100%;
-    height: 100%;
+    height: 80%;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -59,6 +62,7 @@
 
 .projectRelationInformation {
     width: 100%;
+    height: 100%;
     border-radius: 10px;
     display: flex;
     gap: 20px;
@@ -75,4 +79,12 @@
     display: flex;
     gap: 5px;
     align-items: center;
+}
+
+.projectFilesSection {
+    width: 100%;
+    height: 100%;
+    background: var(--background-light);
+    padding: 20px;
+    border-radius: 10px;
 }

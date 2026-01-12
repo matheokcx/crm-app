@@ -11,11 +11,11 @@ type FileCardProps = {
 };
 
 const FileCard = ({ file }: FileCardProps) => {
-    const imageExtensions: string[] = ["jpg", "jpeg", "png", "webp", "svg"];
+    const imageExtensions: string[] = ["image/jpeg", "image/png", "image/webp", "image/svg"];
     const router = useRouter();
     const imageStyle = {
         width: "100%",
-        height: "auto",
+        height: "250px",
         borderRadius: "6px",
         border: "1px solid hsla(0, 0%, 20%, 50%)"
     };
@@ -25,7 +25,7 @@ const FileCard = ({ file }: FileCardProps) => {
     return (
         <div className={styles.fileCard} onClick={handleFileClick}>
             {imageExtensions.includes(file.type) && (
-                <Image src={`/files/${file.name}.${file.type}`}
+                <Image src={`/files/${file.name}`}
                        alt="Image of the file"
                        width={100}
                        height={100}
