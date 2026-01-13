@@ -5,7 +5,7 @@ import {getAllUserProjects} from "@/services/projectService";
 import {authOptions} from "@/lib/auth";
 import {getServerSession} from "next-auth/next";
 import { Project } from "@/types";
-import ProjectCard from "@/components/UI/Cards/ProjectCard";
+import ProjectCard from "@/components/UI/Cards/Project/ProjectCard";
 
 // ==============================================
 

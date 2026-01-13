@@ -11,9 +11,9 @@ import { getClient } from "@/services/clientService";
 import Avatar from "@/components/UI/Avatar";
 import {getMeetings} from "@/services/meetingService";
 import { getFilesByProject } from "@/services/fileService";
-import FileCard from "@/components/UI/Cards/FileCard";
+import FileCard from "@/components/UI/Cards/File/FileCard";
 import BackButton from "@/components/UI/Buttons/BackButton";
-import MeetingReduceCard from "@/components/UI/Cards/MeetingReduceCard";
+import MeetingReduceCard from "@/components/UI/Cards/Meeting/MeetingReduceCard";
 
 // ==============================================
 

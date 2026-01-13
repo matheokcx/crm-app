@@ -1,9 +1,9 @@
 import styles from "./homepage.module.css";
 import KpiCard from "@/components/UI/Cards/KpiCard";
 import { Meeting, File, Project, Client } from "@/types";
-import MeetingReduceCard from "@/components/UI/Cards/MeetingReduceCard";
+import MeetingReduceCard from "@/components/UI/Cards/Meeting/MeetingReduceCard";
 import { getFormattedDate } from "@/utils/utils";
-import FileCard from "@/components/UI/Cards/FileCard";
+import FileCard from "@/components/UI/Cards/File/FileCard";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { getAllUserClients } from "@/services/clientService";
