@@ -25,7 +25,7 @@ const MeetingCard = ({meeting}: MeetingCardProps) => {
 
     return (
         <div className={styles.meetingCard} style={{ background: getRandomMeetingColor() }}>
-            <h2>{meeting.title}</h2>
+            <h3>{meeting.title}</h3>
             <p className={styles.meetingDescription}>{meeting.description}</p>
             <div className={styles.meetingDurationLine}>
                 <Clock size={24} />
