@@ -1,7 +1,7 @@
 import { getClient } from "@/services/clientService";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth/next";
-import { Client } from "@/types";
+import {Client, ClientNote} from "@/types";
 import styles from "./client-detail-page.module.css";
 import Chip from "@/components/UI/Chip";
 import { $Enums, ClientStatus } from "@/generated/prisma";
@@ -11,6 +11,8 @@ import { Envelope, GenderFemale, GenderMale, Phone } from "@phosphor-icons/react
 import Separator from "@/components/UI/Separator";
 import Avatar from "@/components/UI/Avatar";
 import BackButton from "@/components/UI/Buttons/BackButton";
+import {getClientNotes} from "@/services/clientNoteService";
+import ClientNotesSection from "@/components/Layout/Client/ClientNotesSection";
 
 // ==============================================
 
@@ -24,6 +26,12 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
 
     const client: Client | null = await getClient(Number(id), Number(session.user.id));
 
+    if(!client){
+        return <p>Client non trouvé ...</p>
+    }
+
+    const clientNotes: ClientNote[] = await getClientNotes(client.id, Number(session.user.id));
+
     const calculateAge = (birthdate: Date): number => {
         const today: Date = new Date();
         let age: number = today.getFullYear() - birthdate.getFullYear();
@@ -35,10 +43,6 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
 
         return age;
     };
-
-    if(!client){
-        return <p>Client non trouvé ...</p>
-    }
 
     return (
         <main className={styles.page}>
@@ -96,6 +100,7 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
                     ))}
                 </div>
             )}
+            <ClientNotesSection clientNotes={clientNotes} />
         </main>
     );
 };

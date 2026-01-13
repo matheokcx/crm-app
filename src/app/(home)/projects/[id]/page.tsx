@@ -13,6 +13,7 @@ import {getMeetings} from "@/services/meetingService";
 import { getFilesByProject } from "@/services/fileService";
 import FileCard from "@/components/UI/Cards/FileCard";
 import BackButton from "@/components/UI/Buttons/BackButton";
+import MeetingReduceCard from "@/components/UI/Cards/MeetingReduceCard";
 
 // ==============================================
 
@@ -102,9 +103,7 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
                         <div className={styles.projectRelationPart}>
                             <h2>Réunions associées</h2>
                             {projectMeetings.map((meeting: Meeting, index: number) => (
-                                <div key={index}>
-                                    <p>{meeting.title} le {meeting.startHour.toISOString()}</p>
-                                </div>
+                                <MeetingReduceCard key={index} meetingTitle={meeting.title} weekDay={meeting.startHour} />
                             ))}
                         </div>
                     </div>
