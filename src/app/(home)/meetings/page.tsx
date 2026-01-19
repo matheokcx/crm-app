@@ -1,30 +1,23 @@
 import { getMeetings } from "@/services/meetingService";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth/next";
-import { Meeting } from "@/types";
-import MeetingCard from "@/components/UI/Cards/Meeting/MeetingCard";
-import styles from "./meetings-page.module.css";
-import {getWeekDay} from "@/utils/utils";
+import { redirect } from "next/navigation";
+import MeetingsCalendarWrapper from "@/components/Layout/Meeting/MeetingsCalendarWrapper";
 
 // ==============================================
 
 const MeetingsCalendarPage = async () => {
     const session = await getServerSession(authOptions);
 
-    if(!session?.user){
-        return <p>Vous n'êtes pas connecté ...</p>;
+    if (!session?.user) {
+        redirect("/login");
     }
 
-    const meetings: Meeting[] = await getMeetings({}, Number(session.user.id));
+    const meetings = await getMeetings({}, Number(session.user.id));
 
     return (
-        <section className={styles.calendar}>
-            {Array.from({ length: 7 }, (_, index) =>(
-                <div style={{width: "13%"}}>
-                    <p>{getWeekDay(index)}</p>
-                </div>
-            ))}
-            {meetings.map((meeting: Meeting) => <MeetingCard key={meeting.id} meeting={meeting} />)}
+        <section style={{ width: "80%"}}>
+            <MeetingsCalendarWrapper meetings={meetings} />
         </section>
     );
 };

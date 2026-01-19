@@ -15,7 +15,7 @@ const FileCard = ({ file }: FileCardProps) => {
     const router = useRouter();
     const imageStyle = {
         width: "100%",
-        height: "250px",
+        height: "150px",
         borderRadius: "6px",
         border: "1px solid hsla(0, 0%, 20%, 50%)"
     };
@@ -40,7 +40,7 @@ const FileCard = ({ file }: FileCardProps) => {
                     width="100%"
                 />
             )}
-            <p>{file.name}.{file.type}</p>
+            <p className={styles.fileName}>{file.name}.{file.type}</p>
         </div>
     );
 };
