@@ -1,11 +1,11 @@
 import styles from "./clients-page.module.css";
-import { Client } from "@/types";
+import {Client} from "@/types";
 import ClientCard from "@/components/UI/Cards/Client/ClientCard";
 import Link from "next/link";
-import { Plus } from "@phosphor-icons/react/ssr";
-import { getAllUserClients } from "@/services/clientService";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth/next";
+import {Plus} from "@phosphor-icons/react/ssr";
+import {getAllUserClients} from "@/services/clientService";
+import {authOptions} from "@/lib/auth";
+import {getServerSession} from "next-auth/next";
 
 // ==============================================
 

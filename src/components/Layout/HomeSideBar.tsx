@@ -1,13 +1,13 @@
 'use client'
-import { signOut } from "next-auth/react";
+import {signOut} from "next-auth/react";
 import "./style.css";
-import { JSX } from "react";
-import { useRouter } from "next/navigation";
+import {JSX} from "react";
+import {useRouter} from "next/navigation";
 import LinkLine from "@/components/UI/Lines/LinkLine";
-import { House, Users, Browsers, CalendarDots } from "@phosphor-icons/react";
+import {Browsers, CalendarDots, House, Users} from "@phosphor-icons/react";
+import LanguageButton from "@/components/UI/Buttons/LanguageButton";
 
 // ==============================================
-
 
 const HomeSideBar = () => {
     const links: {link: string, title: string, icon: JSX.Element}[] = [
@@ -36,6 +36,7 @@ const HomeSideBar = () => {
             </nav>
 
             <div className="buttonsSection">
+                <LanguageButton />
                 <button onClick={() => signOut()} className="logoutButton">
                     Déconnexion
                 </button>

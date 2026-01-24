@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import "./globals.css";
 import SessionWrapper from "@/components/Layout/SessionWrapper";
-import { Inter, Poppins } from 'next/font/google';
-import { Toaster } from "react-hot-toast";
+import {Inter, Poppins} from 'next/font/google';
+import {Toaster} from "react-hot-toast";
+import {NextIntlClientProvider} from "next-intl";
 
 // ==============================================
 
@@ -19,8 +20,10 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <html lang="fr">
       <body className={`${inter.className} ${poppins.className}`}>
         <SessionWrapper>
-          <div><Toaster/></div>
-          {children}
+            <NextIntlClientProvider>
+                <div><Toaster/></div>
+                {children}
+            </NextIntlClientProvider>
         </SessionWrapper>
       </body>
     </html>
