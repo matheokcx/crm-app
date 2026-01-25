@@ -1,5 +1,5 @@
-import { prismaClient } from "@/lib/prisma";
-import { Client, ClientStatus, Gender } from "@/types";
+import {prismaClient} from "@/lib/prisma";
+import {Client} from "@/types";
 import path from "path";
 import {writeFile} from "fs/promises";
 
@@ -19,7 +19,7 @@ export const addClient = async (clientInfos: any, userId: number): Promise<Clien
     const today: number = Date.now();
     const profilePicture: File = clientInfos.get("image") as File;
 
-    if(profilePicture && profilePicture.size > 0 && acceptedFileFormat.includes(profilePicture.type)){
+    if(profilePicture && profilePicture.size > 0){
         const bytes = await profilePicture.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
