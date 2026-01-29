@@ -1,5 +1,6 @@
 import styles from "./meetingReduceCard.module.css"
-import { getWeekDay } from "@/utils/utils";
+import {getWeekDay} from "@/utils/utils";
+import {useTranslations} from "next-intl";
 
 // ==============================================
 
@@ -9,9 +10,11 @@ type MeetingReduceCardProps = {
 };
 
 const MeetingReduceCard = ({weekDay, meetingTitle}: MeetingReduceCardProps) => {
+    const t = useTranslations();
+
     return (
         <div className={styles.meetingReduceCard}>
-            <label>{getWeekDay(weekDay.getDay())}</label>
+            <label>{t(`daysOfWeek.${getWeekDay(weekDay.getDay())}`)}</label>
             {
                 meetingTitle ? (
                     <div className={styles.meetingBlock}>
@@ -19,7 +22,7 @@ const MeetingReduceCard = ({weekDay, meetingTitle}: MeetingReduceCardProps) => {
                     </div>
                 ) : (
                     <div className={styles.noMeetingBlock}>
-                        <p>Rien de prévu</p>
+                        <p>{t("nothingSchedule")}</p>
                     </div>
                 )
             }

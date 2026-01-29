@@ -1,5 +1,44 @@
 {
-  "clientPage": {
-    "title": "titre"
+  "links": {
+    "home": "Accueil"
+  },
+  "add": "Ajouter",
+  "create": "Créer",
+  "edit": "Modifier",
+  "details": "Détails",
+  "nothingSchedule": "Rien de prévu",
+  "daysOfWeek": {
+    "monday": "Lundi",
+    "tuesday": "Mardi",
+    "wednesday": "Mercredi",
+    "thursday": "Jeudi",
+    "friday": "Vendredi",
+    "saturday": "Samedi",
+    "sunday": "Dimanche"
+  },
+  "clients": {
+    "clients": "Clients",
+    "status": {
+      "LEAD": "Lead",
+      "SIGNED": "Signé",
+      "LOST": "Perdu",
+      "ARCHIVED": "Archivé"
+    },
+    "listPage": {
+      "title": "Liste de vos clients:"
+    }
+  },
+  "projects": {
+    "projects": "Projets",
+    "inProgress": "Projets en cours",
+    "listPage": {
+      "title": "Répertoire de vos projets"
+    }
+  },
+  "meetings": {
+    "meetings": "Réunions"
+  },
+  "files": {
+    "recentFiles": "Fichiers récents"
   }
 }

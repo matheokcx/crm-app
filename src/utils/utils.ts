@@ -48,19 +48,19 @@ export const manageUrlQueryParams = (searchParams:  URLSearchParams, allowedFilt
 export const getWeekDay = (day: number): string => {
     switch(day){
         case 1:
-            return "Lundi";
+            return "monday";
         case 2:
-            return "Mardi";
+            return "tuesday";
         case 3:
-            return "Mercredi";
+            return "wednesday";
         case 4:
-            return "Jeudi";
+            return "thursday";
         case 5:
-            return "Vendredi";
+            return "friday";
         case 6:
-            return "Samedi";
+            return "saturday";
         case 0:
-            return "Dimanche";
+            return "sunday";
         default:
             return day.toString()
     }

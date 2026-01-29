@@ -6,15 +6,17 @@ import {useRouter} from "next/navigation";
 import LinkLine from "@/components/UI/Lines/LinkLine";
 import {Browsers, CalendarDots, House, Users} from "@phosphor-icons/react";
 import LanguageButton from "@/components/UI/Buttons/LanguageButton";
+import {useTranslations} from "next-intl";
 
 // ==============================================
 
 const HomeSideBar = () => {
+    const t = useTranslations();
     const links: {link: string, title: string, icon: JSX.Element}[] = [
-        {link: "/", title: "Accueil", icon: <House size={32} weight="bold" />},
-        {link: "/clients", title: "Clients", icon: <Users size={32} weight="bold" />},
-        {link: "/projects", title: "Projets", icon: <Browsers size={32} weight="bold" />},
-        {link: "/meetings", title: "Réunions", icon: <CalendarDots size={32} weight="bold" />}
+        {link: "/", title: t("links.home"), icon: <House size={32} weight="bold" />},
+        {link: "/clients", title: t("clients.clients"), icon: <Users size={32} weight="bold" />},
+        {link: "/projects", title: t("projects.projects"), icon: <Browsers size={32} weight="bold" />},
+        {link: "/meetings", title: t("meetings.meetings"), icon: <CalendarDots size={32} weight="bold" />}
     ];
     const router = useRouter();
 

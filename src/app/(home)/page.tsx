@@ -1,20 +1,22 @@
 import styles from "./homepage.module.css";
 import KpiCard from "@/components/UI/Cards/KpiCard";
-import { Meeting, File, Project, Client } from "@/types";
+import {Client, File, Meeting, Project} from "@/types";
 import MeetingReduceCard from "@/components/UI/Cards/Meeting/MeetingReduceCard";
-import { getFormattedDate } from "@/utils/utils";
+import {getFormattedDate} from "@/utils/utils";
 import FileCard from "@/components/UI/Cards/File/FileCard";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
-import { getAllUserClients } from "@/services/clientService";
-import { getAllUserProjects } from "@/services/projectService";
-import { getFiles } from "@/services/fileService";
-import { getMeetings } from "@/services/meetingService";
+import {getServerSession} from "next-auth/next";
+import {authOptions} from "@/lib/auth";
+import {getAllUserClients} from "@/services/clientService";
+import {getAllUserProjects} from "@/services/projectService";
+import {getFiles} from "@/services/fileService";
+import {getMeetings} from "@/services/meetingService";
+import {getTranslations} from "next-intl/server";
 
 // ==============================================
 
 const HomePage = async () => {
     const session = await getServerSession(authOptions);
+    const t = await getTranslations();
     const today: Date = new Date();
     const formattedTodayDate: string = getFormattedDate(today);
 
@@ -56,13 +58,13 @@ const HomePage = async () => {
                       })}
                   </div>
                   <div className={styles.kpisDiv}>
-                      <KpiCard name="Clients" value={clients.length} />
-                      <KpiCard name="Projets en cours" value={processingProjects.length} />
+                      <KpiCard name={t("clients.clients")} value={clients.length} />
+                      <KpiCard name={t("projects.inProgress")} value={processingProjects.length} />
                   </div>
               </div>
               <div className={styles.homePageSectionRow}>
                   <div className={styles.recentFilesDiv}>
-                      <label>Fichiers récents:</label>
+                      <label>{t("files.recentFiles")}</label>
                       <div className={styles.filesDiv}>
                           {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}
                       </div>
