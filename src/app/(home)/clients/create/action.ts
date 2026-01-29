@@ -21,7 +21,7 @@ export const createClient = async (inputs: FormData): Promise<void> => {
                 .max(100, "Le nom doit avoir au maximum une longueur de 100"),
             job: z.string("Ça doit être du texte")
                 .max(100, "Le poste doit avoir au maximum une longueur de 100"),
-            status: z.enum(["EASY", "MEDIUM", "HARD", "EXPERT"]),
+            status: z.enum(["LEAD", "SIGNED", "LOST", "ARCHIVED"]),
             birthdate: z.coerce.date().nullable(),
             mail: z.email().nullable(),
             phone: z.string().nullable(),

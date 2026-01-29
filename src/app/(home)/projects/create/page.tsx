@@ -1,4 +1,4 @@
-import { createProject } from "@/app/(home)/projects/create/action";
+import {createProject} from "@/app/(home)/projects/create/action";
 import styles from "./project-create-page.module.css";
 import Input from "@/components/UI/Input";
 
@@ -9,12 +9,18 @@ const ProjectCreatePage = () => {
     const tomorrow = (new Date(Date.now() + 86400)).toISOString().split("T")[0];
 
     return (
-        <form action={createProject}>
-            <Input type="text" label="Titre" name="title" placeholder="Application de tri des mails" />
-            <Input type="text" label="Description" name="description" placeholder="Une application permettant ..." />
+        <form action={createProject} className={styles.projectForm}>
+            <Input type="text" label="Titre" name="title"/>
+            <Input type="text" label="Description" name="description"/>
             <Input type="number" label="Coût" name="cost" placeholder="5000" />
-            <Input type="date" label="Titre" name="title" placeholder="Application de tri des mails" defaultValue={today} />
-            <Input type="date" label="Titre" name="title" placeholder="Application de tri des mails" defaultValue={tomorrow} />
+            <Input type="date" label="Titre" name="startDate" defaultValue={today} />
+            <Input type="date" label="Titre" name="endDate" defaultValue={tomorrow} />
+
+            <select name="difficulty">
+
+            </select>
+
+            <input type="file" name="cover" />
 
             <button type="submit">Créer</button>
         </form>
