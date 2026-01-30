@@ -1,5 +1,5 @@
-import { prismaClient } from "@/lib/prisma";
-import {Client, Project, ProjectDifficulty} from "@/types";
+import {prismaClient} from "@/lib/prisma";
+import {Project, ProjectDifficulty} from "@/types";
 
 // ==============================================
 
@@ -25,6 +25,8 @@ export const getAllUserProjects = async (filters: any, userId: number, onlyProce
 };
 
 export const addProject = async (projectInformations: FormData, coverFile: File | null): Promise<Project> => {
+    const parentProjectId: number | null = projectInformations.get("parentProjectId") ? Number(projectInformations.get("parentProjectId") as string) : null;
+
     return await prismaClient.project.create({
         data: {
             title: projectInformations.get("title") as string,
@@ -32,7 +34,7 @@ export const addProject = async (projectInformations: FormData, coverFile: File 
             difficulty: projectInformations.get("difficulty") as ProjectDifficulty,
             cost: Number(projectInformations.get("cost") as string),
             clientId: Number(projectInformations.get("clientId") as string),
-            parentProjectId: Number(projectInformations.get("parentProjectId") as string) ?? null,
+            parentProjectId: parentProjectId,
             startDate: new Date(projectInformations.get("startDate") as string),
             endDate: new Date(projectInformations.get("endDate") as string),
             cover: coverFile ? `${process.env.FILES_DIRECTORY}/cover_${Date.now()}_${coverFile.name}` : null,

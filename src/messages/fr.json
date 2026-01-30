@@ -33,6 +33,12 @@
     "inProgress": "Projets en cours",
     "listPage": {
       "title": "Répertoire de vos projets"
+    },
+    "difficulties": {
+      "EASY": "Facile",
+      "MEDIUM": "Intermédiaire",
+      "HARD": "Difficile",
+      "EXPERT": "Expert"
     }
   },
   "meetings": {
