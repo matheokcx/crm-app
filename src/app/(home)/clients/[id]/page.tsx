@@ -1,24 +1,26 @@
-import { getClient } from "@/services/clientService";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth/next";
+import {getClient} from "@/services/clientService";
+import {authOptions} from "@/lib/auth";
+import {getServerSession} from "next-auth/next";
 import {Client, ClientNote} from "@/types";
 import styles from "./client-detail-page.module.css";
 import Chip from "@/components/UI/Chip";
-import { $Enums, ClientStatus } from "@/generated/prisma";
-import GENDER = $Enums.GENDER;
-import { statusColors } from "@/lib/statusColors";
-import { Envelope, GenderFemale, GenderMale, Phone } from "@phosphor-icons/react/ssr";
+import {$Enums, ClientStatus} from "@/generated/prisma";
+import {statusColors} from "@/lib/statusColors";
+import {Envelope, GenderFemale, GenderMale, Phone} from "@phosphor-icons/react/ssr";
 import Separator from "@/components/UI/Separator";
 import Avatar from "@/components/UI/Avatar";
 import BackButton from "@/components/UI/Buttons/BackButton";
 import {getClientNotes} from "@/services/clientNoteService";
 import ClientNotesSection from "@/components/Layout/Client/ClientNotesSection";
+import {getTranslations} from "next-intl/server";
+import GENDER = $Enums.GENDER;
 
 // ==============================================
 
 const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
     const session = await getServerSession(authOptions);
     const { id } = await params;
+    const t = await getTranslations();
 
     if(!session?.user?.id){
         return <p>Vous n'êtes pas connecté ...</p>
@@ -52,29 +54,29 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
                 <div>
                     <h2>{client.firstName} {client.lastName}</h2>
                     <p>{client.job}</p>
-                    <Chip text={client.status} color={statusColors[client.status as ClientStatus]} />
+                    <Chip text={t(`clients.status.${client.status}`)} color={statusColors[client.status as ClientStatus]} />
                 </div>
             </div>
             <Separator widthPercent={100} />
             <div className={styles.infos} style={{ width: "100%", display: "flex", gap: "16px" }}>
                 <div className={styles.contactInformation}>
-                    <h3><u>Informations:</u></h3>
+                    <h3><u>{t("information")}:</u></h3>
                     {client.gender === GENDER.MALE ?
                         (<span className={styles.contactLine}>
                         <GenderMale size={24} />
-                        <p>Homme</p>
+                        <p>{t('MALE')}</p>
                     </span>)
                         : (<span className={styles.contactLine}>
                         <GenderFemale size={24} />
-                        <p>Femme</p>
+                        <p>{t('FEMALE')}</p>
                     </span>)
                     }
                     {client.birthdate && (
-                        <p>{client.birthdate.toISOString().split("T")[0]} ({calculateAge(client.birthdate)} ans)</p>
+                        <p>{client.birthdate.toISOString().split("T")[0]} ({calculateAge(client.birthdate)} {t("years")})</p>
                     )}
                 </div>
                 {(client.mail || client.phone) && (<div className={styles.contactInformation}>
-                    <h3><u>Contacts:</u></h3>
+                    <h3><u>{t("contacts")}:</u></h3>
                     {client.mail && (
                         <span className={styles.contactLine}>
                             <Envelope size={24} />
@@ -92,7 +94,7 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
 
             {client.links.length > 0 && (
                 <div className={styles.contactInformation}>
-                    <h3><u>Liens:</u></h3>
+                    <h3><u>{t("links.links")}:</u></h3>
                     {client.links.map((link: string, index: number) => (
                         <a key={index} href={link} target="_blank">
                             {link}

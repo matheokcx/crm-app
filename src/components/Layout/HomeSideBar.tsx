@@ -40,7 +40,7 @@ const HomeSideBar = () => {
             <div className="buttonsSection">
                 <LanguageButton />
                 <button onClick={() => signOut()} className="logoutButton">
-                    Déconnexion
+                    {t('auth.logout')}
                 </button>
             </div>
         </header>

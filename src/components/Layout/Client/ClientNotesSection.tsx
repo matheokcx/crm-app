@@ -1,5 +1,6 @@
-import { ClientNote } from "@/types";
+import {ClientNote} from "@/types";
 import styles from "./client-note-section.module.css";
+import {getTranslations} from "next-intl/server";
 
 // ==============================================
 
@@ -7,10 +8,12 @@ type ClientNotesSectionProps = {
     clientNotes: ClientNote[];
 };
 
-const ClientNotesSection = ({clientNotes}: ClientNotesSectionProps) => {
+const ClientNotesSection = async ({clientNotes}: ClientNotesSectionProps) => {
+    const t = await getTranslations();
+
     return (
         <section className={styles.clientNotesSection}>
-            <h3>Vos notes à propos:</h3>
+            <h3>{t("clients.detailsPage.aboutNotes")}:</h3>
             {clientNotes.map((clientNote) => (
                 <div key={clientNote.id} className={styles.clientNoteCard}>
                     <p>{clientNote.text}</p>

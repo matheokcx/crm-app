@@ -1,5 +1,7 @@
 import {prismaClient} from "@/lib/prisma";
 import {Project, ProjectDifficulty} from "@/types";
+import path from "path";
+import {writeFile} from "fs/promises";
 
 // ==============================================
 
@@ -24,8 +26,20 @@ export const getAllUserProjects = async (filters: any, userId: number, onlyProce
     });
 };
 
-export const addProject = async (projectInformations: FormData, coverFile: File | null): Promise<Project> => {
+export const addProject = async (projectInformations: FormData): Promise<Project> => {
     const parentProjectId: number | null = projectInformations.get("parentProjectId") ? Number(projectInformations.get("parentProjectId") as string) : null;
+    const coverFile: File | null = projectInformations.get("cover") ? projectInformations.get("cover") as File : null;
+    const today: number = Date.now();
+
+    if(coverFile && coverFile.size > 0){
+        const bytes = await coverFile.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        const uploadDirectoryPath: string = path.join(process.cwd(), process.env.FILES_DIRECTORY ?? "public/files");
+        const newFilePath: string = path.join(uploadDirectoryPath, `project_cover_${today}_${coverFile.name}`);
+
+        await writeFile(newFilePath, buffer);
+    }
 
     return await prismaClient.project.create({
         data: {
@@ -37,7 +51,7 @@ export const addProject = async (projectInformations: FormData, coverFile: File 
             parentProjectId: parentProjectId,
             startDate: new Date(projectInformations.get("startDate") as string),
             endDate: new Date(projectInformations.get("endDate") as string),
-            cover: coverFile ? `${process.env.FILES_DIRECTORY}/cover_${Date.now()}_${coverFile.name}` : null,
+            cover: coverFile ? `/files/project_cover_${today}_${coverFile.name}` : null,
         }
     });
 };

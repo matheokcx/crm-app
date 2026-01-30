@@ -1,16 +1,27 @@
-import { getProject } from "@/services/projectService";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
-import { Client, Meeting, Project, ProjectDifficulty, File } from "@/types";
-import Image from "next/image";
+import {getProject} from "@/services/projectService";
+import {getServerSession} from "next-auth/next";
+import {authOptions} from "@/lib/auth";
+import {Client, File, Meeting, Project, ProjectDifficulty} from "@/types";
 import styles from "./project-details-page.module.css";
 import Separator from "@/components/UI/Separator";
-import { ArrowRight, CalendarCheck, CalendarDot, CellSignalFull, CellSignalHigh, CellSignalLow, CellSignalMedium, Envelope, Money, Phone } from "@phosphor-icons/react/ssr";
-import { JSX } from "react";
-import { getClient } from "@/services/clientService";
+import {
+    ArrowRight,
+    CalendarCheck,
+    CalendarDot,
+    CellSignalFull,
+    CellSignalHigh,
+    CellSignalLow,
+    CellSignalMedium,
+    Envelope,
+    Money,
+    Phone
+} from "@phosphor-icons/react/ssr";
+import {JSX} from "react";
+import Image from "next/image";
+import {getClient} from "@/services/clientService";
 import Avatar from "@/components/UI/Avatar";
 import {getMeetings} from "@/services/meetingService";
-import { getFilesByProject } from "@/services/fileService";
+import {getFilesByProject} from "@/services/fileService";
 import FileCard from "@/components/UI/Cards/File/FileCard";
 import BackButton from "@/components/UI/Buttons/BackButton";
 import MeetingReduceCard from "@/components/UI/Cards/Meeting/MeetingReduceCard";

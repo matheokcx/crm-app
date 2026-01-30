@@ -39,7 +39,7 @@ export const createProject = async (data: FormData): Promise<void> => {
         const dataValide = projectSchema.safeParse(formDataObject);
 
         if(dataValide.success) {
-            const newProject: Project = await addProject(data, null);
+            const newProject: Project = await addProject(data);
 
             if(newProject){
                 redirect(`/projects/${newProject.id}`);

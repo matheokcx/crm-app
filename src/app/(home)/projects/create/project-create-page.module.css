@@ -1,5 +1,10 @@
 .projectForm {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--background);
     display: flex;
     flex-direction: column;
     gap: 10px;
+    overflow-y: auto;
 }

@@ -10,12 +10,16 @@ export const getAllUserClients = async (filters: any, userId: number): Promise<C
         where: {
             ...filters,
             freelanceId: userId
-        }
+        },
+        orderBy: [
+            {
+                firstName: 'asc'
+            }
+        ],
     });
 };
 
 export const addClient = async (clientInfos: any, userId: number): Promise<Client> => {
-    const acceptedFileFormat: string[] = ["image/png", "image/jpeg", "image/webp"];
     const today: number = Date.now();
     const profilePicture: File = clientInfos.get("image") as File;
 

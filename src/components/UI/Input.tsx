@@ -8,9 +8,11 @@ export type InputProps = {
 };
 
 const Input = ({type, name, label, placeholder, required = true, defaultValue}: InputProps) => {
+    const isHidden = type === "hidden";
+
     return (
         <>
-            <label htmlFor={name}>{label}{required && "*"}</label>
+            {!isHidden && <label htmlFor={name}>{label}{required && "*"}</label>}
             <input type={type}
                    name={name}
                    id={name}

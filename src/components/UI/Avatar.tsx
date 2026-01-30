@@ -1,4 +1,5 @@
 import styles from "@/components/UI/avatar.module.css";
+import Image from "next/image";
 
 // ==============================================
 
@@ -11,7 +12,7 @@ type AvatarProps = {
 const Avatar = ({ firstName, lastName, image }: AvatarProps) => {
     return (
         <>
-            {image ? <img src={image} alt="Image du client" className={styles.avatar} />
+            {image ? <Image src={image} alt="Image du client" width={64} height={64} className={styles.avatar} />
                 : <h3 className={styles.avatar}>{lastName.slice(0, 2)} {firstName.slice(0, 1)}.</h3>
             }
         </>

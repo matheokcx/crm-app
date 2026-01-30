@@ -1,5 +1,6 @@
 {
   "links": {
+    "links": "Links",
     "home": "Home"
   },
   "add": "Add",
@@ -26,13 +27,24 @@
     },
     "listPage": {
       "title": "List of your clients:"
+    },
+    "detailsPage": {
+      "aboutNotes": "Your about notes"
+    },
+    "createPage": {
+      "title": "Adding a client",
+      "fileRequirements": "Only .png, .webp and .jpeg, Max 5MB"
     }
   },
   "projects": {
     "projects": "Projects",
+    "parentProject": "Parent project",
     "inProgress": "Projects in progress",
     "listPage": {
       "title": "Directory of your projects"
+    },
+    "createPage": {
+      "title": "Create a project"
     },
     "difficulties": {
       "EASY": "Easy",
@@ -46,5 +58,27 @@
   },
   "files": {
     "recentFiles": "Recent files"
-  }
+  },
+  "firstName": "First name",
+  "lastName": "Last name",
+  "job": "Job",
+  "birthdate": "Birthdate",
+  "phone": "Phone",
+  "required": "Required",
+  "photo": "Photo",
+  "status": "Status",
+  "MALE": "Male",
+  "FEMALE": "Female",
+  "auth": {
+    "logout": "Logout"
+  },
+  "information": "Information",
+  "years": "years",
+  "contacts": "Contacts",
+  "title": "Title",
+  "description": "Description",
+  "gain": "Gain",
+  "startDate": "Start date",
+  "endDate": "End date",
+  "cover": "Cover"
 }
