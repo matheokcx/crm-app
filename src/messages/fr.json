@@ -57,7 +57,8 @@
     }
   },
   "meetings": {
-    "meetings": "Réunions"
+    "meetings": "Réunions",
+    "shortcutSectionTitle": "Vos prochaines réunions"
   },
   "files": {
     "recentFiles": "Fichiers récents"

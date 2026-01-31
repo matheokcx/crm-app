@@ -45,17 +45,20 @@ const HomePage = async () => {
         <section className={styles.homePage}>
           <div className={styles.homePageSection}>
               <div className={styles.homePageSectionRow}>
-                  <div className={styles.comingSoonMeetingsDiv}>
-                      {comingMeetings.map((meeting: Meeting | null, index: number) => {
-                          const todayDate = new Date();
-                          todayDate.setDate(todayDate.getDate() + index);
-                          const dateLabel: string = getFormattedDate(todayDate);
+                  <div className={styles.comingSoonMeetingsWidget}>
+                      <h3>{t("meetings.shortcutSectionTitle")}:</h3>
+                      <div className={styles.comingSoonMeetingsDiv}>
+                          {comingMeetings.map((meeting: Meeting | null, index: number) => {
+                              const todayDate: Date = new Date();
+                              todayDate.setDate(todayDate.getDate() + index);
+                              const dateLabel: string = getFormattedDate(todayDate);
 
-                          return <MeetingReduceCard key={index}
-                                                    weekDay={meeting ? meeting.startHour : new Date(dateLabel)}
-                                                    meetingTitle={meeting?.title}
-                          />
-                      })}
+                              return <MeetingReduceCard key={index}
+                                                        weekDay={meeting ? meeting.startHour : new Date(dateLabel)}
+                                                        meetingTitle={meeting?.title}
+                              />
+                          })}
+                      </div>
                   </div>
                   <div className={styles.kpisDiv}>
                       <KpiCard name={t("clients.clients")} value={clients.length} />
@@ -63,12 +66,14 @@ const HomePage = async () => {
                   </div>
               </div>
               <div className={styles.homePageSectionRow}>
-                  <div className={styles.recentFilesDiv}>
-                      <label>{t("files.recentFiles")}</label>
-                      <div className={styles.filesDiv}>
-                          {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}
+                  {recentFiles.length > 0 && (
+                      <div className={styles.recentFilesDiv}>
+                          <label>{t("files.recentFiles")}</label>
+                          <div className={styles.filesDiv}>
+                              {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}
+                          </div>
                       </div>
-                  </div>
+                  )}
                   <div style={{width: "50%"}}></div>
               </div>
           </div>

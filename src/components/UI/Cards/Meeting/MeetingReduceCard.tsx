@@ -11,10 +11,15 @@ type MeetingReduceCardProps = {
 
 const MeetingReduceCard = ({weekDay, meetingTitle}: MeetingReduceCardProps) => {
     const t = useTranslations();
+    const isToday: boolean = weekDay.getDay() === (new Date()).getDay();
+    const style = {
+        color: isToday ? "var(--main-text" : "var(--secondary-text)",
+        fontWeight: isToday ? 700 : 400,
+    };
 
     return (
         <div className={styles.meetingReduceCard}>
-            <label>{t(`daysOfWeek.${getWeekDay(weekDay.getDay())}`)}</label>
+            <label style={style}>{t(`daysOfWeek.${getWeekDay(weekDay.getDay())}`)}</label>
             {
                 meetingTitle ? (
                     <div className={styles.meetingBlock}>

@@ -1,5 +1,4 @@
 .meetingReduceCard {
-    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -8,7 +7,6 @@
 
 .meetingReduceCard label {
     display: block;
-    width: 100%;
     text-align: center;
 }
 
@@ -25,10 +23,14 @@
 }
 
 .meetingBlock p {
-    width: 85%;
+    width: 100px;
+    height: 35px;
     text-align: center;
     color: hsl(0, 0%, 100%);
     font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .noMeetingBlock {
@@ -43,7 +45,6 @@
 }
 
 .noMeetingBlock p {
-    width: 85%;
     text-align: center;
     color: var(--main-text);
     opacity: 50%;

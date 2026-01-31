@@ -30,6 +30,10 @@
     width: 100px;
 }
 
+.logo img:hover {
+    cursor: pointer;
+}
+
 .buttonsSection {
     width: 100%;
     display: grid;
