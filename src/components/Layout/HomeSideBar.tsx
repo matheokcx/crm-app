@@ -1,18 +1,24 @@
 'use client'
 import {signOut} from "next-auth/react";
-import "./style.css";
 import {JSX} from "react";
 import {useRouter} from "next/navigation";
 import LinkLine from "@/components/UI/Lines/LinkLine";
 import {Browsers, CalendarDots, House, Users} from "@phosphor-icons/react";
 import LanguageButton from "@/components/UI/Buttons/LanguageButton";
 import {useTranslations} from "next-intl";
+import styles from "./home-sidebar.module.css";
+import Separator from "@/components/UI/Separator";
 
 // ==============================================
 
 const HomeSideBar = () => {
     const t = useTranslations();
-    const links: {link: string, title: string, icon: JSX.Element}[] = [
+    type linkType = {
+        link: string;
+        title: string;
+        icon: JSX.Element;
+    };
+    const links: linkType[] = [
         {link: "/", title: t("links.home"), icon: <House size={32} weight="bold" />},
         {link: "/clients", title: t("clients.clients"), icon: <Users size={32} weight="bold" />},
         {link: "/projects", title: t("projects.projects"), icon: <Browsers size={32} weight="bold" />},
@@ -21,11 +27,11 @@ const HomeSideBar = () => {
     const router = useRouter();
 
     return (
-        <header className="homeSideBar">
-            <div onClick={() => router.push("/")} className="logo">
-                <img src="/logo.svg" alt="Logo of the application" style={{width:'100px'}} />
+        <header className={styles.homeSideBar}>
+            <div onClick={() => router.push("/")} className={styles.logo}>
+                <img src="/logo.svg" alt="Logo of the application" />
             </div>
-            <hr />
+            <Separator widthPercent={100} />
 
             <nav>
                 {links.map((link, index: number) =>
@@ -37,9 +43,9 @@ const HomeSideBar = () => {
                 )}
             </nav>
 
-            <div className="buttonsSection">
+            <div className={styles.buttonsSection}>
                 <LanguageButton />
-                <button onClick={() => signOut()} className="logoutButton">
+                <button onClick={() => signOut()} className={styles.logoutButton}>
                     {t('auth.logout')}
                 </button>
             </div>

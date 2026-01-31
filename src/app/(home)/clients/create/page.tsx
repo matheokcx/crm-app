@@ -23,7 +23,7 @@ const ClientCreatePage = async () => {
         <form action={createClient} className={styles.page}>
             <h1>{t('clients.createPage.title')}</h1>
             <Separator widthPercent={30} />
-            <i style={{opacity: 50, color: "orange"}}>* : {t('required')}</i>
+            <i className={styles.requiredText}>* : {t('required')}</i>
 
             {inputs.map((input: InputProps) => (
                 <Input key={input.name} {...input} />
@@ -51,7 +51,7 @@ const ClientCreatePage = async () => {
                 ))}
             </select>
 
-            <button style={{width: "fit-content", background: "var(--primary)"}} type="submit">{t('create')}</button>
+            <button className={styles.valideFormButton} type="submit">{t('create')}</button>
         </form>
     );
 };

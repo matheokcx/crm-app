@@ -16,3 +16,13 @@
 .page label {
     margin-top: 10px;
 }
+
+.requiredText {
+    opacity: 50%;
+    color: orange;
+}
+
+.valideFormButton {
+    width: fit-content;
+    background: var(--primary);
+}

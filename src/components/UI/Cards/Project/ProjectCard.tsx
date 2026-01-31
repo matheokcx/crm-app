@@ -1,8 +1,8 @@
 "use client"
 import styles from "./project-card.module.css";
-import { Project } from "@/types";
-import { CalendarDot, CalendarCheck, ArrowRight } from "@phosphor-icons/react/ssr";
-import { useRouter } from "next/navigation";
+import {Project} from "@/types";
+import {ArrowRight, CalendarCheck, CalendarDot} from "@phosphor-icons/react/ssr";
+import {useRouter} from "next/navigation";
 
 // ==============================================
 
@@ -19,7 +19,7 @@ const ProjectCard = ({project}: ProjectCardProps) => {
                 <h3>{project.title}</h3>
                 <p>({project.cost}€)</p>
             </span>
-            <p>{project.description}</p>
+            <p className={styles.projectDescription}>{project.description}</p>
             <div className={styles.dates}>
                 <CalendarDot size={24} />
                 <p>{project.startDate.toISOString().split("T")[0]}</p>

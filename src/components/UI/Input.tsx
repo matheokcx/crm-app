@@ -8,7 +8,7 @@ export type InputProps = {
 };
 
 const Input = ({type, name, label, placeholder, required = true, defaultValue}: InputProps) => {
-    const isHidden = type === "hidden";
+    const isHidden: boolean = type === "hidden";
 
     return (
         <>
@@ -21,7 +21,7 @@ const Input = ({type, name, label, placeholder, required = true, defaultValue}: 
                    defaultValue={defaultValue}
             />
         </>
-    )
+    );
 };
 
 export default Input;

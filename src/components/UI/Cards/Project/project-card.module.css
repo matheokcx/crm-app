@@ -22,6 +22,12 @@
     gap: 5px;
 }
 
+.projectDescription {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .dates {
     display: flex;
     gap: 4px;

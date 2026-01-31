@@ -26,7 +26,6 @@ const MeetingReduceCard = ({weekDay, meetingTitle}: MeetingReduceCardProps) => {
                     </div>
                 )
             }
-
         </div>
     );
 };

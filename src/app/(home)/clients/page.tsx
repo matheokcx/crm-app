@@ -23,7 +23,7 @@ const ClientsPage = async () => {
     return (
       <section className={styles.clientsPage}>
         <div className={styles.topPage}>
-            <h1 style={{paddingBottom: "24px"}}>{t("clients.listPage.title")}</h1>
+            <h1>{t("clients.listPage.title")}</h1>
             <button className={styles.addButton}>
                 <Plus size={24} />
                 <Link href="/clients/create">{t('add')}</Link>

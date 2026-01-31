@@ -46,6 +46,11 @@
     align-items: center;
 }
 
+.clientJob {
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+}
+
 @media screen and (max-width: 500px) {
     .clientCard {
         width: 100%;

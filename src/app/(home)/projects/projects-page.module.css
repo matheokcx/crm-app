@@ -1,9 +1,6 @@
 .pageSection {
     width: 80%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    height: 90%;
     padding: 24px 24px 0;
 }
 
@@ -11,6 +8,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding-bottom: 20px;
 }
 
 .pageHeader button {

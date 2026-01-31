@@ -58,7 +58,7 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
                 </div>
             </div>
             <Separator widthPercent={100} />
-            <div className={styles.infos} style={{ width: "100%", display: "flex", gap: "16px" }}>
+            <div className={styles.infos}>
                 <div className={styles.contactInformation}>
                     <h3><u>{t("information")}:</u></h3>
                     {client.gender === GENDER.MALE ?
@@ -75,21 +75,23 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
                         <p>{client.birthdate.toISOString().split("T")[0]} ({calculateAge(client.birthdate)} {t("years")})</p>
                     )}
                 </div>
-                {(client.mail || client.phone) && (<div className={styles.contactInformation}>
-                    <h3><u>{t("contacts")}:</u></h3>
-                    {client.mail && (
-                        <span className={styles.contactLine}>
-                            <Envelope size={24} />
-                            <a href={`mailto:${client.mail}`}>{client.mail}</a>
-                        </span>
-                    )}
-                    {client.phone && (
-                        <span className={styles.contactLine}>
-                            <Phone size={24} />
-                            <a href={`tel:${client.phone}`}>{client.phone}</a>
-                        </span>
-                    )}
-                </div>)}
+                {(client.mail || client.phone) && (
+                    <div className={styles.contactInformation}>
+                        <h3><u>{t("contacts")}:</u></h3>
+                        {client.mail && (
+                            <span className={styles.contactLine}>
+                                <Envelope size={24} />
+                                <a href={`mailto:${client.mail}`}>{client.mail}</a>
+                            </span>
+                        )}
+                        {client.phone && (
+                            <span className={styles.contactLine}>
+                                <Phone size={24} />
+                                <a href={`tel:${client.phone}`}>{client.phone}</a>
+                            </span>
+                        )}
+                    </div>
+                )}
             </div>
 
             {client.links.length > 0 && (

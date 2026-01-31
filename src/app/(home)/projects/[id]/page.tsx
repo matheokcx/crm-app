@@ -24,7 +24,6 @@ import {getMeetings} from "@/services/meetingService";
 import {getFilesByProject} from "@/services/fileService";
 import FileCard from "@/components/UI/Cards/File/FileCard";
 import BackButton from "@/components/UI/Buttons/BackButton";
-import MeetingReduceCard from "@/components/UI/Cards/Meeting/MeetingReduceCard";
 import {getTranslations} from "next-intl/server";
 
 // ==============================================
@@ -93,11 +92,11 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
                     </div>
                     <div className={styles.projectRelationInformation}>
                         {client && (
-                            <div className={styles.projectRelationPart} style={{width: "30%"}}>
+                            <div className={styles.projectRelationPart}>
                                 <Avatar firstName={client.firstName} lastName={client.lastName} image={client.image} />
                                 <h3>{client.firstName} {client.firstName}</h3>
                                 <p>{client.job}</p>
-                                <div style={{marginTop: "10px"}}>
+                                <div className={styles.clientContactsPart}>
                                     {client.mail && (
                                         <span className={styles.contactLine}>
                                             <Envelope size={24} />
@@ -115,9 +114,9 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
                         )}
                         <div className={styles.projectRelationPart}>
                             <h2>{t('projects.detailsPage.associateMeetings')}</h2>
-                            {projectMeetings.map((meeting: Meeting, index: number) => (
-                                <MeetingReduceCard key={index} meetingTitle={meeting.title} weekDay={meeting.startHour} />
-                            ))}
+                            {/*{projectMeetings.map((meeting: Meeting, index: number) => (*/}
+                            {/*    <MeetingReduceCard key={index} meetingTitle={meeting.title} weekDay={meeting.startHour} />*/}
+                            {/*))}*/}
                         </div>
                     </div>
                     <div className={styles.projectFilesSection}>

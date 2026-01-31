@@ -1,5 +1,6 @@
-import { JSX } from "react";
-import { useRouter } from "next/navigation";
+import {JSX} from "react";
+import {useRouter} from "next/navigation";
+import styles from "./link-line.module.css";
 
 // ==============================================
 
@@ -14,12 +15,7 @@ const LinkLine = ({icon, title, link}: LinkLineProps) => {
     const router = useRouter();
 
     return (
-        <div onClick={e => router.push(link)}
-             style={{
-                 display: "flex",
-                 gap: "10px",
-                 alignItems: "center",
-        }}>
+        <div onClick={e => router.push(link)} className={styles.linkLine}>
             {icon}
             <p>{title}</p>
         </div>

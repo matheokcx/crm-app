@@ -27,7 +27,7 @@ const ClientCard = ({ client }: ClientCard) => {
                 <div className={styles.mainInformation}>
                     <div className={styles.clientInformation}>
                         <h3>{client.firstName} {client.lastName}</h3>
-                        <label style={{textOverflow: "ellipsis", textWrap: "nowrap" }}>{client.job}</label>
+                        <label className={styles.clientJob}>{client.job}</label>
                     </div>
                     <Chip text={t(`clients.status.${client.status}`)} color={statusColors[client.status as ClientStatus]} width="20%"/>
                 </div>

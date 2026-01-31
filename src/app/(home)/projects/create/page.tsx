@@ -36,7 +36,7 @@ const ProjectCreatePage = async () => {
         <form action={createProject} className={styles.projectForm}>
             <h1>{t('projects.createPage.title')}</h1>
             <Separator widthPercent={30} />
-            <i style={{opacity: 50, color: "orange"}}>* : {t('required')}</i>
+            <i className={styles.requiredInfoText}>* : {t('required')}</i>
 
             {inputsData.map((input: InputProps) => <Input key={input.name} {...input} />)}
 
@@ -51,7 +51,7 @@ const ProjectCreatePage = async () => {
                 ))}
             </select>
 
-            <button style={{width: "fit-content"}} type="submit">{t('create')}</button>
+            <button className={styles.validateFormButton} type="submit">{t('create')}</button>
         </form>
     );
 };

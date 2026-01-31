@@ -1,8 +1,9 @@
-import { getMeetings } from "@/services/meetingService";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth/next";
-import { redirect } from "next/navigation";
+import {getMeetings} from "@/services/meetingService";
+import {authOptions} from "@/lib/auth";
+import {getServerSession} from "next-auth/next";
+import {redirect} from "next/navigation";
 import MeetingsCalendarWrapper from "@/components/Layout/Meeting/MeetingsCalendarWrapper";
+import styles from "./meetings-page.module.css";
 
 // ==============================================
 
@@ -16,7 +17,7 @@ const MeetingsCalendarPage = async () => {
     const meetings = await getMeetings({}, Number(session.user.id));
 
     return (
-        <section style={{ width: "80%"}}>
+        <section className={styles.meetingsCalendarSection}>
             <MeetingsCalendarWrapper meetings={meetings} />
         </section>
     );

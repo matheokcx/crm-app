@@ -8,3 +8,12 @@
     gap: 10px;
     overflow-y: auto;
 }
+
+.requiredInfoText {
+    opacity: 50%;
+    color: orange;
+}
+
+.validateFormButton {
+    width: fit-content;
+}

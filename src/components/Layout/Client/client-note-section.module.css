@@ -22,3 +22,7 @@
     width: 100%;
     text-wrap: wrap;
 }
+
+.clientNoteDateText {
+    opacity: 50%;
+}
