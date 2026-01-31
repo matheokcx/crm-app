@@ -25,6 +25,7 @@ import {getFilesByProject} from "@/services/fileService";
 import FileCard from "@/components/UI/Cards/File/FileCard";
 import BackButton from "@/components/UI/Buttons/BackButton";
 import MeetingReduceCard from "@/components/UI/Cards/Meeting/MeetingReduceCard";
+import {getTranslations} from "next-intl/server";
 
 // ==============================================
 
@@ -32,6 +33,7 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
     const session = await getServerSession(authOptions);
     const { id } = await params;
     const project: Project | null = await getProject(Number(id), Number(session?.user?.id));
+    const t = await getTranslations();
 
     if(!project){
         return <p>Ce projet n'a pas pu être retrouvé...</p>;
@@ -80,12 +82,12 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
                         <div>
                             <div className={styles.earnedMoneyLine}>
                                 <Money size={24} />
-                                <u>Gain total: </u>
+                                <u>{t("totalGain")}: </u>
                                 <b>{project.cost}€</b>
                             </div>
                             <div className={styles.earnedMoneyLine}>
                                 <div>{getDifficultyIcon(project.difficulty)}</div>
-                                <p>{project.difficulty.toLowerCase()}</p>
+                                <p>{t(`projects.difficulties.${project.difficulty}`)}</p>
                             </div>
                         </div>
                     </div>
@@ -112,7 +114,7 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
                             </div>
                         )}
                         <div className={styles.projectRelationPart}>
-                            <h2>Réunions associées</h2>
+                            <h2>{t('projects.detailsPage.associateMeetings')}</h2>
                             {projectMeetings.map((meeting: Meeting, index: number) => (
                                 <MeetingReduceCard key={index} meetingTitle={meeting.title} weekDay={meeting.startHour} />
                             ))}

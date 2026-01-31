@@ -2,7 +2,7 @@
 
 import dayGridPlugin from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
-import { Meeting } from "@/types";
+import {Meeting} from "@/types";
 
 // ==============================================
 
@@ -19,7 +19,10 @@ const MeetingsCalendar = ({ meetings }: MeetingsCalendarProps) => {
                 title: meeting.title,
                 date: new Date(meeting.startHour).toISOString().split("T")[0]
             }))}
-            locale="fr"
+            locale={document.cookie
+                .split('; ')
+                .find(row => row.startsWith('locale='))
+                ?.split('=')[1]}
         />
     );
 };

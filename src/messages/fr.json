@@ -46,6 +46,9 @@
     "createPage": {
       "title": "Création d'un projet"
     },
+    "detailsPage": {
+      "associateMeetings": "Réunions associées"
+    },
     "difficulties": {
       "EASY": "Facile",
       "MEDIUM": "Intermédiaire",
@@ -70,7 +73,13 @@
   "MALE": "Homme",
   "FEMALE": "Femme",
   "auth": {
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "dontHaveAccountQuestion": "Vous n'avez pas de compte ?",
+    "alreadyHaveAccountQuestion": "Vous avez déjà un compte ?",
+    "logIn": "Connexion",
+    "signUp": "Inscription",
+    "password": "Mot de passe",
+    "connect": "Se connecter"
   },
   "information": "Informations",
   "years": "ans",
@@ -78,6 +87,7 @@
   "title": "Titre",
   "description": "Description",
   "gain": "Gain",
+  "totalGain": "Gains totaux",
   "startDate": "Date de début",
   "endDate": "Date de fin",
   "cover": "Couverture"

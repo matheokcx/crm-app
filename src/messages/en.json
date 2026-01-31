@@ -46,6 +46,9 @@
     "createPage": {
       "title": "Create a project"
     },
+    "detailsPage": {
+      "associateMeetings": "Associate meetings"
+    },
     "difficulties": {
       "EASY": "Easy",
       "MEDIUM": "Medium",
@@ -70,7 +73,13 @@
   "MALE": "Male",
   "FEMALE": "Female",
   "auth": {
-    "logout": "Logout"
+    "logout": "Logout",
+    "dontHaveAccountQuestion": "You don't have an account?",
+    "alreadyHaveAccountQuestion": "You already have an account?",
+    "logIn": "Login",
+    "signUp": "Sign up",
+    "password": "Password",
+    "connect": "Connect"
   },
   "information": "Information",
   "years": "years",
@@ -78,6 +87,7 @@
   "title": "Title",
   "description": "Description",
   "gain": "Gain",
+  "totalGain": "Total gain",
   "startDate": "Start date",
   "endDate": "End date",
   "cover": "Cover"

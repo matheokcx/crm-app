@@ -1,11 +1,12 @@
 'use client'
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
 import Link from "next/link";
-import { GENDER } from "@/generated/prisma";
+import {GENDER} from "@/generated/prisma";
 import "./style.css";
-import { Gender } from "@/types";
+import {Gender} from "@/types";
 import toast from "react-hot-toast";
+import {useTranslations} from "next-intl";
 
 // ==============================================
 
@@ -26,6 +27,7 @@ type inputType = {
 };
 
 const SignUpPage = () => {
+    const t = useTranslations();
     const [informations, setInformations] = useState<formInformations>({
         name: "",
         email: "",
@@ -40,25 +42,25 @@ const SignUpPage = () => {
             type: "text",
             value: informations.name,
             onChange: (event: any) => {setInformations({...informations, name: event.target.value})},
-            placeholder: "Nom complet"
+            placeholder: "François Clavier"
         },
         {
             type: "email",
             value: informations.email,
             onChange: (event: any) => {setInformations({...informations, email: event.target.value})},
-            placeholder: "Adresse mail"
+            placeholder: "name@domain.example"
         },
         {
             type: "password",
             value: informations.password,
             onChange: (event: any) => {setInformations({...informations, password: event.target.value})},
-            placeholder: "Mot de passe"
+            placeholder: t("auth.password")
         },
         {
             type: "date",
             value: informations.birthdate,
             onChange: (event: any) => {setInformations({...informations, birthdate: event.target.value})},
-            placeholder: "Date de naissance"
+            placeholder: t("birthdate")
         },
     ];
     const router = useRouter();
@@ -88,7 +90,7 @@ const SignUpPage = () => {
     return (
         <main className="sign-up-page">
             <div className="sign-up-form">
-                <h1>Inscription</h1>
+                <h1>{t("auth.signUp")}</h1>
 
                 {inputInputs.map((input, index) => (
                     <input type={input.type}
@@ -103,7 +105,7 @@ const SignUpPage = () => {
                 <select value={informations.gender} onChange={(event) => setInformations({...informations, gender: event.target.value as Gender})} required >
                     {Object.values(GENDER).map((gender) => (
                         <option key={gender} value={gender}>
-                            {gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase()}
+                            {t(gender)}
                         </option>
                     ))}
                 </select>
@@ -120,9 +122,9 @@ const SignUpPage = () => {
                         className="validateButton"
                         disabled={isLoading}
                 >
-                    S'inscrire{isLoading && "..."}
+                    {t("auth.signUp")}{isLoading && "..."}
                 </button>
-                <p>Vous avez déjà un compte ? <Link href="/sign-in"><b>Se connecter</b></Link></p>
+                <p>{t("auth.alreadyHaveAccountQuestion")} <Link href="/sign-in"><b>{t('auth.logIn')}</b></Link></p>
             </div>
         </main>
     );

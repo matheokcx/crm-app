@@ -1,17 +1,18 @@
 "use client"
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
 import Link from "next/link";
 import "./style.css";
-import { signIn } from "next-auth/react";
+import {signIn} from "next-auth/react";
 import toast from "react-hot-toast";
+import {useTranslations} from "next-intl";
 
 // ==============================================
 
 
 const SignInPage = () => {
     const router = useRouter();
-
+    const t = useTranslations();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
@@ -35,21 +36,21 @@ const SignInPage = () => {
     return (
         <main className="sign-in-page">
             <form onSubmit={handleSignIn} className="sign-in-form" >
-                <h1>Connexion</h1>
+                <h1>{t('auth.logIn')}</h1>
 
                 <input type="email"
-                       placeholder="Adresse mail"
+                       placeholder="name@domain.example"
                        value={email}
                        onChange={(event) => setEmail(event.target.value)}
                 />
                 <input type="password"
-                       placeholder="Mot de passe"
+                       placeholder={t('auth.password')}
                        value={password}
                        onChange={(event) => setPassword(event.target.value)}
                 />
 
-                <button type="submit" className="validateButton">Connexion</button>
-                <p>Vous n'avez pas de compte ? <Link href="/sign-up"><b>S'inscrire</b></Link></p>
+                <button type="submit" className="validateButton">{t('auth.connect')}</button>
+                <p>{t("auth.dontHaveAccountQuestion")} <Link href="/sign-up"><b>{t('auth.signUp')}</b></Link></p>
             </form>
         </main>
     );
