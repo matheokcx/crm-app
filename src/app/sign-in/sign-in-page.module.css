@@ -1,31 +1,30 @@
-.sign-up-page {
+.signInPage {
     width: 100%;
     height: 100vh;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
-.sign-up-form {
+.signInForm {
     width: 30%;
     height: fit-content;
-    background: var(--background);
-    border-radius: 12px;
-    box-shadow: 0 6px 12px hsl(0, 0%, 20%, 30%);
-    padding: 64px;
+    background-color: var(--background);
+    border-radius: 16px;
+    box-shadow: 0 6px 12px hsla(0, 0%, 20%, 30%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
+    padding: 64px
 }
 
-.sign-up-form input, select {
-    width: 80%;
+.signInForm input {
+    width: 100%;
 }
 
-input[type=date] {
-    color: #000;
+.signInForm p {
+     text-align: center;
 }
 
 .validateButton {
@@ -35,6 +34,3 @@ input[type=date] {
     border: 0;
 }
 
-p {
-    text-align: center;
-}

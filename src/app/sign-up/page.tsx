@@ -3,12 +3,10 @@ import {useRouter} from "next/navigation";
 import {useState} from "react";
 import Link from "next/link";
 import {GENDER} from "@/generated/prisma";
-import "./style.css";
+import styles from "./sign-up-page.module.css";
 import {Gender} from "@/types";
 import toast from "react-hot-toast";
 import {useTranslations} from "next-intl";
-
-
 
 type formInformations = {
     name: string;
@@ -36,7 +34,6 @@ const SignUpPage = () => {
         gender: GENDER.MALE,
         country: "FRANCE",
     });
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const inputInputs: inputType[] = [
         {
             type: "text",
@@ -64,6 +61,9 @@ const SignUpPage = () => {
         },
     ];
     const router = useRouter();
+    const countries: string[] = ["FRANCE", "BELGIQUE", "SUISSE", "ESPAGNE"];
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleClick = async (): Promise<void> => {
         setIsLoading(true);
@@ -88,8 +88,8 @@ const SignUpPage = () => {
     };
 
     return (
-        <main className="sign-up-page">
-            <div className="sign-up-form">
+        <main className={styles.signUpPage}>
+            <div className={styles.signUpForm}>
                 <h1>{t("auth.signUp")}</h1>
 
                 {inputInputs.map((input, index) => (
@@ -111,7 +111,7 @@ const SignUpPage = () => {
                 </select>
 
                 <select value={informations.country} onChange={(event) => setInformations({...informations, country: event.target.value})} required >
-                    {["FRANCE", "BELGIQUE", "SUISSE", "ESPAGNE"].map((country) => (
+                    {countries.map((country) => (
                         <option key={country} value={country}>
                             {country.charAt(0).toUpperCase() + country.slice(1).toLowerCase()}
                         </option>
@@ -119,7 +119,7 @@ const SignUpPage = () => {
                 </select>
 
                 <button onClick={async() => await handleClick()}
-                        className="validateButton"
+                        className={styles.validateButton}
                         disabled={isLoading}
                 >
                     {t("auth.signUp")}{isLoading && "..."}

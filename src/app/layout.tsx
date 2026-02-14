@@ -4,11 +4,10 @@ import SessionWrapper from "@/components/Layout/SessionWrapper";
 import {Inter, Poppins} from 'next/font/google';
 import {Toaster} from "react-hot-toast";
 import {NextIntlClientProvider} from "next-intl";
+import {NextFont} from "next/dist/compiled/@next/font";
 
-
-
-const inter = Inter({ subsets: ['latin'] });
-const poppins = Poppins({ subsets: ['latin'], weight: ["600", "700"] });
+const inter: NextFont = Inter({ subsets: ['latin'] });
+const poppins: NextFont = Poppins({ subsets: ['latin'], weight: ["600", "700"] });
 
 export const metadata: Metadata = {
   title: process.env.APP_NAME,
@@ -21,7 +20,9 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <body className={`${inter.className} ${poppins.className}`}>
         <SessionWrapper>
             <NextIntlClientProvider>
-                <div><Toaster/></div>
+                <div>
+                    <Toaster/>
+                </div>
                 {children}
             </NextIntlClientProvider>
         </SessionWrapper>

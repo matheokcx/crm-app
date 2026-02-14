@@ -2,17 +2,15 @@
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import Link from "next/link";
-import "./style.css";
+import styles from "./sign-in-page.module.css";
 import {signIn} from "next-auth/react";
 import toast from "react-hot-toast";
 import {useTranslations} from "next-intl";
 
-
-
-
 const SignInPage = () => {
     const router = useRouter();
     const t = useTranslations();
+
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
@@ -34,8 +32,8 @@ const SignInPage = () => {
     };
 
     return (
-        <main className="sign-in-page">
-            <form onSubmit={handleSignIn} className="sign-in-form" >
+        <main className={styles.signInPage}>
+            <form onSubmit={handleSignIn} className={styles.signInForm}>
                 <h1>{t('auth.logIn')}</h1>
 
                 <input type="email"
@@ -49,7 +47,7 @@ const SignInPage = () => {
                        onChange={(event) => setPassword(event.target.value)}
                 />
 
-                <button type="submit" className="validateButton">{t('auth.connect')}</button>
+                <button type="submit" className={styles.validateButton}>{t('auth.connect')}</button>
                 <p>{t("auth.dontHaveAccountQuestion")} <Link href="/sign-up"><b>{t('auth.signUp')}</b></Link></p>
             </form>
         </main>
