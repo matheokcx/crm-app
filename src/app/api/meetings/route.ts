@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { prismaClient } from "@/lib/prisma";
 import {manageUrlQueryParams} from "@/utils/utils";
 
-// ==============================================
+
 
 
 export async function GET(request: NextRequest): Promise<NextResponse>{

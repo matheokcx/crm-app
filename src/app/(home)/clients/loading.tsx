@@ -3,7 +3,7 @@ import styles from "@/app/(home)/clients/clients-page.module.css";
 import Separator from "@/components/UI/Separator";
 import cardStyles from "@/components/UI/Cards/Client/client-card.module.css";
 
-// ==============================================
+
 
 const Loading = () => {
     return (

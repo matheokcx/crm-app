@@ -2,14 +2,14 @@
 import dynamic from "next/dynamic";
 import { Meeting } from "@/types";
 
-// ==============================================
+
 
 const MeetingsCalendar = dynamic(
     () => import("@/components/Layout/Meeting/MeetingsCalendar"),
     { ssr: false }
 );
 
-// ==============================================
+
 
 type MeetingsCalendarWrapperProps = {
     meetings: Meeting[];

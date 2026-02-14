@@ -1,7 +1,7 @@
 import Skeleton from "@/components/UI/Skeleton";
 import styles from "@/app/(home)/homepage.module.css";
 
-// ==============================================
+
 
 const Loading = () => {
     return (

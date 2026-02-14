@@ -15,7 +15,7 @@ import ClientNotesSection from "@/components/Layout/Client/ClientNotesSection";
 import {getTranslations} from "next-intl/server";
 import GENDER = $Enums.GENDER;
 
-// ==============================================
+
 
 const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
     const session = await getServerSession(authOptions);

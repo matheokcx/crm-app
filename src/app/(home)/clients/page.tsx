@@ -8,7 +8,7 @@ import {authOptions} from "@/lib/auth";
 import {getServerSession} from "next-auth/next";
 import {getTranslations} from "next-intl/server";
 
-// ==============================================
+
 
 const ClientsPage = async () => {
     const session = await getServerSession(authOptions);

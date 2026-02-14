@@ -2,7 +2,7 @@ import { Meeting } from "@/types";
 import styles from "./meeting-card.module.css";
 import {ArrowRight, Clock} from "@phosphor-icons/react/ssr";
 
-// ==============================================
+
 
 type MeetingCardProps = {
     meeting: Meeting;

@@ -7,7 +7,7 @@ import {signIn} from "next-auth/react";
 import toast from "react-hot-toast";
 import {useTranslations} from "next-intl";
 
-// ==============================================
+
 
 
 const SignInPage = () => {

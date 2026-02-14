@@ -4,7 +4,7 @@ import { File } from "@/types"
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-// ==============================================
+
 
 type FileCardProps = {
     file: File;

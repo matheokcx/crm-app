@@ -10,7 +10,7 @@ import { User } from "@/generated/prisma";
 // Others
 import bcrypt from "bcrypt";
 
-// ==============================================
+
 
 
 export const authOptions: AuthOptions = {

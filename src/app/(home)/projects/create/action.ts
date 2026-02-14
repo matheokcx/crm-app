@@ -6,7 +6,7 @@ import {redirect} from "next/dist/client/components/redirect";
 import {Project} from "@/types";
 import * as z from "zod";
 
-// ==============================================
+
 
 export const createProject = async (data: FormData): Promise<void> => {
     const session = await getServerSession(authOptions);

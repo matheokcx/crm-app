@@ -3,7 +3,7 @@ import {ClientStatus, Gender, ProjectDifficulty} from "@/types";
 import bcrypt from "bcrypt";
 import { fakerFR as faker } from "@faker-js/faker";
 
-// ==============================================
+
 
 
 const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;

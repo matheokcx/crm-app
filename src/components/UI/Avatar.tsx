@@ -1,7 +1,7 @@
 import styles from "@/components/UI/avatar.module.css";
 import Image from "next/image";
 
-// ==============================================
+
 
 type AvatarProps = {
     firstName: string;

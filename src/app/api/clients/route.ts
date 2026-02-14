@@ -6,7 +6,7 @@ import { authOptions } from "@/lib/auth";
 import { writeFile } from "fs/promises";
 import path from "path";
 
-// ==============================================
+
 
 export async function POST (request: NextRequest): Promise<NextResponse> {
     const session = await getServerSession(authOptions);

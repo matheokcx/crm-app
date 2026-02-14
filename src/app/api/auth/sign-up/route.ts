@@ -4,7 +4,7 @@ import {prismaClient} from "@/lib/prisma";
 import bcrypt from 'bcrypt';
 import * as z from "zod";
 
-// ==============================================
+
 
 export async function POST(request: NextRequest) {
     try {

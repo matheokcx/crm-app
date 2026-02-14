@@ -5,7 +5,7 @@ import {Inter, Poppins} from 'next/font/google';
 import {Toaster} from "react-hot-toast";
 import {NextIntlClientProvider} from "next-intl";
 
-// ==============================================
+
 
 const inter = Inter({ subsets: ['latin'] });
 const poppins = Poppins({ subsets: ['latin'], weight: ["600", "700"] });

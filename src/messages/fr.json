@@ -34,6 +34,9 @@
     "createPage": {
       "title": "Ajout d'un client",
       "fileRequirements": "Uniquement .png, .webp et .jpeg, max. 5Mo"
+    },
+    "updatePage": {
+      "title": "Mettre à jour les informations client"
     }
   },
   "projects": {

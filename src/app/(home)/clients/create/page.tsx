@@ -6,7 +6,7 @@ import Separator from "@/components/UI/Separator";
 import Input, {InputProps} from "@/components/UI/Input";
 import {getTranslations} from "next-intl/server";
 
-// ==============================================
+
 
 const ClientCreatePage = async () => {
     const t = await getTranslations();

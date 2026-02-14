@@ -1,6 +1,6 @@
 import styles from "./chip.module.css";
 
-// ==============================================
+
 
 type ChipProps = {
     text: string;

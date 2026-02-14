@@ -26,7 +26,7 @@ import FileCard from "@/components/UI/Cards/File/FileCard";
 import BackButton from "@/components/UI/Buttons/BackButton";
 import {getTranslations} from "next-intl/server";
 
-// ==============================================
+
 
 const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
     const session = await getServerSession(authOptions);

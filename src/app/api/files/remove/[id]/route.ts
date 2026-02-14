@@ -5,7 +5,7 @@ import { prismaClient } from "@/lib/prisma";
 import path from "path";
 import fs from 'fs/promises';
 
-// ==============================================
+
 
 
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{id: string}>}): Promise<NextResponse> {

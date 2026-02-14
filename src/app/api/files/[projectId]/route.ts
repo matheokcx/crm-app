@@ -6,7 +6,7 @@ import { FILE_LIMIT_SIZE, getMimeType } from "@/utils/utils";
 import fs, { writeFile } from 'fs/promises';
 import path from 'path';
 
-// ==============================================
+
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{projectId: string}>}): Promise<NextResponse> {
     const { projectId } = await params;

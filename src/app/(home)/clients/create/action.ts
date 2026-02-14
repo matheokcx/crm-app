@@ -6,7 +6,7 @@ import {Client} from "@/types";
 import {redirect} from "next/dist/client/components/redirect";
 import * as z from "zod";
 
-// ==============================================
+
 
 export const createClient = async (inputs: FormData): Promise<void> => {
     const session = await getServerSession(authOptions);

@@ -1,7 +1,7 @@
 import { prismaClient } from "@/lib/prisma";
 import { Meeting } from "@/types";
 
-// ==============================================
+
 
 export const getMeetings = async (filters: any, userId: number): Promise<Meeting[]> => {
     return await prismaClient.meeting.findMany({

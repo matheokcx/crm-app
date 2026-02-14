@@ -3,7 +3,7 @@ import {Project, ProjectDifficulty} from "@/types";
 import path from "path";
 import {writeFile} from "fs/promises";
 
-// ==============================================
+
 
 export const getAllUserProjects = async (filters: any, userId: number, onlyProcessingProjects: boolean): Promise<Project[]> => {
     return await prismaClient.project.findMany({

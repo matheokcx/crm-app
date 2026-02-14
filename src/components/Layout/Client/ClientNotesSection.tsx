@@ -2,7 +2,7 @@ import {ClientNote} from "@/types";
 import styles from "./client-note-section.module.css";
 import {getTranslations} from "next-intl/server";
 
-// ==============================================
+
 
 type ClientNotesSectionProps = {
     clientNotes: ClientNote[];

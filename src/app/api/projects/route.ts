@@ -7,7 +7,7 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth/next";
 import { verifyStringLength } from "@/utils/verifications";
 
-// ==============================================
+
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
     const session = await getServerSession(authOptions);

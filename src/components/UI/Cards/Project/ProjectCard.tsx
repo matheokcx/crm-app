@@ -4,7 +4,7 @@ import {Project} from "@/types";
 import {ArrowRight, CalendarCheck, CalendarDot} from "@phosphor-icons/react/ssr";
 import {useRouter} from "next/navigation";
 
-// ==============================================
+
 
 type ProjectCardProps = {
     project: Project;

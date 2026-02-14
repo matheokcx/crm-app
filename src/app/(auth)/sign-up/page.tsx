@@ -8,7 +8,7 @@ import {Gender} from "@/types";
 import toast from "react-hot-toast";
 import {useTranslations} from "next-intl";
 
-// ==============================================
+
 
 type formInformations = {
     name: string;

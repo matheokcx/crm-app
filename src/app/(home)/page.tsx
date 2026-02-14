@@ -12,7 +12,7 @@ import {getFiles} from "@/services/fileService";
 import {getMeetings} from "@/services/meetingService";
 import {getTranslations} from "next-intl/server";
 
-// ==============================================
+
 
 const HomePage = async () => {
     const session = await getServerSession(authOptions);

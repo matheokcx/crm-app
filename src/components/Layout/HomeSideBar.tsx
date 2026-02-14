@@ -9,7 +9,7 @@ import {useTranslations} from "next-intl";
 import styles from "./home-sidebar.module.css";
 import Separator from "@/components/UI/Separator";
 
-// ==============================================
+
 
 const HomeSideBar = () => {
     const t = useTranslations();

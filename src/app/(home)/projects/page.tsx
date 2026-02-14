@@ -8,7 +8,7 @@ import {Project} from "@/types";
 import ProjectCard from "@/components/UI/Cards/Project/ProjectCard";
 import {getTranslations} from "next-intl/server";
 
-// ==============================================
+
 
 const ProjectListPage = async () => {
     const session = await getServerSession(authOptions);

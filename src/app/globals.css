@@ -125,7 +125,7 @@ hr {
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
+  /*body {
     overflow-y: auto;
     --background-dark: hsl(0, 0%, 0%);
     --background: hsl(0, 0%, 5%);
@@ -137,5 +137,5 @@ hr {
 
   a {
     color: hsl(0, 0%, 90%);
-  }
+  }*/
 }

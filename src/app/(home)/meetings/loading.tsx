@@ -1,6 +1,6 @@
 import Skeleton from "@/components/UI/Skeleton";
 
-// ==============================================
+
 
 const Loading = () => {
     return (

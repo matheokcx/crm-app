@@ -10,7 +10,7 @@ import {ClientStatus} from "@/generated/prisma";
 import Avatar from "@/components/UI/Avatar";
 import {useTranslations} from "next-intl";
 
-// ==============================================
+
 
 type ClientCard = {
     client: Client;
@@ -34,7 +34,9 @@ const ClientCard = ({ client }: ClientCard) => {
             </div>
             <Separator widthPercent={100} />
             <div className={styles.buttonsDiv}>
-                <button style={{width: "100%", background: "var(--secondary)", borderWidth: 0}}>
+                <button style={{width: "100%", background: "var(--secondary)", borderWidth: 0}}
+                        onClick={() => router.push(`/clients/${client.id}/update`)}
+                >
                     <Pencil size={24} />
                     {t("edit")}
                 </button>

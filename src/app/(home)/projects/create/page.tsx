@@ -9,7 +9,7 @@ import {ProjectDifficulty} from "@/generated/prisma";
 import {getTranslations} from "next-intl/server";
 import Separator from "@/components/UI/Separator";
 
-// ==============================================
+
 
 const ProjectCreatePage = async () => {
     const today: string = new Date().toISOString().split("T")[0];

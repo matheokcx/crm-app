@@ -2,7 +2,7 @@ import styles from "./meetingReduceCard.module.css"
 import {getWeekDay} from "@/utils/utils";
 import {useTranslations} from "next-intl";
 
-// ==============================================
+
 
 type MeetingReduceCardProps = {
     weekDay: Date;

@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
 import {Meeting} from "@/types";
 
-// ==============================================
+
 
 type MeetingsCalendarProps = {
     meetings: Meeting[];

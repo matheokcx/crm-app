@@ -5,7 +5,7 @@ import {redirect} from "next/navigation";
 import MeetingsCalendarWrapper from "@/components/Layout/Meeting/MeetingsCalendarWrapper";
 import styles from "./meetings-page.module.css";
 
-// ==============================================
+
 
 const MeetingsCalendarPage = async () => {
     const session = await getServerSession(authOptions);
