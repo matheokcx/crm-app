@@ -1,3 +1,6 @@
+import path from "path";
+import {writeFile} from "fs/promises";
+
 export const FILE_LIMIT_SIZE: number = 5 * 1024 * 1024; // 5 MB
 
 export const getMimeType = (filename: string): string => {
@@ -72,4 +75,22 @@ export const getFormattedDate = (date: Date): string => {
     const day: string = String(date.getDate()).padStart(2, '0');
 
     return `${year}-${month}-${day}`;
+};
+
+export const uploadFile = async (file: File, filePrefix: string): Promise<string> => {
+    const today: number = Date.now();
+
+    try{
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        const uploadDirectoryPath: string = path.join(process.cwd(), process.env.FILES_DIRECTORY ?? "public/files");
+        const newFilePath: string = path.join(uploadDirectoryPath, `${filePrefix}_${today}_${file.name}`);
+
+        await writeFile(newFilePath, buffer);
+        return `/files/${filePrefix}_${today}_${file.name}`;
+    } catch(error: any) {
+        console.error(error.message);
+        return error.message;
+    }
 };
