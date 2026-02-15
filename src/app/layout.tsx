@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import "./globals.css";
 import SessionWrapper from "@/components/Layout/SessionWrapper";
-import { Inter, Poppins } from 'next/font/google';
-import { Toaster } from "react-hot-toast";
+import {Inter, Poppins} from 'next/font/google';
+import {Toaster} from "react-hot-toast";
+import {NextIntlClientProvider} from "next-intl";
+import {NextFont} from "next/dist/compiled/@next/font";
 
-// ==============================================
-
-const inter = Inter({ subsets: ['latin'] });
-const poppins = Poppins({ subsets: ['latin'], weight: ["600", "700"] });
+const inter: NextFont = Inter({ subsets: ['latin'] });
+const poppins: NextFont = Poppins({ subsets: ['latin'], weight: ["600", "700"] });
 
 export const metadata: Metadata = {
   title: process.env.APP_NAME,
@@ -17,10 +17,14 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="fr">
-      <body className={`${inter.className} ${poppins.className}`} style={{padding: "32px"}}>
+      <body className={`${inter.className} ${poppins.className}`}>
         <SessionWrapper>
-          <div><Toaster/></div>
-          {children}
+            <NextIntlClientProvider>
+                <div>
+                    <Toaster/>
+                </div>
+                {children}
+            </NextIntlClientProvider>
         </SessionWrapper>
       </body>
     </html>

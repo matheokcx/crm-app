@@ -1,0 +1,33 @@
+.pageSection {
+    width: 80%;
+    height: 90%;
+    padding: 24px 24px 0;
+}
+
+.pageHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.pageHeader button {
+    background: var(--secondary);
+    border-width: 0;
+}
+
+.pageHeader button>a {
+    color: white;
+}
+
+.projectList {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--background);
+}

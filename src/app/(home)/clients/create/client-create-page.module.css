@@ -1,0 +1,28 @@
+.page {
+    width: 100%;
+    background: var(--background);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+.page input {
+    width: 20%;
+}
+
+.page label {
+    margin-top: 10px;
+}
+
+.requiredText {
+    opacity: 50%;
+    color: orange;
+}
+
+.valideFormButton {
+    width: fit-content;
+    background: var(--primary);
+}

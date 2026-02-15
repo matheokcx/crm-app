@@ -2,7 +2,7 @@
 import { SessionProvider } from 'next-auth/react';
 import { ReactNode } from 'react';
 
-// ==============================================
+
 
 
 type SessionWraperProps = {

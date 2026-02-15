@@ -1,0 +1,43 @@
+.clientsPage {
+    width: 80%;
+    padding: 24px;
+}
+
+.topPage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.addButton {
+    border-width: 0;
+}
+
+.addButton a {
+    color: white;
+}
+
+.clientsList {
+    width: 100%;
+    height: 95%;
+    background: var(--background);
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px 32px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 500px) {
+    .clientsPage {
+        width: 100%;
+        padding: 0;
+    }
+
+    .clientsList {
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+}

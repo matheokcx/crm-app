@@ -3,7 +3,6 @@
     display: flex;
     gap: 24px;
     width: 80%;
-    height: 95vh;
 }
 
 .homePageSection {
@@ -20,13 +19,19 @@
     gap: 48px;
 }
 
-.comingSoonMeetingsDiv {
+.comingSoonMeetingsWidget {
     width: 50%;
-    background: var(--background);
-    display: flex;
-    gap: 16px;
     padding: 20px;
     border-radius: 10px;
+    background: var(--background);
+}
+
+.comingSoonMeetingsDiv {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 20px;
+    gap: 16px;
     box-shadow: 0 3px 13px hsla(0, 0%, 0%, 25%);
 }
 

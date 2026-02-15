@@ -1,6 +1,6 @@
 import styles from "./skeleton.module.css";
 
-// ==============================================
+
 
 type SkeletonProps = {
     width?: string;

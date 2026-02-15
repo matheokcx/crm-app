@@ -1,0 +1,11 @@
+.fileCard {
+    width: 33%;
+    height: 100%;
+}
+
+.fileName {
+    text-wrap: nowrap;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+}

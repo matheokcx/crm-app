@@ -1,7 +1,7 @@
-import { JSX } from "react";
-import { useRouter } from "next/navigation";
+import {JSX} from "react";
+import {usePathname, useRouter} from "next/navigation";
+import styles from "./link-line.module.css";
 
-// ==============================================
 
 
 type LinkLineProps = {
@@ -12,16 +12,18 @@ type LinkLineProps = {
 
 const LinkLine = ({icon, title, link}: LinkLineProps) => {
     const router = useRouter();
-
+    const pathname: string = usePathname();
+    const currentRoute: boolean = pathname === link;
     return (
-        <div onClick={e => router.push(link)}
-             style={{
-                 display: "flex",
-                 gap: "10px",
-                 alignItems: "center",
-        }}>
+        <div onClick={e => router.push(link)} className={styles.linkLine}>
             {icon}
-            <p>{title}</p>
+            <p style={{
+                color: currentRoute ? "var(--main-text)" : "var(--secondary-text)",
+                fontWeight: currentRoute ? 700 : 400
+            }}
+            >
+                {title}
+            </p>
         </div>
     );
 };

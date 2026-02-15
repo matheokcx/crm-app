@@ -1,54 +1,83 @@
 import styles from "./homepage.module.css";
 import KpiCard from "@/components/UI/Cards/KpiCard";
-import { Meeting, File, Project, Client } from "@/types";
-import MeetingReduceCard from "@/components/UI/Cards/MeetingReduceCard";
-import { getFormattedDate } from "@/utils/utils";
-import FileCard from "@/components/UI/Cards/FileCard";
-import { getAllClients, getAllProjects, getRecentFiles, getUpComingMeetings } from "@/app/(home)/action";
+import {Client, File, Meeting, Project} from "@/types";
+import MeetingReduceCard from "@/components/UI/Cards/Meeting/MeetingReduceCard";
+import {getFormattedDate} from "@/utils/utils";
+import FileCard from "@/components/UI/Cards/File/FileCard";
+import {getServerSession} from "next-auth/next";
+import {authOptions} from "@/lib/auth";
+import {getAllUserClients} from "@/services/clientService";
+import {getAllUserProjects} from "@/services/projectService";
+import {getFiles} from "@/services/fileService";
+import {getMeetings} from "@/services/meetingService";
+import {getTranslations} from "next-intl/server";
 
-// ==============================================
+
 
 const HomePage = async () => {
+    const session = await getServerSession(authOptions);
+    const t = await getTranslations();
     const today: Date = new Date();
     const formattedTodayDate: string = getFormattedDate(today);
 
-    const clients: Client[] = await getAllClients({});
-    const processingProjects: Project[] = await getAllProjects({}, true);
-    const meetings: (Meeting | null)[] = await getUpComingMeetings({startHour: new Date(formattedTodayDate)});
-    const recentFiles: File[] = await getRecentFiles();
+    if(!session?.user?.id){
+        return <p>Vous n'êtes pas connecté ...</p>;
+    }
+
+    const clients: Client[] = await getAllUserClients({}, Number(session.user.id));
+    const processingProjects: Project[] = await getAllUserProjects({}, Number(session.user.id), true);
+    const recentFiles: File[] = await getFiles(Number(session.user.id));
+
+    const daysPrevisualisationNumber: number = 3;
+    const nextThreeDays: string[] = Array.from({ length: daysPrevisualisationNumber }, (_, index: number) => {
+        const todayDate: Date = new Date();
+        todayDate.setDate(todayDate.getDate() + index);
+        return getFormattedDate(todayDate);
+    });
+    const meetings: Meeting[] = await getMeetings({startHour: new Date(formattedTodayDate)}, Number(session.user.id));
+
+    const comingMeetings: (Meeting | null)[] = nextThreeDays.map((dateStr: string) => {
+        const meetingFound: Meeting | undefined = meetings.find((meeting: Meeting) => meeting.startHour.toISOString().startsWith(dateStr));
+        return meetingFound || null;
+    });
 
     return (
-        <main className={styles.homePage}>
-          <section className={styles.homePageSection}>
+        <section className={styles.homePage}>
+          <div className={styles.homePageSection}>
               <div className={styles.homePageSectionRow}>
-                  <div className={styles.comingSoonMeetingsDiv}>
-                      { meetings.map((meeting: Meeting | null, index: number) => {
-                          const todayDate = new Date();
-                          todayDate.setDate(todayDate.getDate() + index);
-                          const dateLabel: string = getFormattedDate(todayDate);
+                  <div className={styles.comingSoonMeetingsWidget}>
+                      <h3>{t("meetings.shortcutSectionTitle")}:</h3>
+                      <div className={styles.comingSoonMeetingsDiv}>
+                          {comingMeetings.map((meeting: Meeting | null, index: number) => {
+                              const todayDate: Date = new Date();
+                              todayDate.setDate(todayDate.getDate() + index);
+                              const dateLabel: string = getFormattedDate(todayDate);
 
-                          return <MeetingReduceCard key={index}
-                                                    weekDay={meeting ? meeting.startHour : new Date(dateLabel)}
-                                                    meetingTitle={meeting?.title}
-                          />
-                      })}
-                  </div>
-                  <div className={styles.kpisDiv}>
-                      <KpiCard name="Clients" value={clients.length} />
-                      <KpiCard name="Projets en cours" value={processingProjects.length} />
-                  </div>
-              </div>
-              <div className={styles.homePageSectionRow}>
-                  <div className={styles.recentFilesDiv}>
-                      <label>Fichiers récents:</label>
-                      <div className={styles.filesDiv}>
-                          {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}
+                              return <MeetingReduceCard key={index}
+                                                        weekDay={meeting ? meeting.startHour : new Date(dateLabel)}
+                                                        meetingTitle={meeting?.title}
+                              />
+                          })}
                       </div>
                   </div>
+                  <div className={styles.kpisDiv}>
+                      <KpiCard name={t("clients.clients")} value={clients.length} />
+                      <KpiCard name={t("projects.inProgress")} value={processingProjects.length} />
+                  </div>
+              </div>
+              <div className={styles.homePageSectionRow}>
+                  {recentFiles.length > 0 && (
+                      <div className={styles.recentFilesDiv}>
+                          <label>{t("files.recentFiles")}</label>
+                          <div className={styles.filesDiv}>
+                              {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}
+                          </div>
+                      </div>
+                  )}
                   <div style={{width: "50%"}}></div>
               </div>
-          </section>
-        </main>
+          </div>
+        </section>
     );
 };
 

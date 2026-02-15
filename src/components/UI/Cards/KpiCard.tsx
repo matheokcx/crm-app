@@ -1,6 +1,6 @@
 import styles from "./kpiCard.module.css";
 
-// ==============================================
+
 
 type KpiCardProps = {
     name: string;

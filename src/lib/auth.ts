@@ -10,12 +10,17 @@ import { User } from "@/generated/prisma";
 // Others
 import bcrypt from "bcrypt";
 
-// ==============================================
+
 
 
 export const authOptions: AuthOptions = {
     adapter: PrismaAdapter(prismaClient),
-    session: { strategy: "jwt" },
+    session: {
+        strategy: "jwt",
+        maxAge: 30 * 24 * 60 * 60,
+        updateAge: 48 * 60 * 60,
+    },
+    secret: process.env.AUTH_SECRET,
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -40,7 +45,8 @@ export const authOptions: AuthOptions = {
                     return null;
                 }
 
-                return { ...user };
+                const { password, ...newUser } = user;
+                return { ...newUser };
             }
         })
     ],

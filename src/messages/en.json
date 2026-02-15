@@ -1,0 +1,98 @@
+{
+  "links": {
+    "links": "Links",
+    "home": "Home"
+  },
+  "add": "Add",
+  "create": "Create",
+  "edit": "Edit",
+  "details": "Details",
+  "nothingSchedule": "Nothing of schedule",
+  "daysOfWeek": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  "clients": {
+    "clients": "Clients",
+    "status": {
+      "LEAD": "Lead",
+      "SIGNED": "Signed",
+      "LOST": "Lost",
+      "ARCHIVED": "Archived"
+    },
+    "listPage": {
+      "title": "List of your clients:"
+    },
+    "detailsPage": {
+      "aboutNotes": "Your about notes"
+    },
+    "createPage": {
+      "title": "Adding a client",
+      "fileRequirements": "Only .png, .webp and .jpeg, Max 5MB"
+    },
+    "updatePage": {
+      "title": "Update client information"
+    }
+  },
+  "projects": {
+    "projects": "Projects",
+    "parentProject": "Parent project",
+    "inProgress": "Projects in progress",
+    "listPage": {
+      "title": "Directory of your projects"
+    },
+    "createPage": {
+      "title": "Create a project"
+    },
+    "detailsPage": {
+      "associateMeetings": "Associate meetings"
+    },
+    "difficulties": {
+      "EASY": "Easy",
+      "MEDIUM": "Medium",
+      "HARD": "Hard",
+      "EXPERT": "Expert"
+    }
+  },
+  "meetings": {
+    "meetings": "Meetings",
+    "shortcutSectionTitle": "Your coming meetings"
+  },
+  "files": {
+    "recentFiles": "Recent files"
+  },
+  "firstName": "First name",
+  "lastName": "Last name",
+  "job": "Job",
+  "birthdate": "Birthdate",
+  "phone": "Phone",
+  "required": "Required",
+  "photo": "Photo",
+  "status": "Status",
+  "MALE": "Male",
+  "FEMALE": "Female",
+  "auth": {
+    "logout": "Logout",
+    "dontHaveAccountQuestion": "You don't have an account?",
+    "alreadyHaveAccountQuestion": "You already have an account?",
+    "logIn": "Login",
+    "signUp": "Sign up",
+    "password": "Password",
+    "connect": "Connect"
+  },
+  "information": "Information",
+  "years": "years",
+  "contacts": "Contacts",
+  "title": "Title",
+  "description": "Description",
+  "gain": "Gain",
+  "totalGain": "Total gain",
+  "startDate": "Start date",
+  "endDate": "End date",
+  "cover": "Cover"
+}

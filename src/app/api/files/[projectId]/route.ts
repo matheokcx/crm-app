@@ -2,11 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { prismaClient } from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { FILE_LIMIT_SIZE, FILES_DIRECTORY, getMimeType } from "@/utils/utils";
+import { FILE_LIMIT_SIZE, getMimeType } from "@/utils/utils";
 import fs, { writeFile } from 'fs/promises';
 import path from 'path';
 
-// ==============================================
 
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{projectId: string}>}): Promise<NextResponse> {
@@ -66,7 +65,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const session = await getServerSession(authOptions);
     const formData: FormData = await request.formData();
     const files = formData.getAll("file") as File[];
-    const acceptedFileFormats: string[] = ["png", "jpg", "jpeg", "webp", "pdf", "csv", "txt"];
+    const acceptedFileFormats: string[] = ["image/png", "image/jpeg", "image/webp", "application/pdf", "text/csv"];
 
     if(!session?.user){
         return NextResponse.json({error: "Vous devez être connecté afin de pouvoir envoyer des fichiers"}, {status: 401});
@@ -81,7 +80,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
             return NextResponse.json({error: `Fichier '${file.name}' trop volumineux`}, {status: 400});
         }
 
-        if(!acceptedFileFormats.includes(file.name.split(".")[1])){
+        if(!acceptedFileFormats.includes(file.type)){
             return NextResponse.json({error: `Format de fichier '${file.name}' non-conforme`}, {status: 400});
         }
     }
@@ -108,7 +107,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
             const buffer = Buffer.from(bytes);
             const time = Date.now();
 
-            const uploadDirectoryPath: string = path.join(process.cwd(), FILES_DIRECTORY);
+            const uploadDirectoryPath: string = path.join(process.cwd(), process.env.FILES_DIRECTORY ?? "public/files");
             const fileName: string = `${time}-${file.name}`
             const newFilePath: string = path.join(uploadDirectoryPath, fileName);
 
@@ -117,7 +116,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
             await prismaClient.file.create({
                 data: {
                     name: `${time}-${file.name.split(".")[0]}`,
-                    path: `${FILES_DIRECTORY}/${fileName}`,
+                    path: `${process.env.FILES_DIRECTORY}/${fileName}`,
                     type: file.name.split(".")[1],
                     projectId: Number(projectId)
                 }
