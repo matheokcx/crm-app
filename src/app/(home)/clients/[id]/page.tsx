@@ -6,15 +6,15 @@ import styles from "./client-detail-page.module.css";
 import Chip from "@/components/UI/Chip";
 import {$Enums, ClientStatus} from "@/generated/prisma";
 import {statusColors} from "@/lib/statusColors";
-import {Envelope, GenderFemale, GenderMale, Phone} from "@phosphor-icons/react/ssr";
+import {Envelope, GenderFemale, GenderMale, Phone, TrashIcon} from "@phosphor-icons/react/ssr";
 import Separator from "@/components/UI/Separator";
 import Avatar from "@/components/UI/Avatar";
 import BackButton from "@/components/UI/Buttons/BackButton";
 import {getClientNotes} from "@/services/clientNoteService";
 import ClientNotesSection from "@/components/Layout/Client/ClientNotesSection";
 import {getTranslations} from "next-intl/server";
+import {removeClient} from "@/app/(home)/clients/[id]/action";
 import GENDER = $Enums.GENDER;
-
 
 
 const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
@@ -46,15 +46,26 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
         return age;
     };
 
+    const deleteClient = removeClient.bind(null, client.id);
+
     return (
         <main className={styles.page}>
             <BackButton />
             <div className={styles.pageHeader}>
-                <Avatar firstName={client.firstName} lastName={client.lastName} image={client.image}/>
+                <div style={{display: "flex", alignItems: "center", gap: "20px"}}>
+                    <Avatar firstName={client.firstName} lastName={client.lastName} image={client.image}/>
+                    <div>
+                        <h2>{client.firstName} {client.lastName}</h2>
+                        <p>{client.job}</p>
+                        <Chip text={t(`clients.status.${client.status}`)} color={statusColors[client.status as ClientStatus]} />
+                    </div>
+                </div>
                 <div>
-                    <h2>{client.firstName} {client.lastName}</h2>
-                    <p>{client.job}</p>
-                    <Chip text={t(`clients.status.${client.status}`)} color={statusColors[client.status as ClientStatus]} />
+                    <form action={deleteClient}>
+                        <button className={styles.deleteButton} type="submit">
+                            <TrashIcon size={24} />
+                        </button>
+                    </form>
                 </div>
             </div>
             <Separator widthPercent={100} />

@@ -14,7 +14,8 @@ import {
     CellSignalMedium,
     Envelope,
     Money,
-    Phone
+    Phone,
+    TrashIcon
 } from "@phosphor-icons/react/ssr";
 import {JSX} from "react";
 import Image from "next/image";
@@ -25,8 +26,7 @@ import {getFilesByProject} from "@/services/fileService";
 import FileCard from "@/components/UI/Cards/File/FileCard";
 import BackButton from "@/components/UI/Buttons/BackButton";
 import {getTranslations} from "next-intl/server";
-
-
+import {removeProject} from "@/app/(home)/projects/[id]/actions";
 
 const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
     const session = await getServerSession(authOptions);
@@ -41,6 +41,7 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
     const client: Client | null = await getClient(project.clientId, Number(session?.user?.id));
     const projectMeetings: Meeting[] = await getMeetings({projectId: project.id}, Number(session?.user?.id))
     const files: File[] = await getFilesByProject(Number(project.id), Number(session?.user?.id));
+
     const getDifficultyIcon = (projectDifficulty: ProjectDifficulty): JSX.Element => {
         switch(projectDifficulty){
             case "EASY":
@@ -54,6 +55,8 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
         }
     };
 
+    const deleteProject = removeProject.bind(null, project);
+
     return (
         <section className={styles.projectDetailsPage}>
             <div className={styles.backButtonContainer}>
@@ -66,14 +69,26 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
                                      className={styles.projectCover}
             />}
             <div className={styles.pageBody}>
-                <h1>{project.title}</h1>
-                <div className={styles.deadline}>
-                    <CalendarDot size={24} />
-                    <p>{project.startDate.toISOString().split("T")[0]}</p>
-                    <ArrowRight />
-                    <CalendarCheck size={24} />
-                    <p>{project.endDate.toISOString().split("T")[0]}</p>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div>
+                        <h1>{project.title}</h1>
+                        <div className={styles.deadline}>
+                            <CalendarDot size={24} />
+                            <p>{project.startDate.toISOString().split("T")[0]}</p>
+                            <ArrowRight />
+                            <CalendarCheck size={24} />
+                            <p>{project.endDate.toISOString().split("T")[0]}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <form action={deleteProject}>
+                            <button className={styles.deleteButton} type="submit">
+                                <TrashIcon size={24} />
+                            </button>
+                        </form>
+                    </div>
                 </div>
+
                 <Separator widthPercent={100} />
                 <div className={styles.projectInformation}>
                     <div className={styles.projectDetails}>
