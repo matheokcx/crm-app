@@ -14,6 +14,7 @@ import {
     CellSignalMedium,
     Envelope,
     Money,
+    PencilIcon,
     Phone,
     TrashIcon
 } from "@phosphor-icons/react/ssr";
@@ -27,6 +28,7 @@ import FileCard from "@/components/UI/Cards/File/FileCard";
 import BackButton from "@/components/UI/Buttons/BackButton";
 import {getTranslations} from "next-intl/server";
 import {removeProject} from "@/app/(home)/projects/[id]/actions";
+import Link from "next/link";
 
 const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
     const session = await getServerSession(authOptions);
@@ -80,7 +82,12 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
                             <p>{project.endDate.toISOString().split("T")[0]}</p>
                         </div>
                     </div>
-                    <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                        <button className={styles.editButton}>
+                            <Link href={`/projects/${project.id}/edit`}>
+                                <PencilIcon size={24} />
+                            </Link>
+                        </button>
                         <form action={deleteProject}>
                             <button className={styles.deleteButton} type="submit">
                                 <TrashIcon size={24} />
