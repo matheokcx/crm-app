@@ -65,11 +65,9 @@ export const addProject = async (projectInformations: FormData): Promise<Project
     });
 };
 
-export const editProject = async (projectInformations: FormData): Promise<Project> => {
-    const parentProjectId: number | null = projectInformations.get("parentProjectId") ? Number(projectInformations.get("parentProjectId") as string) : null;
-    const coverFile: File | null = projectInformations.get("cover") ? projectInformations.get("cover") as File : null;
+export const editProject = async (projectInformations: any, projectId: number): Promise<Project> => {
+    const coverFile: File | null = projectInformations.cover;
     const today: number = Date.now();
-    const projectId: number = Number(projectInformations.get("projectId"));
     let coverPath: string | null | undefined;
 
     if(coverFile && coverFile.size > 0){
@@ -92,14 +90,14 @@ export const editProject = async (projectInformations: FormData): Promise<Projec
 
     return await prismaClient.project.update({
         data: {
-            title: projectInformations.get("title") as string,
-            description: projectInformations.get("description") as string,
-            difficulty: projectInformations.get("difficulty") as ProjectDifficulty,
-            cost: Number(projectInformations.get("cost") as string),
-            clientId: Number(projectInformations.get("clientId") as string),
-            parentProjectId: parentProjectId,
-            startDate: new Date(projectInformations.get("startDate") as string),
-            endDate: new Date(projectInformations.get("endDate") as string),
+            title: projectInformations.title,
+            description: projectInformations.description,
+            difficulty: projectInformations.difficulty,
+            cost: projectInformations.cost,
+            clientId: projectInformations.clientId,
+            parentProjectId: projectInformations.parentProjectId,
+            startDate: new Date(projectInformations.startDate),
+            endDate: new Date(projectInformations.endDate),
             ...(coverPath !== undefined && { cover: coverPath })
         },
         where: {

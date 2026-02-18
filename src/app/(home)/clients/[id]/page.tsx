@@ -6,7 +6,7 @@ import styles from "./client-detail-page.module.css";
 import Chip from "@/components/UI/Chip";
 import {$Enums, ClientStatus} from "@/generated/prisma";
 import {statusColors} from "@/lib/statusColors";
-import {Envelope, GenderFemale, GenderMale, Phone, TrashIcon} from "@phosphor-icons/react/ssr";
+import {Envelope, GenderFemale, GenderMale, PencilIcon, Phone, TrashIcon} from "@phosphor-icons/react/ssr";
 import Separator from "@/components/UI/Separator";
 import Avatar from "@/components/UI/Avatar";
 import BackButton from "@/components/UI/Buttons/BackButton";
@@ -14,6 +14,7 @@ import {getClientNotes} from "@/services/clientNoteService";
 import ClientNotesSection from "@/components/Layout/Client/ClientNotesSection";
 import {getTranslations} from "next-intl/server";
 import {removeClient} from "@/app/(home)/clients/[id]/action";
+import Link from "next/link";
 import GENDER = $Enums.GENDER;
 
 
@@ -60,7 +61,12 @@ const ClientDetailsPage = async ({params}: {params: Promise<{id: string}>}) => {
                         <Chip text={t(`clients.status.${client.status}`)} color={statusColors[client.status as ClientStatus]} />
                     </div>
                 </div>
-                <div>
+                <div style={{ display: "flex", alignItems: "center", gap: "4px"}}>
+                    <button className={styles.editButton}>
+                        <Link href={`/clients/${client.id}/edit`}>
+                            <PencilIcon size={24} />
+                        </Link>
+                    </button>
                     <form action={deleteClient}>
                         <button className={styles.deleteButton} type="submit">
                             <TrashIcon size={24} />

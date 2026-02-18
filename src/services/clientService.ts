@@ -60,8 +60,8 @@ export const addClient = async (clientInfos: FormData, userId: number): Promise<
 
 export const editClient = async (clientInfos: FormData, userId: number): Promise<Client> => {
     const today: number = Date.now();
-    const profilePicture: File = clientInfos.get("image") as File;
-    const clientId: number = Number(clientInfos.get('id'));
+    const profilePicture: File | undefined = clientInfos.get("image") as File | undefined;
+    const clientId: number = Number(clientInfos.get('clientId') as string);
     let imagePath: string | null | undefined;
 
     if(profilePicture && profilePicture.size > 0){
