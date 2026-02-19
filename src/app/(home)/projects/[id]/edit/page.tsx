@@ -2,7 +2,7 @@ import {getProject} from "@/services/projectService";
 import {authOptions} from "@/lib/auth";
 import {getServerSession} from "next-auth/next";
 import Input, {InputProps} from "@/components/UI/Input";
-import {updateProject} from "@/app/(home)/projects/[id]/actions";
+import {updateProject} from "@/app/(home)/projects/action";
 import styles from "./edit-project-page.module.css";
 import {Client, Project} from "@/types";
 import {getAllUserClients} from "@/services/clientService";

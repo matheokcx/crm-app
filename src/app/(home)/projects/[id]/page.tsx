@@ -27,7 +27,7 @@ import {getFilesByProject} from "@/services/fileService";
 import FileCard from "@/components/UI/Cards/File/FileCard";
 import BackButton from "@/components/UI/Buttons/BackButton";
 import {getTranslations} from "next-intl/server";
-import {removeProject} from "@/app/(home)/projects/[id]/actions";
+import {removeProject} from "@/app/(home)/projects/action";
 import Link from "next/link";
 
 const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {

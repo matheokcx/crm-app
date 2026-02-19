@@ -58,10 +58,9 @@ export const addClient = async (clientInfos: FormData, userId: number): Promise<
     });
 };
 
-export const editClient = async (clientInfos: FormData, userId: number): Promise<Client> => {
+export const editClient = async (clientInfos: any, clientId: number, userId: number): Promise<Client> => {
     const today: number = Date.now();
-    const profilePicture: File | undefined = clientInfos.get("image") as File | undefined;
-    const clientId: number = Number(clientInfos.get('clientId') as string);
+    const profilePicture: File | undefined = clientInfos.image;
     let imagePath: string | null | undefined;
 
     if(profilePicture && profilePicture.size > 0){
@@ -84,16 +83,16 @@ export const editClient = async (clientInfos: FormData, userId: number): Promise
 
     return await prismaClient.client.update({
         data: {
-            firstName: clientInfos.get('firstName') as string,
-            lastName: clientInfos.get('lastName') as string,
-            job: clientInfos.get('job') as string,
-            status: clientInfos.get('status') as ClientStatus,
+            firstName: clientInfos.firstName,
+            lastName: clientInfos.lastName,
+            job: clientInfos.job,
+            status: clientInfos.status,
             links: [],
-            birthdate: clientInfos.get('birthdate') ? new Date(clientInfos.get('birthdate') as string) : null,
-            mail: clientInfos.get('mail') as string ?? null,
-            phone: clientInfos.get('phone') as string ?? null,
+            birthdate: clientInfos.birthdate ? new Date(clientInfos.birthdate) : null,
+            mail: clientInfos.mail,
+            phone: clientInfos.phone,
             ...(imagePath !== undefined && { image: imagePath }),
-            gender: clientInfos.get('gender') as Gender,
+            gender: clientInfos.gender,
             freelanceId: userId
         },
         where: {

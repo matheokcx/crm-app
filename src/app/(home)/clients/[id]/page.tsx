@@ -13,7 +13,7 @@ import BackButton from "@/components/UI/Buttons/BackButton";
 import {getClientNotes} from "@/services/clientNoteService";
 import ClientNotesSection from "@/components/Layout/Client/ClientNotesSection";
 import {getTranslations} from "next-intl/server";
-import {removeClient} from "@/app/(home)/clients/[id]/action";
+import {removeClient} from "@/app/(home)/clients/action";
 import Link from "next/link";
 import GENDER = $Enums.GENDER;
 

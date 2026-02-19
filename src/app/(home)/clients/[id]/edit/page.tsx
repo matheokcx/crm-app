@@ -1,5 +1,5 @@
 "use server";
-import {updateClient} from "@/app/(home)/clients/[id]/action";
+import {updateClient} from "@/app/(home)/clients/action";
 import {prismaClient} from "@/lib/prisma";
 import Input, {InputProps} from "@/components/UI/Input";
 import {getTranslations} from "next-intl/server";
@@ -26,7 +26,7 @@ const EditClientPage = async ({ params }: { params: Promise<{ id: string}>}) => 
         { type: "text", name: "lastName", label: t("lastName"), placeholder: "Dubois", defaultValue: client.lastName },
         { type: "text", name: "job", label: t("job"), placeholder: "CEO de l'entreprise", defaultValue: client.job },
         { type: "date", name: "birthdate", label: t("birthdate"), defaultValue: client.birthdate ? client.birthdate : new Date().toISOString().split("T")[0], required: false },
-        { type: "mail", name: "mail", label: "Mail", placeholder: "alex.dubois@example.com", required: false, defaultValue: client.mail },
+        { type: "mail", name: "mail", label: "Mail", placeholder: "alex.dubois@example.com", required: false, defaultValue: client.mail},
         { type: "tel", name: "phone", label: t("phone"), placeholder: "0707070707", required: false, defaultValue: client.phone },
         { type: "hidden", name: "clientId", label: "id", required: false, defaultValue: client.id },
     ];

@@ -1,11 +1,10 @@
-import {createClient} from "@/app/(home)/clients/create/action";
+import {createClient} from "@/app/(home)/clients/action";
 import styles from "./client-create-page.module.css";
 import {ClientStatus, GENDER} from "@/generated/prisma";
 import {Gender} from "@/types";
 import Separator from "@/components/UI/Separator";
 import Input, {InputProps} from "@/components/UI/Input";
 import {getTranslations} from "next-intl/server";
-
 
 
 const ClientCreatePage = async () => {
