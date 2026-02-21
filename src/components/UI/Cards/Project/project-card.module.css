@@ -22,8 +22,7 @@
 }
 
 .projectDescription {
-    max-width: 350px;
-    white-space: nowrap;
+    max-width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
 }

@@ -1,11 +1,12 @@
 .pageSection {
     width: 80%;
-    height: 90%;
+    height: 100%;
     padding: 24px 24px 0;
 }
 
 .pageHeader {
     width: 100%;
+    height: 10%;
     display: flex;
     justify-content: space-between;
     padding-bottom: 20px;
@@ -22,11 +23,26 @@
 
 .projectList {
     width: 100%;
-    max-height: 100%;
+    max-height: 90%;
     overflow-y: auto;
     display: grid;
     gap: 20px;
     padding: 20px;
     border-radius: 12px;
     background: var(--background);
+}
+
+@media screen and (max-width: 500px) {
+    .pageHeader {
+        height: auto;
+    }
+
+    .pageSection {
+        width: 100%;
+        padding: 0;
+    }
+
+    .projectList {
+        padding: 10px;
+    }
 }
