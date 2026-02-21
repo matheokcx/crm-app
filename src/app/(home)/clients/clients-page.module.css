@@ -20,10 +20,10 @@
 
 .clientsList {
     width: 100%;
-    height: 95%;
     background: var(--background);
     overflow-y: auto;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     flex-wrap: wrap;
     gap: 48px 32px;
     padding: 20px;

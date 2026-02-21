@@ -1,7 +1,6 @@
 import styles from "./homepage.module.css";
-import KpiCard from "@/components/UI/Cards/KpiCard";
+import KpiCard from "@/components/UI/Widgets/KpiCard";
 import {Client, File, Meeting, Project} from "@/types";
-import MeetingReduceCard from "@/components/UI/Cards/Meeting/MeetingReduceCard";
 import {getFormattedDate} from "@/utils/utils";
 import FileCard from "@/components/UI/Cards/File/FileCard";
 import {getServerSession} from "next-auth/next";
@@ -11,8 +10,7 @@ import {getAllUserProjects} from "@/services/projectService";
 import {getFiles} from "@/services/fileService";
 import {getMeetings} from "@/services/meetingService";
 import {getTranslations} from "next-intl/server";
-
-
+import ComingMeetingsWidget from "@/components/UI/Widgets/ComingMeetingsWidget";
 
 const HomePage = async () => {
     const session = await getServerSession(authOptions);
@@ -43,40 +41,19 @@ const HomePage = async () => {
 
     return (
         <section className={styles.homePage}>
-          <div className={styles.homePageSection}>
-              <div className={styles.homePageSectionRow}>
-                  <div className={styles.comingSoonMeetingsWidget}>
-                      <h3>{t("meetings.shortcutSectionTitle")}:</h3>
-                      <div className={styles.comingSoonMeetingsDiv}>
-                          {comingMeetings.map((meeting: Meeting | null, index: number) => {
-                              const todayDate: Date = new Date();
-                              todayDate.setDate(todayDate.getDate() + index);
-                              const dateLabel: string = getFormattedDate(todayDate);
-
-                              return <MeetingReduceCard key={index}
-                                                        weekDay={meeting ? meeting.startHour : new Date(dateLabel)}
-                                                        meetingTitle={meeting?.title}
-                              />
-                          })}
-                      </div>
-                  </div>
-                  <div className={styles.kpisDiv}>
-                      <KpiCard name={t("clients.clients")} value={clients.length} />
-                      <KpiCard name={t("projects.inProgress")} value={processingProjects.length} />
-                  </div>
-              </div>
-              <div className={styles.homePageSectionRow}>
-                  {recentFiles.length > 0 && (
-                      <div className={styles.recentFilesDiv}>
-                          <label>{t("files.recentFiles")}</label>
-                          <div className={styles.filesDiv}>
-                              {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}
-                          </div>
-                      </div>
-                  )}
-                  <div style={{width: "50%"}}></div>
-              </div>
-          </div>
+            <div className={styles.displayGrid}>
+                <ComingMeetingsWidget comingMeetings={comingMeetings} />
+                <KpiCard name={t("clients.clients")} value={clients.length} />
+                <KpiCard name={t("projects.inProgress")} value={processingProjects.length} />
+                {recentFiles.length > 0 && (
+                    <div className={styles.recentFilesDiv}>
+                        <label>{t("files.recentFiles")}</label>
+                        <div className={styles.filesDiv}>
+                            {recentFiles.map((file: File) => <FileCard key={file.id} file={file} />)}
+                        </div>
+                    </div>
+                )}
+            </div>
         </section>
     );
 };

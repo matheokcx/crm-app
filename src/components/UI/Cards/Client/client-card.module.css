@@ -1,5 +1,5 @@
 .clientCard {
-    width: calc(33% - 30px);
+    width: 100%;
     border: 2px solid hsla(0, 0%, 70%, 50%);
     border-radius: 12px;
     background: var(--background);
