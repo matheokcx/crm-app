@@ -1,7 +1,7 @@
 .pageSection {
     width: 80%;
     height: 100%;
-    padding: 24px 24px 0;
+    padding-inline: 24px;
 }
 
 .pageHeader {
@@ -9,16 +9,8 @@
     height: 10%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-bottom: 20px;
-}
-
-.pageHeader button {
-    background: var(--secondary);
-    border-width: 0;
-}
-
-.pageHeader button>a {
-    color: white;
 }
 
 .projectList {
@@ -30,6 +22,19 @@
     padding: 20px;
     border-radius: 12px;
     background: var(--background);
+}
+
+.addButton {
+    border-width: 0;
+    transition: 1.5s;
+}
+
+.addButton:hover {
+    background-color: var(--primary);
+}
+
+.addButton a {
+    color: white;
 }
 
 @media screen and (max-width: 500px) {

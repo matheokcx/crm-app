@@ -13,6 +13,11 @@
 
 .addButton {
     border-width: 0;
+    transition: 1.5s;
+}
+
+.addButton:hover {
+    background-color: var(--primary);
 }
 
 .addButton a {

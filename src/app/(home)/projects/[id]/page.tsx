@@ -57,7 +57,7 @@ const ProjectDetailPage = async ({params}: {params: Promise<{id: string}>}) => {
         }
     };
 
-    const deleteProject = removeProject.bind(null, project);
+    const deleteProject = removeProject.bind(null, project.id);
 
     return (
         <section className={styles.projectDetailsPage}>

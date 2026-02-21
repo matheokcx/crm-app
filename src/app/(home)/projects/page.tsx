@@ -9,7 +9,6 @@ import ProjectCard from "@/components/UI/Cards/Project/ProjectCard";
 import {getTranslations} from "next-intl/server";
 
 
-
 const ProjectListPage = async () => {
     const session = await getServerSession(authOptions);
     const t  = await getTranslations();
@@ -24,7 +23,7 @@ const ProjectListPage = async () => {
         <section className={styles.pageSection}>
             <div className={styles.pageHeader}>
                 <h1>{t('projects.listPage.title')}</h1>
-                <button>
+                <button className={styles.addButton}>
                     <Plus size={24} weight="bold" />
                     <Link href="/projects/create">{t("create")}</Link>
                 </button>

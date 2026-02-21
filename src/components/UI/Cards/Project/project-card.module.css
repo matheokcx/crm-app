@@ -11,7 +11,7 @@
 }
 
 .projectCard:hover {
-    border-color: var(--primary);
+    background-color: var(--primary);
     cursor: pointer;
 }
 

@@ -1,9 +1,7 @@
-import { prismaClient } from "@/lib/prisma";
-import {ClientStatus, Gender, ProjectDifficulty} from "@/types";
+import {prismaClient} from "@/lib/prisma";
+import {ClientStatus, ProjectDifficulty} from "@/types";
 import bcrypt from "bcrypt";
-import { fakerFR as faker } from "@faker-js/faker";
-
-
+import {fakerFR as faker} from "@faker-js/faker";
 
 
 const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
@@ -61,7 +59,7 @@ async function main(): Promise<void> {
             data: {
                 firstName: firstName,
                 lastName: lastName,
-                job: faker.person.jobTitle(),
+                job: faker.person.jobType(),
                 mail: faker.internet.email({ firstName, lastName }),
                 status: status as ClientStatus,
                 gender: sex === "MALE" ? "MALE" : "FEMALE",
@@ -70,7 +68,7 @@ async function main(): Promise<void> {
                 links: [faker.internet.url(), faker.internet.url()],
                 notes: {
                     create: Array.from({ length: randomInt(0, 5) }).map(() => ({
-                        text: faker.lorem.sentence(),
+                        text: faker.lorem.words(randomInt(5, 15)),
                         createdAt: faker.date.recent({ days: 60 })
                     }))
                 }
@@ -89,7 +87,7 @@ async function main(): Promise<void> {
                 const project = await prismaClient.project.create({
                     data: {
                         title: faker.commerce.productName(),
-                        description: faker.lorem.paragraph(),
+                        description: faker.lorem.sentences(2),
                         startDate: projectStartDate,
                         endDate: endDate,
                         cost: parseFloat(faker.commerce.price({ min: 1000, max: 20000 })),
