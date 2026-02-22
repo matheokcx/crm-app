@@ -1,5 +1,6 @@
 import path from "path";
 import {writeFile} from "fs/promises";
+import {cookies} from "next/headers";
 
 export const FILE_LIMIT_SIZE: number = 5 * 1024 * 1024; // 5 MB
 
@@ -93,4 +94,13 @@ export const uploadFile = async (file: File, filePrefix: string): Promise<string
         console.error(error.message);
         return error.message;
     }
+};
+
+export const toast = async (message: string): Promise<void> => {
+    const cookieStore = await cookies();
+    const id: string = crypto.randomUUID();
+    cookieStore.set(`toast-${id}`, message, {
+        path: "/",
+        maxAge: 60 * 60
+    });
 };

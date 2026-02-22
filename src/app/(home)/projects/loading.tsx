@@ -1,9 +1,8 @@
 import styles from "@/app/(home)/projects/projects-page.module.css";
 import projectStyles from "@/components/UI/Cards/Project/project-card.module.css";
-import Skeleton from "@/components/UI/Skeleton";
+import Skeleton from "@/components/UI/Skeleton/Skeleton";
 import {Plus} from "@phosphor-icons/react/ssr";
 import Link from "next/link";
-
 
 
 const Loading = () => {

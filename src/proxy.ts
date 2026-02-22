@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from 'next/server';
 import {getToken} from 'next-auth/jwt';
 
-export const middleware = async (request: NextRequest): Promise<NextResponse> => {
+export const proxy = async (request: NextRequest): Promise<NextResponse> => {
     const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
     const { pathname } = request.nextUrl;
     const publicRoutes: string[] = [

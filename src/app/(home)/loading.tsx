@@ -1,6 +1,5 @@
-import Skeleton from "@/components/UI/Skeleton";
+import Skeleton from "@/components/UI/Skeleton/Skeleton";
 import styles from "@/app/(home)/homepage.module.css";
-
 
 
 const Loading = () => {

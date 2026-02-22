@@ -21,7 +21,7 @@ import {
 import {JSX} from "react";
 import Image from "next/image";
 import {getClient} from "@/services/clientService";
-import Avatar from "@/components/UI/Avatar";
+import Avatar from "@/components/UI/Avatar/Avatar";
 import {getMeetings} from "@/services/meetingService";
 import {getFilesByProject} from "@/services/fileService";
 import FileCard from "@/components/UI/Cards/File/FileCard";

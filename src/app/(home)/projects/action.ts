@@ -6,6 +6,7 @@ import {addProject, deleteProject, editProject} from "@/services/projectService"
 import {redirect} from "next/dist/client/components/redirect";
 import {z} from "zod";
 import {ProjectDifficulty} from "@/generated/prisma";
+import {toast} from "@/utils/utils";
 
 const projectSchema = z.object({
     title: z.string()
@@ -15,7 +16,7 @@ const projectSchema = z.object({
         .min(3, "La longueur minimale de la description est de 3")
         .max(250, "La longueur maximale de la description est de 250"),
     difficulty: z.enum(Object.values(ProjectDifficulty), "La difficulté doit être parmi les choix"),
-    cost: z.coerce.number().nonnegative("Le coup du projet ne peut pas être négatif"),
+    cost: z.coerce.number().nonnegative("Le gain du projet ne peut pas être négatif"),
     clientId: z.coerce.number().nonnegative("L'id du client ne peut pas être négatif"),
     parentProjectId: z.coerce.number().refine((value: number) => value === 0).transform(() => null).nullable(),
     startDate: z.coerce.date(),
@@ -44,8 +45,9 @@ export const createProject = async (data: FormData): Promise<void> => {
             }
         }
         else{
-            console.error("No project created");
-            console.error(isValid.error.issues);
+            for(const error of isValid.error.issues){
+                await toast(error.message);
+            }
         }
     }
 };
@@ -54,15 +56,17 @@ export const updateProject = async (data: FormData): Promise<void> => {
     const session = await getServerSession(authOptions);
     const projectId: number = Number(data.get("projectId") as string);
     const formDataObject = Object.fromEntries(data);
-    const validate = projectSchema.safeParse(formDataObject);
+    const isValid = projectSchema.safeParse(formDataObject);
 
     if(session?.user?.id){
-        if(validate.success){
-            await editProject(validate.data, projectId, Number(session.user.id));
+        if(isValid.success){
+            await editProject(isValid.data, projectId, Number(session.user.id));
             redirect(`/projects/${projectId}`);
         }
         else {
-            console.error(validate.error.issues);
+            for(const error of isValid.error.issues){
+                await toast(error.message);
+            }
         }
     }
 };

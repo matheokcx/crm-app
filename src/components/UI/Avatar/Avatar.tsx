@@ -1,6 +1,5 @@
-import styles from "@/components/UI/avatar.module.css";
+import styles from "@/components/UI/Avatar/avatar.module.css";
 import Image from "next/image";
-
 
 
 type AvatarProps = {

@@ -2,14 +2,13 @@
 import styles from "./client-card.module.css";
 import {Client} from "@/types";
 import {Eye, Pencil} from "@phosphor-icons/react/ssr";
-import Chip from "@/components/UI/Chip";
+import Chip from "@/components/UI/Chip/Chip";
 import {useRouter} from "next/navigation";
 import Separator from "@/components/UI/Separator";
 import {statusColors} from "@/lib/statusColors";
 import {ClientStatus} from "@/generated/prisma";
-import Avatar from "@/components/UI/Avatar";
+import Avatar from "@/components/UI/Avatar/Avatar";
 import {useTranslations} from "next-intl";
-
 
 
 type ClientCard = {

@@ -6,6 +6,7 @@ import {addClient, deleteClient, editClient} from "@/services/clientService";
 import {redirect} from "next/dist/client/components/redirect";
 import {Client} from "@/types";
 import z from "zod";
+import {toast} from "@/utils/utils";
 
 const clientSchema = z.object({
     firstName: z.string()
@@ -53,8 +54,9 @@ export const createClient = async (inputs: FormData): Promise<void> => {
             }
         }
         else {
-            console.error("No client created");
-            console.error(isValid);
+            for(const error of isValid.error.issues){
+                await toast(error.message);
+            }
         }
     }
 };
@@ -72,7 +74,9 @@ export const updateClient = async (data: FormData): Promise<void> => {
             redirect(`/clients/${clientId}`);
         }
         else {
-            console.error(isValid.error.issues);
+            for(const error of isValid.error.issues){
+                await toast(error.message);
+            }
         }
     }
 };
