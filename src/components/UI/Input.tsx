@@ -11,7 +11,7 @@ const Input = ({type, name, label, placeholder, required = true, defaultValue}: 
     const isHidden: boolean = type === "hidden";
 
     return (
-        <>
+        <div style={{ display: "grid", width: "100%", gap: "6px" }}>
             {!isHidden && <label htmlFor={name}>{label}{required && "*"}</label>}
             <input type={type}
                    name={name}
@@ -19,8 +19,9 @@ const Input = ({type, name, label, placeholder, required = true, defaultValue}: 
                    placeholder={placeholder}
                    required={required}
                    defaultValue={defaultValue}
+                   style={{ width: "100%" }}
             />
-        </>
+        </div>
     );
 };
 

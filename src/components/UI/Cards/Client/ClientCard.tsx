@@ -34,7 +34,7 @@ const ClientCard = ({ client }: ClientCard) => {
             <Separator widthPercent={100} />
             <div className={styles.buttonsDiv}>
                 <button style={{width: "100%", background: "var(--secondary)", borderWidth: 0}}
-                        onClick={() => router.push(`/clients/${client.id}/update`)}
+                        onClick={() => router.push(`/clients/${client.id}/edit`)}
                 >
                     <Pencil size={24} />
                     {t("edit")}
