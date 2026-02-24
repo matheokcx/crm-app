@@ -5,8 +5,17 @@ import {Gender} from "@/types";
 import Separator from "@/components/UI/Separator";
 import Input from "@/components/UI/Input";
 import {getTranslations} from "next-intl/server";
-import {CloudArrowUpIcon} from "@phosphor-icons/react/ssr";
-
+import {
+    BriefcaseIcon,
+    CakeIcon,
+    CloudArrowUpIcon,
+    EnvelopeIcon,
+    GenderIntersexIcon,
+    LinkIcon,
+    PhoneIcon,
+    ThermometerIcon
+} from "@phosphor-icons/react/ssr";
+import LinksList from "@/components/UI/LinksList";
 
 const ClientCreatePage = async () => {
     const t = await getTranslations();
@@ -18,7 +27,7 @@ const ClientCreatePage = async () => {
                     <h1>{t('clients.createPage.title')}</h1>
                     <Separator widthPercent={30} />
                 </div>
-                <div style={{ display: "grid", gap: "20px" }}>
+                <div style={{ display: "grid", gap: "32px" }}>
                     <div className={styles.inputsLine}>
                         <Input type="text"
                                name="lastName"
@@ -34,7 +43,10 @@ const ClientCreatePage = async () => {
 
                     <div className={styles.inputsLine}>
                         <div className={styles.selectDiv} style={{width: "50%"}}>
-                            <label htmlFor="gender">Sex: (*)</label>
+                            <label htmlFor="gender">
+                                <GenderIntersexIcon size={24} />
+                                Sex*
+                            </label>
                             <select name="gender" id="gender" required>
                                 {Object.values(GENDER).map((gender: Gender) => (
                                     <option key={gender} value={gender}>
@@ -46,8 +58,8 @@ const ClientCreatePage = async () => {
                         <Input type="date"
                                name="birthdate"
                                label={t("birthdate")}
-                               defaultValue={new Date().toISOString().split("T")[0]}
                                required={false}
+                               icon={<CakeIcon size={24} />}
                         />
                     </div>
 
@@ -55,9 +67,13 @@ const ClientCreatePage = async () => {
                            name="job"
                            label={t("job")}
                            placeholder="CEO"
+                           icon={<BriefcaseIcon size={24} />}
                     />
                     <div className={styles.selectDiv}>
-                        <label htmlFor="status">{t("status")}: </label>
+                        <label htmlFor="status">
+                            <ThermometerIcon size={24} />
+                            {t("status")}
+                        </label>
                         <select name="status" id="status">
                             {Object.values(ClientStatus).map((status: ClientStatus) => (
                                 <option key={status} value={status}>
@@ -74,12 +90,14 @@ const ClientCreatePage = async () => {
                                label="Mail"
                                placeholder="alex.dubois@example.com"
                                required={false}
+                               icon={<EnvelopeIcon size={24} />}
                         />
                         <Input type="tel"
                                name="phone"
                                label={t("phone")}
                                placeholder="0707070707"
                                required={false}
+                               icon={<PhoneIcon size={24} />}
                         />
                     </div>
                     <button className={styles.valideFormButton} type="submit">{t('create')}</button>
@@ -89,7 +107,13 @@ const ClientCreatePage = async () => {
                         <CloudArrowUpIcon size={48} />
                         <Input type="file" name="image" label="Lâcher ou choisir la photo de votre client (max 5Mo)" required={false} />
                     </div>
-
+                    <div style={{ marginTop: "32px"}}>
+                        <label style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "10px" }}>
+                            <LinkIcon size={24} />
+                            Lien(s) associé(s)
+                        </label>
+                        <LinksList />
+                    </div>
                 </div>
             </form>
         </section>

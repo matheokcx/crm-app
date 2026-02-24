@@ -4,9 +4,9 @@ import {authOptions} from "@/lib/auth";
 import {ClientStatus, GENDER} from "@/generated/prisma";
 import {addClient, deleteClient, editClient} from "@/services/clientService";
 import {redirect} from "next/dist/client/components/redirect";
-import {Client} from "@/types";
 import z from "zod";
 import {toast} from "@/utils/utils";
+import {Client} from "@/types";
 
 const clientSchema = z.object({
     firstName: z.string()
@@ -36,6 +36,10 @@ const clientSchema = z.object({
             .max(5_000_000),
         z.file().refine((file) => file.size === 0).transform(() => null),
     ]),
+    links: z.array(z.string().url().or(z.literal("")))
+        .transform(arr => arr.filter(s => s !== ""))
+        .transform(arr => arr.length > 0 ? arr : null)
+        .nullable(),
     gender: z.enum(Object.values(GENDER))
 });
 
@@ -43,11 +47,15 @@ export const createClient = async (inputs: FormData): Promise<void> => {
     const session = await getServerSession(authOptions);
 
     if(session?.user?.id) {
-        const formDataObject = Object.fromEntries(inputs);
+        const formDataObject = {
+            ...Object.fromEntries(inputs),
+            links: inputs.getAll("links")
+        };
         const isValid = clientSchema.safeParse(formDataObject);
 
         if(isValid.success) {
-            const newClient: Client = await addClient(inputs, Number(session.user.id))
+            console.log(isValid.data);
+            const newClient: Client = await addClient(isValid.data, Number(session.user.id))
 
             if(newClient) {
                 redirect(`/clients/${newClient.id}`);

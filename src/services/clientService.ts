@@ -47,7 +47,7 @@ export const addClient = async (clientInfos: any, userId: number): Promise<Clien
             lastName: clientInfos.lastName,
             job: clientInfos.job,
             status: clientInfos.status,
-            links: [],
+            links: clientInfos.links ?? [],
             birthdate: clientInfos.birthdate ? new Date(clientInfos.birthdate) : null,
             mail: clientInfos.mail ?? null,
             phone: clientInfos.phone ?? null,
