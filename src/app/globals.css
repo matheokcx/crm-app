@@ -85,8 +85,8 @@ button {
   justify-content: center;
   gap: 5px;
   border-radius: 10px;
-  padding-inline: 16px;
-  padding-block: 10px;
+  padding-inline: 20px;
+  padding-block: 7px;
   border: 2px solid hsl(0, 0%, 40%)
 }
 
@@ -104,10 +104,9 @@ select {
   border: 2px solid hsl(0, 0%, 70%);
   background: hsla(0, 0%, 90%, 0%);
   width: fit-content;
-  height: fit-content;
   color: var(--secondary-text);
   padding-inline: 14px;
-  padding-block: 8px;
+  padding-block: 10px;
 }
 
 hr {

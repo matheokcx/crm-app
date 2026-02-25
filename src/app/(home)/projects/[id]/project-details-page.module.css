@@ -92,3 +92,23 @@
 .clientContactsPart {
     margin-top: 10px;
 }
+
+.deleteButton {
+    background-color: #00000000;
+    transition: 1.5s;
+}
+
+.deleteButton:hover {
+    border-color: hsl(0, 50%, 60%);
+    color: hsl(0, 50%, 60%);
+}
+
+.editButton {
+    background-color: #00000000;
+    transition: 1.5s;
+}
+
+.editButton:hover {
+    border-color: hsl(116, 50%, 60%);
+    color: hsl(116, 50%, 60%);
+}

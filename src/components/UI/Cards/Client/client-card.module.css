@@ -1,5 +1,4 @@
 .clientCard {
-    width: calc(33% - 30px);
     border: 2px solid hsla(0, 0%, 70%, 50%);
     border-radius: 12px;
     background: var(--background);
@@ -32,7 +31,6 @@
 
 .mainInformation h3,
 .mainInformation label {
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
@@ -40,7 +38,6 @@
 }
 
 .buttonsDiv {
-    width: 100%;
     display: flex;
     gap: 10px;
     align-items: center;
@@ -48,7 +45,6 @@
 
 .clientJob {
     text-overflow: ellipsis;
-    text-wrap: nowrap;
 }
 
 @media screen and (max-width: 500px) {

@@ -2,8 +2,6 @@ import {JSX} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import styles from "./link-line.module.css";
 
-
-
 type LinkLineProps = {
     icon: JSX.Element
     title: string;

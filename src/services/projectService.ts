@@ -1,5 +1,5 @@
 import {prismaClient} from "@/lib/prisma";
-import {Project, ProjectDifficulty} from "@/types";
+import {Project} from "@/types";
 import path from "path";
 import {unlink, writeFile} from "fs/promises";
 
@@ -35,9 +35,8 @@ export const getProject = async (projectId: number, userId: number): Promise<Pro
     });
 };
 
-export const addProject = async (projectInformations: FormData): Promise<Project> => {
-    const parentProjectId: number | null = projectInformations.get("parentProjectId") ? Number(projectInformations.get("parentProjectId") as string) : null;
-    const coverFile: File | null = projectInformations.get("cover") as File | null;
+export const addProject = async (projectInformations: any, clientId: number): Promise<Project> => {
+    const coverFile: File | null = projectInformations.cover;
     const today: number = Date.now();
 
     if(coverFile && coverFile.size > 0){
@@ -52,24 +51,22 @@ export const addProject = async (projectInformations: FormData): Promise<Project
 
     return await prismaClient.project.create({
         data: {
-            title: projectInformations.get("title") as string,
-            description: projectInformations.get("description") as string,
-            difficulty: projectInformations.get("difficulty") as ProjectDifficulty,
-            cost: Number(projectInformations.get("cost") as string),
-            clientId: Number(projectInformations.get("clientId") as string),
-            parentProjectId: parentProjectId,
-            startDate: new Date(projectInformations.get("startDate") as string),
-            endDate: new Date(projectInformations.get("endDate") as string),
-            cover: coverFile ? `/files/project_cover_${today}_${coverFile.name}` : null,
+            title: projectInformations.title,
+            description: projectInformations.description,
+            difficulty: projectInformations.difficulty,
+            cost: projectInformations.cost,
+            clientId: clientId,
+            parentProjectId: projectInformations.parentProjectId,
+            startDate: new Date(projectInformations.startDate),
+            endDate: new Date(projectInformations.endDate),
+            cover: coverFile ? `/files/project_cover_${today}_${coverFile.name}` : null
         }
     });
 };
 
-export const editProject = async (projectInformations: FormData): Promise<Project> => {
-    const parentProjectId: number | null = projectInformations.get("parentProjectId") ? Number(projectInformations.get("parentProjectId") as string) : null;
-    const coverFile: File | null = projectInformations.get("cover") ? projectInformations.get("cover") as File : null;
+export const editProject = async (projectInformations: any, projectId: number, userId: number): Promise<Project> => {
+    const coverFile: File | null = projectInformations.cover;
     const today: number = Date.now();
-    const projectId: number = Number(projectInformations.get("projectId"));
     let coverPath: string | null | undefined;
 
     if(coverFile && coverFile.size > 0){
@@ -92,24 +89,27 @@ export const editProject = async (projectInformations: FormData): Promise<Projec
 
     return await prismaClient.project.update({
         data: {
-            title: projectInformations.get("title") as string,
-            description: projectInformations.get("description") as string,
-            difficulty: projectInformations.get("difficulty") as ProjectDifficulty,
-            cost: Number(projectInformations.get("cost") as string),
-            clientId: Number(projectInformations.get("clientId") as string),
-            parentProjectId: parentProjectId,
-            startDate: new Date(projectInformations.get("startDate") as string),
-            endDate: new Date(projectInformations.get("endDate") as string),
+            title: projectInformations.title,
+            description: projectInformations.description,
+            difficulty: projectInformations.difficulty,
+            cost: projectInformations.cost,
+            clientId: projectInformations.clientId,
+            parentProjectId: projectInformations.parentProjectId,
+            startDate: new Date(projectInformations.startDate),
+            endDate: new Date(projectInformations.endDate),
             ...(coverPath !== undefined && { cover: coverPath })
         },
         where: {
-            id: projectId
+            id: projectId,
+            client: {
+                freelanceId: userId
+            }
         }
     });
 };
 
 export const deleteProject = async (projectId: number, userId: number): Promise<void> => {
-    const deletedProject = await prismaClient.project.delete({
+    const deletedProject: Project = await prismaClient.project.delete({
         where: {
             id: projectId,
             client: {

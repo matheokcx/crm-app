@@ -1,10 +1,12 @@
-import {createClient} from "@/app/(home)/clients/action";
-import styles from "./client-create-page.module.css";
-import {ClientStatus, GENDER} from "@/generated/prisma";
-import {Gender} from "@/types";
-import Separator from "@/components/UI/Separator";
+import {updateClient} from "@/app/(home)/clients/action";
+import {prismaClient} from "@/lib/prisma";
 import Input from "@/components/UI/Input";
 import {getTranslations} from "next-intl/server";
+import styles from "./edit-client-page.module.css";
+import Separator from "@/components/UI/Separator";
+import {ClientStatus, GENDER} from "@/generated/prisma";
+import {Gender} from "@/types";
+import BackButton from "@/components/UI/Buttons/BackButton";
 import {
     BriefcaseIcon,
     CakeIcon,
@@ -16,18 +18,27 @@ import {
     ThermometerIcon
 } from "@phosphor-icons/react/ssr";
 import LinksList from "@/components/UI/LinksList";
-import BackButton from "@/components/UI/Buttons/BackButton";
 
-const ClientCreatePage = async () => {
+const EditClientPage = async ({ params }: { params: Promise<{ id: string}>}) => {
+    const { id } = await params;
     const t = await getTranslations();
+    const client = await prismaClient.client.findUnique({
+        where: {
+            id: Number(id)
+        }
+    })
+
+    if(!client) {
+        return <p>Ce client n'a pas été trouvé</p>;
+    }
 
     return (
         <section className={styles.page}>
-            <form action={createClient} className={styles.gridForm}>
+            <form action={updateClient} className={styles.gridForm}>
                 <div className={styles.titleRow}>
                     <h1 style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                         <BackButton />
-                        {t('clients.createPage.title')}
+                        {t("clients.updatePage.title")}
                     </h1>
                     <Separator widthPercent={30} />
                 </div>
@@ -37,11 +48,13 @@ const ClientCreatePage = async () => {
                                name="lastName"
                                label={t("lastName")}
                                placeholder="Dubois"
+                               defaultValue={client.lastName}
                         />
                         <Input type="text"
                                name="firstName"
                                label={t("firstName")}
                                placeholder="Alex"
+                               defaultValue={client.firstName}
                         />
                     </div>
 
@@ -51,7 +64,7 @@ const ClientCreatePage = async () => {
                                 <GenderIntersexIcon size={24} />
                                 Sex*
                             </label>
-                            <select name="gender" id="gender" required>
+                            <select name="gender" id="gender" defaultValue={client.gender} required>
                                 {Object.values(GENDER).map((gender: Gender) => (
                                     <option key={gender} value={gender}>
                                         {t(gender)}
@@ -64,6 +77,7 @@ const ClientCreatePage = async () => {
                                label={t("birthdate")}
                                required={false}
                                icon={<CakeIcon size={24} />}
+                               defaultValue={client.birthdate?.toISOString().split("T")[0]}
                         />
                     </div>
 
@@ -72,13 +86,14 @@ const ClientCreatePage = async () => {
                            label={t("job")}
                            placeholder="CEO"
                            icon={<BriefcaseIcon size={24} />}
+                           defaultValue={client.job}
                     />
                     <div className={styles.selectDiv}>
                         <label htmlFor="status">
                             <ThermometerIcon size={24} />
                             {t("status")}
                         </label>
-                        <select name="status" id="status">
+                        <select name="status" id="status" defaultValue={client.status}>
                             {Object.values(ClientStatus).map((status: ClientStatus) => (
                                 <option key={status} value={status}>
                                     {t(`clients.status.${status}`)}
@@ -95,6 +110,7 @@ const ClientCreatePage = async () => {
                                placeholder="alex.dubois@example.com"
                                required={false}
                                icon={<EnvelopeIcon size={24} />}
+                               defaultValue={client.mail}
                         />
                         <Input type="tel"
                                name="phone"
@@ -102,9 +118,10 @@ const ClientCreatePage = async () => {
                                placeholder="0707070707"
                                required={false}
                                icon={<PhoneIcon size={24} />}
+                               defaultValue={client.phone}
                         />
                     </div>
-                    <button className={styles.valideFormButton} type="submit">{t('create')}</button>
+                    <button className={styles.valideFormButton} type="submit">{t('edit')}</button>
                 </div>
                 <div>
                     <div className={styles.dropFileBox}>
@@ -124,4 +141,4 @@ const ClientCreatePage = async () => {
     );
 };
 
-export default ClientCreatePage;
+export default EditClientPage;

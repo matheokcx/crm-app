@@ -1,5 +1,5 @@
 import {prismaClient} from "@/lib/prisma";
-import {Client, ClientStatus, Gender} from "@/types";
+import {Client} from "@/types";
 import path from "path";
 import {unlink, writeFile} from "fs/promises";
 
@@ -26,12 +26,12 @@ export const getClient = async (clientId: number, userId: number): Promise<Clien
     });
 };
 
-export const addClient = async (clientInfos: FormData, userId: number): Promise<Client> => {
+export const addClient = async (clientInfos: any, userId: number): Promise<Client> => {
     const today: number = Date.now();
-    const profilePicture: File | null = clientInfos.get("image") as File | null;
+    const profilePicture: File | null = clientInfos.image;
     const clientImageUpload: boolean = profilePicture !== null && profilePicture.size > 0;
 
-    if(profilePicture && clientImageUpload){
+    if(profilePicture && profilePicture.size > 0){
         const bytes = await profilePicture.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
@@ -43,25 +43,24 @@ export const addClient = async (clientInfos: FormData, userId: number): Promise<
 
     return await prismaClient.client.create({
         data: {
-            firstName: clientInfos.get('firstName') as string,
-            lastName: clientInfos.get('lastName') as string,
-            job: clientInfos.get('job') as string,
-            status: clientInfos.get('status') as ClientStatus,
-            links: [],
-            birthdate: clientInfos.get('birthdate') ? new Date(clientInfos.get('birthdate') as string) : null,
-            mail: (clientInfos.get('mail') as string | undefined) ?? null,
-            phone: (clientInfos.get('phone') as string | undefined) ?? null,
-            image: clientImageUpload ? `/files/client_image_${today}_${(clientInfos.get('image') as File).name}` : null,
-            gender: clientInfos.get('gender') as Gender,
+            firstName: clientInfos.firstName,
+            lastName: clientInfos.lastName,
+            job: clientInfos.job,
+            status: clientInfos.status,
+            links: clientInfos.links ?? [],
+            birthdate: clientInfos.birthdate ? new Date(clientInfos.birthdate) : null,
+            mail: clientInfos.mail ?? null,
+            phone: clientInfos.phone ?? null,
+            image: (profilePicture && clientImageUpload) ? `/files/client_image_${today}_${profilePicture.name}` : null,
+            gender: clientInfos.gender,
             freelanceId: userId
         }
     });
 };
 
-export const editClient = async (clientInfos: FormData, userId: number): Promise<Client> => {
+export const editClient = async (clientInfos: any, clientId: number, userId: number): Promise<Client> => {
     const today: number = Date.now();
-    const profilePicture: File = clientInfos.get("image") as File;
-    const clientId: number = Number(clientInfos.get('id'));
+    const profilePicture: File | undefined = clientInfos.image;
     let imagePath: string | null | undefined;
 
     if(profilePicture && profilePicture.size > 0){
@@ -84,16 +83,16 @@ export const editClient = async (clientInfos: FormData, userId: number): Promise
 
     return await prismaClient.client.update({
         data: {
-            firstName: clientInfos.get('firstName') as string,
-            lastName: clientInfos.get('lastName') as string,
-            job: clientInfos.get('job') as string,
-            status: clientInfos.get('status') as ClientStatus,
+            firstName: clientInfos.firstName,
+            lastName: clientInfos.lastName,
+            job: clientInfos.job,
+            status: clientInfos.status,
             links: [],
-            birthdate: clientInfos.get('birthdate') ? new Date(clientInfos.get('birthdate') as string) : null,
-            mail: clientInfos.get('mail') as string ?? null,
-            phone: clientInfos.get('phone') as string ?? null,
+            birthdate: clientInfos.birthdate ? new Date(clientInfos.birthdate) : null,
+            mail: clientInfos.mail,
+            phone: clientInfos.phone,
             ...(imagePath !== undefined && { image: imagePath }),
-            gender: clientInfos.get('gender') as Gender,
+            gender: clientInfos.gender,
             freelanceId: userId
         },
         where: {

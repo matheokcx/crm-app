@@ -1,4 +1,4 @@
-import {createProject} from "@/app/(home)/projects/create/action";
+import {createProject} from "@/app/(home)/projects/action";
 import styles from "./project-create-page.module.css";
 import Input, {InputProps} from "@/components/UI/Input";
 import {Client} from "@/types";
@@ -8,8 +8,6 @@ import {authOptions} from "@/lib/auth";
 import {ProjectDifficulty} from "@/generated/prisma";
 import {getTranslations} from "next-intl/server";
 import Separator from "@/components/UI/Separator";
-
-
 
 const ProjectCreatePage = async () => {
     const today: string = new Date().toISOString().split("T")[0];

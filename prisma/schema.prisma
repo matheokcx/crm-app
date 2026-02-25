@@ -80,13 +80,13 @@ enum ClientStatus {
 
 model Client {
   id          Int          @id @default(autoincrement())
-  firstName   String
-  lastName    String
-  job         String
+  firstName   String       @db.VarChar(100)
+  lastName    String       @db.VarChar(100)
+  job         String       @db.VarChar(100)
   status      ClientStatus @default(LEAD)
   links       String[]     @default([])
   birthdate   DateTime?
-  mail        String?
+  mail        String?      @db.VarChar(150)
   phone       String?      @db.VarChar(20)
   image       String?
   gender      GENDER
@@ -102,8 +102,8 @@ model Client {
 
 model Project {
   id              Int               @id @default(autoincrement())
-  title           String
-  description     String
+  title           String            @db.VarChar(150)
+  description     String            @db.VarChar(300)
   startDate       DateTime
   endDate         DateTime
   cost            Int
@@ -123,8 +123,8 @@ model Project {
 
 model Meeting {
   id          Int      @id @default(autoincrement())
-  title       String
-  description String?
+  title       String   @db.VarChar(100)
+  description String?  @db.VarChar(250)
   startHour   DateTime
   endHour     DateTime
   projectId   Int
@@ -145,7 +145,7 @@ model File {
 
 model ClientNote {
   id        Int      @id @default(autoincrement())
-  text      String
+  text      String   @db.VarChar(200)
   createdAt DateTime @default(now())
   clientId  Int
   client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
