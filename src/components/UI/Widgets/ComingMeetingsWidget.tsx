@@ -13,7 +13,7 @@ const ComingMeetingsWidget = ({ comingMeetings }: ComingMeetingsWidgetProps) => 
 
     return (
         <div className={styles.comingSoonMeetingsWidget}>
-            <h3>{t("meetings.shortcutSectionTitle")}:</h3>
+            <h3><u>{t("meetings.shortcutSectionTitle")}:</u></h3>
             <div className={styles.comingSoonMeetingsDiv}>
                 {comingMeetings.map((meeting: Meeting | null, index: number) => {
                     const todayDate: Date = new Date();

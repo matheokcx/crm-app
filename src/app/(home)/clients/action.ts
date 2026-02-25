@@ -76,6 +76,8 @@ export const updateClient = async (data: FormData): Promise<void> => {
     const formDataObject = Object.fromEntries(data);
     const isValid = clientSchema.safeParse(formDataObject);
 
+    console.log("test", data)
+
     if(session?.user?.id){
         if(isValid.success){
             await editClient(isValid.data, clientId, Number(session.user.id));

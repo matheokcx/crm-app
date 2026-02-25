@@ -15,7 +15,7 @@ const BackButton = ({ text }: BackButtonProps) => {
     const handleBack = (): void => router.back();
 
     return (
-        <button onClick={handleBack} className={styles.backButton} style={{borderRadius: text ? "12px" : "50%"}}>
+        <button type="button" onClick={handleBack} className={styles.backButton} style={{borderRadius: text ? "12px" : "50%"}}>
             <CaretLeft size={24} weight={'bold'} />
             {text}
         </button>

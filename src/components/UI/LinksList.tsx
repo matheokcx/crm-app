@@ -6,7 +6,7 @@ const LinksList = () => {
     const [links, setLinks] = useState<string[]>([""]);
 
     return (
-        <div style={{display: "grid", gap: "20px"}}>
+        <div style={{maxHeight: "300px", overflowY: "auto", display: "grid", gap: "20px"}}>
             {links.map((link, index) => (
                 <div key={index} style={{display: "flex", gap: "14px", alignItems: "center"}}>
                     <input

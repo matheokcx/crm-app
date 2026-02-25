@@ -16,6 +16,7 @@ import {
     ThermometerIcon
 } from "@phosphor-icons/react/ssr";
 import LinksList from "@/components/UI/LinksList";
+import BackButton from "@/components/UI/Buttons/BackButton";
 
 const ClientCreatePage = async () => {
     const t = await getTranslations();
@@ -23,8 +24,11 @@ const ClientCreatePage = async () => {
     return (
         <section className={styles.page}>
             <form action={createClient} className={styles.gridForm}>
-                <div style={{ gridColumn: "span 2" }}>
-                    <h1>{t('clients.createPage.title')}</h1>
+                <div className={styles.titleRow}>
+                    <h1 style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <BackButton />
+                        {t('clients.createPage.title')}
+                    </h1>
                     <Separator widthPercent={30} />
                 </div>
                 <div style={{ display: "grid", gap: "32px" }}>
