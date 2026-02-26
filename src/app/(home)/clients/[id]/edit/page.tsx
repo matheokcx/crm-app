@@ -110,7 +110,7 @@ const EditClientPage = async ({ params }: { params: Promise<{ id: string}>}) => 
                                placeholder="alex.dubois@example.com"
                                required={false}
                                icon={<EnvelopeIcon size={24} />}
-                               defaultValue={client.mail}
+                               defaultValue={client.mail ?? undefined}
                         />
                         <Input type="tel"
                                name="phone"
@@ -118,7 +118,7 @@ const EditClientPage = async ({ params }: { params: Promise<{ id: string}>}) => 
                                placeholder="0707070707"
                                required={false}
                                icon={<PhoneIcon size={24} />}
-                               defaultValue={client.phone}
+                               defaultValue={client.phone ?? undefined}
                         />
                     </div>
                     <button className={styles.valideFormButton} type="submit">{t('edit')}</button>

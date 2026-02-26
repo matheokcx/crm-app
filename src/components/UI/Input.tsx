@@ -1,14 +1,9 @@
-import {JSX} from "react";
+import {InputHTMLAttributes, JSX} from "react";
 
 export type InputProps = {
-    type: "text" | "number" | "password" | "mail" | "tel" | "date" | "file" | "hidden";
-    name: string;
     label: string;
-    placeholder?: string;
-    required?: boolean;
-    defaultValue?: any;
     icon?: JSX.Element;
-};
+} & InputHTMLAttributes<HTMLInputElement>;
 
 const Input = ({type, name, label, placeholder, required = true, defaultValue, icon}: InputProps) => {
     const isHidden: boolean = type === "hidden";
